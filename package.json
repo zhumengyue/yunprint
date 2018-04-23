@@ -8,8 +8,10 @@
   },
   "dependencies": {
     "antd": "^3.4.1",
+    "axios": "^0.18.0",
     "babel-plugin-import": "^1.7.0",
     "dva": "^2.2.3",
+    "mockjs": "^1.0.1-beta3",
     "react": "^16.2.0",
     "react-dom": "^16.2.0"
   },

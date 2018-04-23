@@ -1,29 +1,37 @@
 
 .normal {
-  font-family: Georgia, sans-serif;
-  margin-top: 3em;
   text-align: center;
 }
-
-.title {
-  font-size: 2.5rem;
-  font-weight: normal;
-  letter-spacing: -1px;
+.bg {
+  background: url("../assets/bg.jpg");
+  background-size: 100% 100%;
+  height: 768px;
+  width: 100%;
+  max-width: 1920px;
+  min-width: 1560px;
 }
-
-.welcome {
-  height: 328px;
-  background: url(../assets/yay.jpg) no-repeat center 0;
-  background-size: 388px 328px;
+.login-form {
+  width: 280px;
+  margin-left: 69%;
+  padding-top: 210px;
 }
-
-.list {
-  font-size: 1.2em;
-  margin-top: 1.8em;
-  list-style: none;
-  line-height: 1.5em;
+.ant-input-affix-wrapper {
+  height: 42px;
+  margin: 5px 0;
 }
-
-.list code {
-  background: #f7f7f7;
+.login-form-button {
+  margin: 10px 0;
+  height: 45px;
+  width: 120px;
+  font-size: 20px;
+  background-color: #FBFCFD !important;
+  color: #6D7175;
+  border-color: transparent;
+  border-radius: 8px;
+}
+.register-btn {
+  color: #83878B;
+  font-size: 16px;
+  padding-left: 210px;
+  margin-top: -20px;
 }

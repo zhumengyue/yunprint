@@ -1,14 +1,16 @@
-# 云打印前端
+# 云打印
 
-## 安装
+## Getting Started
 
-在根目录下  /yunprint/
+Install dependencies.
 
-> npm install
+```
+$ npm install
+```
 
-## 运行
+Start app.
 
-在根目录下  /yunprint/
-
->  npm start
+```
+$ npm start
+```
 
