@@ -6,11 +6,13 @@
  * Desc :
  */
 import fetch from '../utils/fetch'
+import axios from 'axios'
 
 export function login (data) {
   return fetch({
-    url: 'http://localhost/YunPrint/public/user/login/oklogin',
     method: 'post',
-    data,
-  })
+    data: data,
+    url: 'http://localhost/YunPrint/public/user/login/oklogin',
+  });
+  // return axios.post("http://localhost/YunPrint/public/user/login/oklogin",data);
 }

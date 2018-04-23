@@ -6,6 +6,7 @@
  * Desc :
  */
 import { routerRedux } from 'dva/router';
+import { login } from '../services/login'
 
 export default {
   // ...
@@ -19,8 +20,14 @@ export default {
   },
   effects: {
     // 路由跳转
-    *login ({ payload }, { put }) {
-      yield put(routerRedux.push('/products'));
+    *login ({ payload }, { put, call }) {
+      const { data } = yield call(login, payload)
+      console.log(data)
+      if (data.errcode == 0) {
+        yield put(routerRedux.push('/products'));
+      } else {
+        alert("用户名密码错误")
+      }
     },
   },
   reducers: {

@@ -1,7 +1,7 @@
 import React from 'react'
-import fetch from '../utils/fetch'
 import { connect } from 'dva'
 import { Button, Input, Icon, Form } from 'antd'
+// import fetch from '../utils/fetch'
 import styles from './Login.css'
 
 const FormItem = Form.Item;
@@ -25,15 +25,14 @@ const Login = ({
         return
       }
       console.log('Received values of form: ', values);
-      fetch({
-        method: 'post',
-        data: values,
-        url: 'http://localhost/YunPrint/public/user/login/oklogin',
-      }).then(res => {
-        console.log(res.data)
-        // window.location.href = 'products';
+      // fetch({
+      //   method: 'post',
+      //   data: values,
+      //   url: 'http://localhost/YunPrint/public/user/login/oklogin',
+      // }).then(res => {
+      //   console.log(res.data)
         dispatch({ type: 'login/login', payload: values })
-      })
+      // })
     })
   }
   return (
