@@ -1,8 +1,9 @@
 /**
  * Created by WebStorm
  * User : zhumengyue
- * Date : 2018/4/21
- * Time : 17:14
+ * Date : 2018/4/23
+ * Time : 19:52
+ * Desc :
  */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -14,7 +15,6 @@ const ProductList = ({ onDelete, products }) => {
     dataIndex: 'name',
   }, {
     title: 'Actions',
-    dataIndex: 'id',
     render: (text, record) => {
       return (
         <Popconfirm title="Delete?" onConfirm={() => onDelete(record.id)}>

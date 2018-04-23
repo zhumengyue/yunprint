@@ -1,7 +1,7 @@
 import dva from 'dva';
 import './index.css';
 import { message } from 'antd';
-
+import browserHistory from 'history/createBrowserHistory';
 // 1. Initialize
 const app = dva({
   initialState: {
@@ -11,6 +11,7 @@ const app = dva({
       { name: 'design', id: 3, key: 3 },
     ]
   },
+  history: browserHistory(),
   onError(e) {
     message.error(e.message)
   }
@@ -20,8 +21,8 @@ const app = dva({
 // app.use({});
 
 // 3. Model
-// app.model(require('./models/example').default);
 app.model(require('./models/products').default);
+app.model(require('./models/login').default);
 
 // 4. Router
 app.router(require('./router').default);
