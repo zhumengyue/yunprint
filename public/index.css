@@ -5,3 +5,6 @@
   /*color: #6D7175 !important;*/
   border-color: transparent;
 }
+.ant-tabs-bar {
+  display: none;
+}

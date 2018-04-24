@@ -57,7 +57,7 @@ const Register = ({
         >
           {getFieldDecorator('username', {
             rules: [{
-              required: true, message: 'Please input your Username!',
+              required: true, message: '请输入用户名!',
             }],
           })(
             <Input type="text" />
@@ -69,7 +69,7 @@ const Register = ({
         >
           {getFieldDecorator('realname', {
             rules: [{
-              required: true, message: 'Please input your realname!',
+              required: true, message: '请输入真实姓名!',
             }],
           })(
             <Input type="text" />
@@ -81,7 +81,7 @@ const Register = ({
         >
           {getFieldDecorator('password', {
             rules: [{
-              required: true, message: 'Please input your password!',
+              required: true, message: '请输入密码!',
             }],
           })(
             <Input type="password" />
@@ -104,7 +104,7 @@ const Register = ({
           label="手机号"
         >
           {getFieldDecorator('tel', {
-            rules: [{ required: true, message: 'Please input your phone number!' }],
+            rules: [{ required: true, message: '请输入电话号码!' }],
           })(
             <Input style={{ width: '100%' }} />
           )}

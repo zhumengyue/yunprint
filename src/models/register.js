@@ -9,6 +9,7 @@ import { routerRedux } from 'dva/router'
 import { message } from 'antd'
 import { register } from '../services/register'
 
+const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 export default {
   namespace: 'register',
   state: {
@@ -22,9 +23,9 @@ export default {
     *register ({ payload }, { put, call }) { // 注册逻辑
       const { data } = yield call(register, payload)
       if (data.errcode === "0") {
-        message.success("注册成功!", 2 ,()=>{
-          window.location.href = '/'
-        });
+        message.success("注册成功!", 1.5);
+        yield call(delay,1600);
+        yield put(routerRedux.push('/'))
       } else {
         message.error("注册失败")
       }
