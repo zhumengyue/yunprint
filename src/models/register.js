@@ -10,7 +10,6 @@ import { message } from 'antd'
 import { register } from '../services/register'
 
 export default {
-  // ...
   namespace: 'register',
   state: {
     loginLoading: false
@@ -49,6 +48,4 @@ export default {
       }
     }
   }
-
-  // ...
 }

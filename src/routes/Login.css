@@ -21,17 +21,15 @@
 }
 .login-form-button {
   margin: 10px 0;
-  height: 45px;
-  width: 120px;
-  font-size: 20px;
-  background-color: #FBFCFD !important;
-  color: #6D7175;
+  height: 40px;
+  width: 100px;
+  font-size: 18px;
   border-color: transparent;
   border-radius: 8px;
 }
 .register-btn {
-  color: #83878B;
-  font-size: 16px;
-  padding-left: 210px;
+  color: #5e6266;
+  font-size: 19px;
+  margin-left: 200px;
   margin-top: -20px;
 }

@@ -1,7 +1,7 @@
 /*一些较复杂样式表*/
 
 .ant-btn-primary:hover, .ant-btn-primary:focus {
-  background-color: #fafdea !important;
-  color: #6D7175 !important;
+  /*background-color: #fafdea !important;*/
+  /*color: #6D7175 !important;*/
   border-color: transparent;
 }

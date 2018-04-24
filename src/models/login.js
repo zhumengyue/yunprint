@@ -23,7 +23,6 @@ export default {
     // 路由跳转
     *login ({ payload }, { put, call }) {
       const { data } = yield call(login, payload)
-      console.log(data)
       if (data.errcode === "0") {
         yield put(routerRedux.push('/products'));
       } else {
