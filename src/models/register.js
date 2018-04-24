@@ -20,16 +20,22 @@ export default {
     },
   },
   effects: {
-    // 路由跳转
-    *register ({ payload }, { put, call }) {
+    *register ({ payload }, { put, call }) { // 注册逻辑
       const { data } = yield call(register, payload)
-      console.log(data)
       if (data.errcode === "0") {
-        yield put(routerRedux.push('/'));
+        message.success("注册成功!", 2 ,()=>{
+          window.location.href = '/'
+        });
       } else {
         message.error("注册失败")
       }
     },
+    *goregister({},{put}) { // 前往注册页面
+      yield put(routerRedux.push('/register'))
+    },
+    *returnback({},{put}) { // 前往注册页面
+      yield put(routerRedux.push('/'))
+    }
   },
   reducers: {
     showLoginLoading (state) {

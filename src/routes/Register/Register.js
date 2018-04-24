@@ -7,27 +7,24 @@
  */
 import React from 'react'
 import { connect } from 'dva'
-import { Form, Input, Button, message } from 'antd'
+import { Form, Input, Button } from 'antd'
 import Logo from '../../components/Logo/Logo'
 import styles from './Register.css'
 
 const FormItem = Form.Item;
 
 const Register = ({
+  register,
   dispatch,
   form: {
     getFieldDecorator,
     validateFieldsAndScroll,
   },
-
-  }) => {
+}) => {
   function handleSubmitRegister () {
     // todo 确认注册
     validateFieldsAndScroll((errors,values) => {
       if (errors) {
-        return
-      } else if (values.password !== values.confirm){
-        message.error("两次密码输入不一致！");
         return
       }
       dispatch({ type: 'register/register', payload: values })
@@ -36,6 +33,7 @@ const Register = ({
 
   function handleBack() {
     // todo 返回
+    dispatch({ type: 'register/returnback'})
   }
 
   const formItemLayout = {
@@ -89,23 +87,23 @@ const Register = ({
             <Input type="password" />
           )}
         </FormItem>
-        <FormItem className={styles.item}
-          {...formItemLayout}
-          label="确认密码"
-        >
-          {getFieldDecorator('confirm', {
-            rules: [{
-              required: true, message: 'Please confirm your password!',
-            }],
-          })(
-            <Input type="password"  />
-          )}
-        </FormItem>
+        {/*<FormItem className={styles.item}*/}
+          {/*{...formItemLayout}*/}
+          {/*label="确认密码"*/}
+        {/*>*/}
+          {/*{getFieldDecorator('confirm', {*/}
+            {/*rules: [{*/}
+              {/*required: true, message: 'Please confirm your password!',*/}
+            {/*}],*/}
+          {/*})(*/}
+            {/*<Input type="password"  />*/}
+          {/*)}*/}
+        {/*</FormItem>*/}
         <FormItem className={styles.item}
           {...formItemLayout}
           label="手机号"
         >
-          {getFieldDecorator('phone', {
+          {getFieldDecorator('tel', {
             rules: [{ required: true, message: 'Please input your phone number!' }],
           })(
             <Input style={{ width: '100%' }} />
@@ -119,6 +117,7 @@ const Register = ({
     </div>
   )
 }
-// const Register = Form.create()(RegistrationForm);
-// export default Register
+Register.propTypes = {
+};
+
 export default connect(({ register }) => ({ register }))(Form.create()(Register))

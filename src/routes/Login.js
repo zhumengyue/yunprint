@@ -1,3 +1,10 @@
+/**
+ * Created by WebStorm
+ * User : zhumengyue
+ * Date : 2018/4/24
+ * Time : 8:20
+ * Desc :
+ */
 import React from 'react'
 import { connect } from 'dva'
 import { Button, Input, Icon, Form } from 'antd'
@@ -15,6 +22,7 @@ const Login = ({
 }) => {
   function handleSubReg(e) {
   // todo 注册
+    dispatch({ type: 'register/goregister'})
   }
 
   function handleSubLogin (e) {
@@ -61,5 +69,4 @@ const Login = ({
 Login.propTypes = {
 };
 
-// export default connect()(WrappedNormalLoginForm);
 export default connect(({ login }) => ({ login }))(Form.create()(Login))
