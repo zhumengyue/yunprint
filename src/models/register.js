@@ -1,17 +1,17 @@
 /**
  * Created by WebStorm
  * User : zhumengyue
- * Date : 2018/4/23
- * Time : 19:06
+ * Date : 2018/4/24
+ * Time : 10:06
  * Desc :
  */
 import { routerRedux } from 'dva/router'
 import { message } from 'antd'
-import { login } from '../services/login'
+import { register } from '../services/register'
 
 export default {
   // ...
-  namespace: 'login',
+  namespace: 'register',
   state: {
     loginLoading: false
   },
@@ -21,13 +21,13 @@ export default {
   },
   effects: {
     // 路由跳转
-    *login ({ payload }, { put, call }) {
-      const { data } = yield call(login, payload)
+    *register ({ payload }, { put, call }) {
+      const { data } = yield call(register, payload)
       console.log(data)
       if (data.errcode === "0") {
-        yield put(routerRedux.push('/products'));
+        yield put(routerRedux.push('/'));
       } else {
-        message.error("用户名密码错误")
+        message.error("注册失败")
       }
     },
   },

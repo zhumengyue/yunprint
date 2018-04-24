@@ -1,7 +1,6 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Button, Input, Icon, Form } from 'antd'
-// import fetch from '../utils/fetch'
 import styles from './Login.css'
 
 const FormItem = Form.Item;
@@ -15,24 +14,17 @@ const Login = ({
   },
 }) => {
   function handleSubReg(e) {
-  // 注册
+  // todo 注册
   }
-  // 登录
+
   function handleSubLogin (e) {
+    // todo 登录
     e.preventDefault();
     validateFieldsAndScroll((errors,values) => {
       if (errors) {
         return
       }
-      console.log('Received values of form: ', values);
-      // fetch({
-      //   method: 'post',
-      //   data: values,
-      //   url: 'http://localhost/YunPrint/public/user/login/oklogin',
-      // }).then(res => {
-      //   console.log(res.data)
-        dispatch({ type: 'login/login', payload: values })
-      // })
+      dispatch({ type: 'login/login', payload: values })
     })
   }
   return (
