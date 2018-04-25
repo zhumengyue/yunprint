@@ -63,9 +63,11 @@ const OrderList = ({ showOrder, dataSource }) => {
   }, {
     title: '操作',
     align: 'center',
-    dataIndex: 'file3id',
-    render: (text, record, status0) => {
-      if (status0 == 1){
+    dataIndex: 'status1',
+    render: ( text, record ) => {
+      if (record.status == 1){
+        console.log(text)
+        console.log(record)
         return (
           <span>
             <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
@@ -78,7 +80,7 @@ const OrderList = ({ showOrder, dataSource }) => {
             </Popconfirm>
           </span>
         );
-      } else if (status0 == 2 || status0 == 3){
+      } else if (record.status == 2 || record.status == 3){
         return (
           <span>
             <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
@@ -112,7 +114,7 @@ const OrderList = ({ showOrder, dataSource }) => {
     <Table
       dataSource={dataSource}
       columns={columns}
-      rowKey="id"
+      // rowKey="id"
     />
   );
 };

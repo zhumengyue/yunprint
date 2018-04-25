@@ -32,10 +32,10 @@ const FinishOrder =({userdashboard, dispatch}) => {
     });
   }
   const { dataSource } = userdashboard;
-  const realData = dataSource.filter(item => (item.status == 4 || item.status == 3))
+  const realData = dataSource.filter(item => (item.status == 4 || item.status == 3)) // 筛选符合条件的对象
 
   const orderListProps = {
-    dataSource: realData,
+    realData: realData,
   }
   return(
     <div className={styles.userindex}>
@@ -45,7 +45,7 @@ const FinishOrder =({userdashboard, dispatch}) => {
           <Slider onItemClick={handleClick} openkey={{openKeys:[pathid]}} selectkey={{selectedKeys:[itemid]}}/>
           <Layout className={styles.contentarea}>
             <Content>
-              <OrderList showOrder={showOrder} dataSource= {orderListProps.dataSource}/>
+              <OrderList showOrder={showOrder} dataSource= {orderListProps.realData}/>
             </Content>
           </Layout>
         </Layout>
