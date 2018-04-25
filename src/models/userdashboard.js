@@ -59,8 +59,9 @@ export default {
         case '23': yield put(routerRedux.push('/unfinishorder'));break;
       }
     },
-    *showorder(state, { payload: id }) {
-      console.log(state)
+    *showorder( { payload: id },{ select }) {
+      const orderItem = (yield select(state=>state.userdashboard.dataSource)).filter(item => item.id == id) // 取出对应id的订单
+      return orderItem;
     },
     *create(){},
     // 因为delete是关键字
@@ -69,7 +70,9 @@ export default {
   },
   reducers: {
     showLoading(){}, // 控制加载状态的 reducer
-    showModal(){}, // 控制 Modal 显示状态的 reducer
+    showData(){
+      // console.log(this.state.dataSource)
+    }, // 控制 Modal 显示状态的 reducer
     hideModal(){},
     querySuccess(state,action){
       return {...state, ...action.payload, loading: false};

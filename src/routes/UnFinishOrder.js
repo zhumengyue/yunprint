@@ -26,7 +26,7 @@ const UnFinishOrder =({userdashboard, dispatch}) => {
   }
   function showOrder(id) {
     // todo 点击查看订单
-    dispatch({
+    return dispatch({
       type: 'userdashboard/showorder',
       payload: id,
     });

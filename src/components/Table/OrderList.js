@@ -7,70 +7,138 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Steps,Popconfirm } from 'antd';
+import { Table, Button, Steps, Popconfirm, Modal } from 'antd';
 import styles from './OrderList.css'
 
 const Step = Steps.Step;
 
-const OrderList = ({ showOrder, dataSource }) => {
-  const columns = [{
-    title: '订单号',
-    dataIndex: 'id',
-    align: 'center',
-    width: 100,
-  }, {
-    width: 250,
-    title: '文件名',
-    align: 'center',
-    render: (data) => {
-      let
-        file1 = data.file1info,
-        file2 = data.file2info,
-        file3 = data.file3info;
-      if(file1 != null) {
-        if(file2==null) {
-          return (<span><p>{file1.realname}</p></span>)
-        }else if(file3 == null ){
-          return(<span><p>{file1.realname}</p><p>{file2.realname}</p></span>)
-        } else {
-          return(<span><p>{file1.realname}</p><p>{file2.realname}</p><p>{file3.realname}</p></span>)
-        }
+class OrderList extends React.Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      itemData: [],
+      visible: false,
+    }
+  }
+  handleOk = (e) => { // 对话框ok按钮
+    this.setState({
+      visible: false,
+    });
+  }
+  handleCancel = (e) => { // 对话框cancel按钮
+    this.setState({
+      visible: false,
+    });
+  }
+
+  render() {
+    const { showOrder, dataSource } = this.props;
+    let updateItemData = (id) => {
+      showOrder(id).then(res=>{
+        this.setState({itemData:[{
+            name: res[0].file1info.realname,
+            num: res[0].file1num,
+            style: res[0].file1style,
+            color: res[0].file1color
+          }, {
+            name: res[0].file2info.realname,
+            num: res[0].file2num,
+            style: res[0].file2style,
+            color: res[0].file2color
+          },{
+            name: res[0].file3info.realname,
+            num: res[0].file3num,
+            style: res[0].file3style,
+            color: res[0].file3color
+          }]
+        })
+        this.setState({visible:true})
+        })
+    }
+
+    const modalColumns = [{
+      title: '文件名',
+      dataIndex: 'name',
+    },{
+      title: '数量',
+      dataIndex: 'num',
+      align: 'center',
+    },{
+      title: '打印类型',
+      colSpan: 2,
+      dataIndex: 'color',
+      align: 'center',
+      render: (value, row, index) => {
+        if(row.color == 0) return '黑白'
+        else return '彩色'
       }
-    },
-    key: 2,
-  }, {
-    width: 150,
-    title: '文件状态',
-    dataIndex: 'status',
-    render: (status) => {
-      return (
-        <Steps current={status-1} progressDot={true} size='small' className={styles.liststep}>
-          <Step title="待接取"/>
-          <Step title="待完成"/>
-          <Step title="待领取"/>
-          <Step title="已完成"/>
-        </Steps>
-      );
-    },
-    key: 3,
-  }, {
-    title: '创建时间',
-    align: 'center',
-    dataIndex: 'createtime',
-    defaultSortOrder: 'descend',
-    sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
-    key: 4,
-  }, {
-    title: '操作',
-    align: 'center',
-    dataIndex: 'status1',
-    render: ( text, record ) => {
-      if (record.status == 1){
-        console.log(text)
-        console.log(record)
+    },{
+      dataIndex: 'style',
+      colSpan: 0,
+      align: 'center',
+      render: (value, row, index) => {
+        if(row.style == 0) return '单页'
+        else return '双页'
+      }
+    },]
+
+    const columns = [{
+      title: '订单号',
+      dataIndex: 'id',
+      align: 'center',
+      width: 100,
+    }, {
+      width: 250,
+      title: '文件名',
+      align: 'center',
+      render: (data) => {
+        let
+          file1 = data.file1info,
+          file2 = data.file2info,
+          file3 = data.file3info;
+        if(file1 != null) {
+          if(file2==null) {
+            return (<span><p>{file1.realname}</p></span>)
+          }else if(file3 == null ){
+            return(<span><p>{file1.realname}</p><p>{file2.realname}</p></span>)
+          } else {
+            return(<span><p>{file1.realname}</p><p>{file2.realname}</p><p>{file3.realname}</p></span>)
+          }
+        }
+      },
+      key: 2,
+    }, {
+      width: 150,
+      title: '文件状态',
+      dataIndex: 'status',
+      render: (status) => {
         return (
-          <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
+          <Steps current={status-1} progressDot={true} size='small' className={styles.liststep}>
+            <Step title="待接取"/>
+            <Step title="待完成"/>
+            <Step title="待领取"/>
+            <Step title="已完成"/>
+          </Steps>
+        );
+      },
+      key: 3,
+    }, {
+      title: '创建时间',
+      align: 'center',
+      dataIndex: 'createtime',
+      defaultSortOrder: 'descend',
+      sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
+      key: 4,
+    }, {
+      title: '操作',
+      align: 'center',
+      dataIndex: 'status1',
+      render: ( text, record ) => {
+        if (record.status == 1){
+          return (
+            <span>
+            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
             </Button>
             <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
@@ -79,11 +147,11 @@ const OrderList = ({ showOrder, dataSource }) => {
               </Button>
             </Popconfirm>
           </span>
-        );
-      } else if (record.status == 2 || record.status == 3){
-        return (
-          <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
+          );
+        } else if (record.status == 2 || record.status == 3){
+          return (
+            <span>
+            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
             </Button>
             <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
@@ -92,11 +160,11 @@ const OrderList = ({ showOrder, dataSource }) => {
               </Button>
             </Popconfirm>
           </span>
-        )
-      } else {
-        return (
-          <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
+          )
+        } else {
+          return (
+            <span>
+            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
             </Button>
             <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
@@ -105,18 +173,34 @@ const OrderList = ({ showOrder, dataSource }) => {
               </Button>
             </Popconfirm>
           </span>
-        );
-      }
-    },
-    key: 5
-  }];
-  return (
-    <Table
-      dataSource={dataSource}
-      columns={columns}
-      // rowKey="id"
-    />
-  );
+          );
+        }
+      },
+      key: 5
+    }];
+    return (
+      <div>
+        <Table
+          dataSource={dataSource}
+          columns={columns}
+          rowKey="id"
+        />
+        <Modal
+          title="订单详情"
+          visible={this.state.visible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+          footer={[
+            <Button key="submit" type="primary" onClick={this.handleOk}>
+              确定
+            </Button>,
+          ]}
+        >
+          <Table dataSource={this.state.itemData} columns={modalColumns} />
+        </Modal>
+      </div>
+    )
+  }
 };
 
 OrderList.propTypes = {

@@ -13,13 +13,11 @@ const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 class Slider extends React.Component {
-// const Slider = ({ onItemClick }) => {
   constructor(props){
     super(props)
     this.state = {
       ...props.openkey,
       ...props.selectkey,
-      // selectedKeys: props.selectkey.
     }
   }
   rootSubmenuKeys = ['1', '2', '3'];

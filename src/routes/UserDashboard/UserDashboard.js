@@ -11,6 +11,7 @@ import { Layout } from 'antd'
 import  OrderList from '../../components/Table/OrderList'
 import Slider from '../../components/Slider/Slider'
 import HeaderTitle from '../../components/Header/Header'
+
 import styles from './UserDashboard.css'
 
 const { Content } = Layout;
@@ -21,11 +22,11 @@ const UserDashboard =({userdashboard, dispatch}) => {
     dispatch({ type: 'userdashboard/switch' ,payload: e})
   }
   function showOrder(id) {
-    // todo 点击查看订单
-    dispatch({
+    // todo 点击查看订单详情
+   return dispatch({
       type: 'userdashboard/showorder',
       payload: id,
-    });
+    })
   }
   const { dataSource } = userdashboard;
   const orderListProps = {
