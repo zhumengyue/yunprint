@@ -26,7 +26,7 @@ const HeaderTitle = (name) => {
         <Icon type="bell" style={{color: '#5387F2'}} className={styles["menu-item"]}/>
         <a className={styles["menu-item"]}><Icon type="user" className={styles.icon}/>申请店主</a>
         <Dropdown overlay={menu}>
-          <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />用户{name.name.realname}<Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
+          <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />{name.name.realname}<Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
         </Dropdown>
       </div>
     </Header>

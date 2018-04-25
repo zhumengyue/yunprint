@@ -64,31 +64,44 @@ const OrderList = ({ showOrder, dataSource }) => {
     align: 'center',
     dataIndex: 'file3id',
     render: (text, record, type) => {
-      if (type == 1  || type == 2){
+      if (type == 1){
         return (
           <span>
-        <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
-          订单详情
-        </Button>
-        <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-          <Button type="primary" className={styles.orderbtn2}>
-          取消订单
-        </Button>
-        </Popconfirm>
-        </span>
+            <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
+              订单详情
+            </Button>
+            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
+              <Button type="primary" className={styles.orderbtn2}>
+                取消订单
+              </Button>
+            </Popconfirm>
+          </span>
         );
+      } else if (type == 2 || type == 3){
+        return (
+          <span>
+            <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
+              订单详情
+            </Button>
+            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
+              <Button type="primary" disabled className={styles.orderbtn2}>
+                取消订单
+              </Button>
+            </Popconfirm>
+          </span>
+        )
       } else {
         return (
           <span>
-        <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
-          订单详情
-        </Button>
-        <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
-          <Button type="primary" className={styles.orderbtn2}>
-          确认订单
-        </Button>
-        </Popconfirm>
-        </span>
+            <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
+              订单详情
+            </Button>
+            <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
+              <Button type="primary" className={styles.orderbtn2}>
+                确认订单
+              </Button>
+            </Popconfirm>
+          </span>
         );
       }
     },
