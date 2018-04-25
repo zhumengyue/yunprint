@@ -87,18 +87,6 @@ const Register = ({
             <Input type="password" />
           )}
         </FormItem>
-        {/*<FormItem className={styles.item}*/}
-          {/*{...formItemLayout}*/}
-          {/*label="确认密码"*/}
-        {/*>*/}
-          {/*{getFieldDecorator('confirm', {*/}
-            {/*rules: [{*/}
-              {/*required: true, message: 'Please confirm your password!',*/}
-            {/*}],*/}
-          {/*})(*/}
-            {/*<Input type="password"  />*/}
-          {/*)}*/}
-        {/*</FormItem>*/}
         <FormItem className={styles.item}
           {...formItemLayout}
           label="手机号"

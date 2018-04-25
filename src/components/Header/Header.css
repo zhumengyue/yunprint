@@ -3,9 +3,6 @@
   padding-left: 42px;
   height: 78px;
 }
-.layout{
-  /*display: none;*/
-}
 .logo {
   width: 150px;
   height: 40px;
@@ -24,14 +21,9 @@
   margin-top: -5px;
   color: #0F90E8;
 }
-.userindex {
-  background: url("../../assets/blockbg.jpg");
-  background-size: 100% 100%;
-  height: 768px;
-  width: 100%;
-  max-width: 1920px;
-  min-width: 1560px;
-  position: absolute;
+.icon {
+  margin-right: 5px;
+  font-size: 18px;
 }
 .usermenu {
   position: absolute;
@@ -41,19 +33,4 @@
 .menu-item {
   margin-right: 20px;
   font-size: 18px;
-}
-.icon {
-  margin-right: 5px;
-  font-size: 18px;
-}
-.icondown {
-  font-size: 38px;
-  margin: 0 3px 0 3px;
-  color: #494949;
-}
-.contentarea {
-  background: #f0f2f5;
-  margin-top: -6px;
-  padding: 24px;
-  border-radius: 5px;
 }

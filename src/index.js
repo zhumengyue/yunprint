@@ -9,7 +9,7 @@ const app = dva({
       { name: 'dva', id: 1, key: 1 },
       { name: 'antd', id: 2, key: 2 },
       { name: 'design', id: 3, key: 3 },
-    ]
+    ],
   },
   history: browserHistory(),
   onError(e) {
@@ -24,6 +24,7 @@ const app = dva({
 app.model(require('./models/login').default);
 app.model(require('./models/register').default);
 app.model(require('./models/products').default);
+app.model(require('./models/userdashboard').default);
 
 // 4. Router
 app.router(require('./router').default);
