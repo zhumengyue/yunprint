@@ -7,21 +7,21 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Popover, Button, Steps,Popconfirm } from 'antd';
+import { Table, Button, Steps,Popconfirm } from 'antd';
+import styles from './OrderList.css'
 
 const Step = Steps.Step;
-const customDot = (dot, { status, index }) => (
-  <Popover content={<span>step {index} status: {status}</span>}>
-    {dot}
-  </Popover>
-);
 
-const OrderList = ({ onDelete, dataSource }) => {
+const OrderList = ({ showOrder, dataSource }) => {
   const columns = [{
     title: '订单号',
     dataIndex: 'id',
+    align: 'center',
+    width: 100,
   }, {
+    width: 250,
     title: '文件名',
+    align: 'center',
     render: (data) => {
       let
         file1 = data.file1info,
@@ -36,36 +36,42 @@ const OrderList = ({ onDelete, dataSource }) => {
           return(<span><p>{file1.realname}</p><p>{file2.realname}</p><p>{file3.realname}</p></span>)
         }
       }
-
     },
+    key: 2,
   }, {
+    width: 150,
     title: '文件状态',
+    // align: 'center',
     dataIndex: 'status',
     render: (status) => {
       return (
-        <Steps current={status} progressDot={customDot} size='small' className='liststeps'>
-          <Step className='liststepsitem' title="待接取"/>
-          <Step className='liststepsitem' title="待完成"/>
-          <Step className='liststepsitem' title="待领取"/>
-          <Step className='liststepsitem' title="已完成"/>
+        <Steps current={status} progressDot={true} size='small' className={styles.liststep}>
+          <Step title="待接取"/>
+          <Step title="待完成"/>
+          <Step title="待领取"/>
+          <Step title="已完成"/>
         </Steps>
       );
     },
+    key: 3,
   }, {
     title: '创建时间',
+    align: 'center',
     dataIndex: 'createtime',
+    key: 4,
   }, {
     title: '操作',
+    align: 'center',
     dataIndex: 'file3id',
     render: (text, record, type) => {
-      if (type==1 || type==2){
+      if (type == 1  || type == 2){
         return (
           <span>
-        <Button type="primary" className='orderbtn'>
+        <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
           订单详情
         </Button>
         <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-          <Button type="primary" className='orderbtn'>
+          <Button type="primary" className={styles.orderbtn2}>
           取消订单
         </Button>
         </Popconfirm>
@@ -74,11 +80,11 @@ const OrderList = ({ onDelete, dataSource }) => {
       } else {
         return (
           <span>
-        <Button type="primary" className='orderbtn'>
+        <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
           订单详情
         </Button>
         <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
-          <Button type="primary" className='orderbtn'>
+          <Button type="primary" className={styles.orderbtn2}>
           确认订单
         </Button>
         </Popconfirm>
@@ -86,17 +92,19 @@ const OrderList = ({ onDelete, dataSource }) => {
         );
       }
     },
+    key: 5
   }];
   return (
     <Table
       dataSource={dataSource}
       columns={columns}
+      rowKey="id"
     />
   );
 };
 
 OrderList.propTypes = {
-  // onDelete: PropTypes.func.isRequired,
+  showOrder: PropTypes.func.isRequired,
   dataSource: PropTypes.array.isRequired,
 };
 

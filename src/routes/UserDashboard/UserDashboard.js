@@ -8,21 +8,27 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Layout } from 'antd'
-import  OrderTable from '../../components/Table/OrderList'
+import { Route, Switch } from 'dva/router'
+import  OrderList from '../../components/Table/OrderList'
 import Slider from '../../components/Slider/Slider'
 import HeaderTitle from '../../components/Header/Header'
 import styles from './UserDashboard.css'
+import cookie from '../../utils/cookie'
 
 const { Content } = Layout;
 
 const UserDashboard =({userdashboard, dispatch}) => {
-
   function handleClick(e){
-    // console.log(e)
-    dispatch({ type: 'userdashboard/goto'})
+    // todo 点击侧栏选项的回调函数
+    // console.log(e.key) //
+    dispatch({ type: 'userdashboard/switch' ,payload: e})
   }
-
-  function handleDelLogin(e) {
+  function showOrder(id) {
+    // todo 点击查看订单
+    dispatch({
+      type: 'userdashboard/showorder',
+      payload: id,
+    });
   }
   const { dataSource } = userdashboard;
 
@@ -34,10 +40,10 @@ const UserDashboard =({userdashboard, dispatch}) => {
         <Layout style={{"height":"100%"}} className={styles.layout}>
           <HeaderTitle name={{realname:'zmy'}}/>
           <Layout>
-            <Slider onItemClick={handleClick} openkey={{openKeys:['2']}}/>
+            <Slider onItemClick={handleClick} openkey={{openKeys:['2']}} selectkey={{selectedKeys:['21']}}/>
             <Layout className={styles.contentarea}>
               <Content>
-                <OrderTable dataSource= {orderListProps.dataSource}/>
+                <OrderList showOrder={showOrder} dataSource= {orderListProps.dataSource}/>
               </Content>
             </Layout>
          </Layout>
@@ -45,8 +51,8 @@ const UserDashboard =({userdashboard, dispatch}) => {
       </div>
     )
 }
-function mapStateToProps({ userdashboard }) {
-  return {userdashboard};
+function mapStateToProps({ userdashboard}) {
+  return {userdashboard} ;
 }
 UserDashboard.propTypes = {
 }

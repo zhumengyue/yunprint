@@ -62,7 +62,7 @@ export default {
         isLogin: true
       }
     },
-    setUsername(state,action) {
+    setUsername(state, action) {
       return {...state, ...action.payload};
     }
   }

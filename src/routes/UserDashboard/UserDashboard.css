@@ -30,7 +30,7 @@
   height: 768px;
   width: 100%;
   max-width: 1920px;
-  min-width: 1560px;
+  min-width: 1460px;
   position: absolute;
 }
 .usermenu {
@@ -54,6 +54,6 @@
 .contentarea {
   background: #f0f2f5;
   margin-top: -6px;
-  padding: 24px;
+  padding: 24px 64px 24px 24px;
   border-radius: 5px;
 }

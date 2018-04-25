@@ -16,9 +16,10 @@ class Slider extends React.Component {
 // const Slider = ({ onItemClick }) => {
   constructor(props){
     super(props)
-    console.log(props)
     this.state = {
-      openKeys: props.openkey.openKeys,
+      ...props.openkey,
+      ...props.selectkey,
+      // selectedKeys: props.selectkey.
     }
   }
   rootSubmenuKeys = ['1', '2', '3'];
@@ -44,22 +45,19 @@ class Slider extends React.Component {
           openKeys={this.state.openKeys}
           onOpenChange={this.onOpenChange}
           style={{height: '100%', borderRight: 0}}
+          selectedKeys={this.state.selectedKeys}
           onClick={onItemClick}
         >
-          <SubMenu key="1" title={<span><Icon type="cloud-o"/>云资料库</span>}>
-            <Menu.Item key="11">常用资料</Menu.Item>
-            <Menu.Item key="12">全部资料</Menu.Item>
+          <SubMenu key="1" title={<span><Icon type="cloud-o"/>我的主页</span>}>
+            <Menu.Item key="11">我的资料</Menu.Item>
+            <Menu.Item key="12">云资料库</Menu.Item>
           </SubMenu>
-          <SubMenu key="2" title={<span><Icon type="home"/>我的主页</span>}>
-            <Menu.Item key="21">我的资料</Menu.Item>
-            <Menu.Item key="22">我的收藏</Menu.Item>
+          <SubMenu key="2" title={<span><Icon type="file-text"/>我的订单</span>}>
+            <Menu.Item key="21">全部订单</Menu.Item>
+            <Menu.Item key="22">已完成订单</Menu.Item>
+            <Menu.Item key="23">未完成订单</Menu.Item>
           </SubMenu>
-          <SubMenu key="3" title={<span><Icon type="file-text"/>我的订单</span>}>
-            <Menu.Item key="31">全部订单</Menu.Item>
-            <Menu.Item key="32">已完成订单</Menu.Item>
-            <Menu.Item key="33">未完成订单</Menu.Item>
-          </SubMenu>
-          <Menu.Item key="4"><Icon type="file-add"/><span>创建订单</span></Menu.Item>
+          <Menu.Item key="3"><Icon type="file-add"/><span>创建订单</span></Menu.Item>
         </Menu>
       </Sider>
     )

@@ -25,6 +25,7 @@ app.model(require('./models/login').default);
 app.model(require('./models/register').default);
 app.model(require('./models/products').default);
 app.model(require('./models/userdashboard').default);
+app.model(require('./models/orderlist').default);
 
 // 4. Router
 app.router(require('./router').default);
