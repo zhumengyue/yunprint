@@ -44,7 +44,7 @@ const OrderList = ({ showOrder, dataSource }) => {
     dataIndex: 'status',
     render: (status) => {
       return (
-        <Steps current={status} progressDot={true} size='small' className={styles.liststep}>
+        <Steps current={status-1} progressDot={true} size='small' className={styles.liststep}>
           <Step title="待接取"/>
           <Step title="待完成"/>
           <Step title="待领取"/>
@@ -64,8 +64,8 @@ const OrderList = ({ showOrder, dataSource }) => {
     title: '操作',
     align: 'center',
     dataIndex: 'file3id',
-    render: (text, record, type) => {
-      if (type == 1){
+    render: (text, record, status0) => {
+      if (status0 == 1){
         return (
           <span>
             <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>
@@ -78,7 +78,7 @@ const OrderList = ({ showOrder, dataSource }) => {
             </Popconfirm>
           </span>
         );
-      } else if (type == 2 || type == 3){
+      } else if (status0 == 2 || status0 == 3){
         return (
           <span>
             <Button type="primary" className={styles.orderbtn1} onClick={()=>showOrder(record.id)}>

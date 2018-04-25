@@ -6,10 +6,8 @@
  * Desc :
  */
 import { routerRedux } from 'dva/router'
-// import { message } from 'antd'
 import { getOrderList } from '../services/userdashboard'
 import cookie from '../utils/cookie'
-const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 export default {
   namespace: 'userdashboard',
   state: {
@@ -24,7 +22,10 @@ export default {
   subscriptions: {
     setup({ dispatch, history }) {
       history.listen(location => {
-        if (location.pathname === '/dashboard') {
+        if ( location.pathname === '/dashboard'
+          || location.pathname === '/finishorder'
+          || location.pathname === '/unfinishorder'
+        ) {
           dispatch({
             type: 'query',
             payload: {}
