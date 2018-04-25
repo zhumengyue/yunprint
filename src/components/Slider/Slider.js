@@ -37,7 +37,7 @@ class Slider extends React.Component {
   }
   render() {
 
-    const { onItemClick ,openkey } = this.props;
+    const { onItemClick } = this.props;
     return (
       <Sider width={200} style={{background: 'black'}}>
         <Menu

@@ -8,19 +8,16 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Layout } from 'antd'
-import { Route, Switch } from 'dva/router'
 import  OrderList from '../../components/Table/OrderList'
 import Slider from '../../components/Slider/Slider'
 import HeaderTitle from '../../components/Header/Header'
 import styles from './UserDashboard.css'
-import cookie from '../../utils/cookie'
 
 const { Content } = Layout;
 
 const UserDashboard =({userdashboard, dispatch}) => {
   function handleClick(e){
     // todo 点击侧栏选项的回调函数
-    // console.log(e.key) //
     dispatch({ type: 'userdashboard/switch' ,payload: e})
   }
   function showOrder(id) {

@@ -41,7 +41,6 @@ const OrderList = ({ showOrder, dataSource }) => {
   }, {
     width: 150,
     title: '文件状态',
-    // align: 'center',
     dataIndex: 'status',
     render: (status) => {
       return (
@@ -58,6 +57,8 @@ const OrderList = ({ showOrder, dataSource }) => {
     title: '创建时间',
     align: 'center',
     dataIndex: 'createtime',
+    defaultSortOrder: 'descend',
+    sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
     key: 4,
   }, {
     title: '操作',
