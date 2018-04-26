@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-Install dependencies.
+Install dependencies（如一直卡住可使用 `cnpm` ）.
 
 ```
 $ npm install
