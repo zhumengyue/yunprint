@@ -41,7 +41,7 @@ const cookie = {
    * @param name cookie的名称
    */
   delCookie : (name) => {
-    this.setCookie(name, ' ', -1);
+    this.setCookie(name, '', -1);
   }
 }
 export default cookie

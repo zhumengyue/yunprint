@@ -8,6 +8,7 @@
 import { routerRedux } from 'dva/router'
 import { message } from 'antd'
 import { userlogin } from '../services/userlogin'
+import { userdellogin } from '../services/userdellogin'
 import { shopperlogin } from '../services/shopperlogin'
 import cookie from '../utils/cookie'
 
@@ -27,6 +28,12 @@ export default {
     },
   },
   effects: {
+    *dellogin ({ payload }, { put, call }){
+      yield call(userdellogin)
+      message.success("注销成功", 0.6);
+      yield call(delay, 800);
+      yield put(routerRedux.push('/'));
+    },
     // 路由跳转
     *login ({ payload }, { put, call }) {
       if(payload.shopper) {

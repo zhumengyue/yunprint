@@ -6,16 +6,22 @@
  * Desc :
  */
 import React from 'react'
+import { connect } from 'dva'
 import { Layout, Menu, Dropdown, Icon } from 'antd'
 import styles from './Header.css'
 
 const { Header } = Layout;
-const menu = (
-  <Menu>
-    <Menu.Item key="1">退出登录</Menu.Item>
-  </Menu>
-);
-const HeaderTitle = (name) => {
+
+const HeaderTitle = ({name,login,dispatch}) => {
+  const menu = (
+    <Menu onClick={delLogin}>
+      <Menu.Item key="1" >退出登录</Menu.Item>
+    </Menu>
+  );
+
+  function delLogin() {
+    dispatch({ type: 'login/dellogin'})
+  }
   return(
     <Header className={styles.header}>
       <div className={styles.logo}>
@@ -25,11 +31,13 @@ const HeaderTitle = (name) => {
       <div className={styles.usermenu}>
         {/*<Icon type="bell" style={{color: '#5387F2'}} className={styles["menu-item"]}/>*/}
         <Dropdown overlay={menu}>
-          <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />{name.name.username}  <Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
+          <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />{name.username}  <Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
         </Dropdown>
       </div>
     </Header>
   )
 }
 
-export default HeaderTitle;
+// export default HeaderTitle;
+export default connect(({ login }) => ({ login }))((HeaderTitle))
+
