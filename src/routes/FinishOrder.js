@@ -42,7 +42,7 @@ const FinishOrder =({userdashboard, dispatch}) => {
       <Layout style={{"height":"100%"}} className={styles.layout}>
         <HeaderTitle name={{realname:'zmy'}}/>
         <Layout>
-          <Slider onItemClick={handleClick} openkey={{openKeys:[pathid]}} selectkey={{selectedKeys:[itemid]}}/>
+          <Slider onItemClick={handleClick} openkey={{openKeys:['2']}} selectkey={{selectedKeys:['22']}}/>
           <Layout className={styles.contentarea}>
             <Content>
               <OrderList showOrder={showOrder} dataSource= {orderListProps.realData}/>

@@ -16,37 +16,44 @@ import styles from './UserDashboard.css'
 
 const { Content } = Layout;
 
-const UserDashboard =({userdashboard, dispatch}) => {
-  function handleClick(e){
-    // todo 点击侧栏选项的回调函数
-    dispatch({ type: 'userdashboard/switch' ,payload: e})
-  }
-  function showOrder(id) {
-    // todo 点击查看订单详情
-   return dispatch({
-      type: 'userdashboard/showorder',
-      payload: id,
-    })
-  }
-  const { dataSource } = userdashboard;
-  const orderListProps = {
-    dataSource: dataSource,
-  }
-    return(
+class UserDashboard extends React.Component {
+
+  render() {
+    const {userdashboard, dispatch} = this.props;
+
+    function handleClick(e) {
+      // todo 点击侧栏选项的回调函数
+      dispatch({type: 'userdashboard/switch', payload: e})
+    }
+
+    function showOrder(id) {
+      // todo 点击查看订单详情
+      return dispatch({
+        type: 'userdashboard/showorder',
+        payload: id,
+      })
+    }
+
+    const {dataSource} = userdashboard;
+    const orderListProps = {
+      dataSource: dataSource,
+    }
+    return (
       <div className={styles.userindex}>
-        <Layout style={{"height":"100%"}} className={styles.layout}>
-          <HeaderTitle name={{realname:'zmy'}}/>
+        <Layout style={{"height": "100%"}} className={styles.layout}>
+          <HeaderTitle name={{realname: 'zmy'}}/>
           <Layout>
-            <Slider onItemClick={handleClick} openkey={{openKeys:['2']}} selectkey={{selectedKeys:['21']}}/>
+            <Slider onItemClick={handleClick} openkey={{openKeys: ['2']}} selectkey={{selectedKeys: ['21']}}/>
             <Layout className={styles.contentarea}>
               <Content>
-                <OrderList showOrder={showOrder} dataSource= {orderListProps.dataSource}/>
+                <OrderList showOrder={showOrder} dataSource={orderListProps.dataSource}/>
               </Content>
             </Layout>
-         </Layout>
+          </Layout>
         </Layout>
       </div>
     )
+  }
 }
 function mapStateToProps({ userdashboard}) {
   return {userdashboard} ;

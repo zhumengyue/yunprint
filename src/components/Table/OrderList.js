@@ -204,7 +204,7 @@ class OrderList extends React.Component {
             </Button>,
           ]}
         >
-          <Table dataSource={this.state.itemData} columns={modalColumns} />
+          <Table dataSource={this.state.itemData} columns={modalColumns} rowKey="id"/>
         </Modal>
       </div>
     )

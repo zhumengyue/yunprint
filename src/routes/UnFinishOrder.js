@@ -17,6 +17,7 @@ import cookie from '../utils/cookie'
 const { Content } = Layout;
 
 const UnFinishOrder =({userdashboard, dispatch}) => {
+
   const pathid = cookie.getCookie('pathid'),
         itemid = cookie.getCookie('itemid');
 
@@ -42,7 +43,7 @@ const UnFinishOrder =({userdashboard, dispatch}) => {
       <Layout style={{"height":"100%"}} className={styles.layout}>
         <HeaderTitle name={{realname:'zmy'}}/>
         <Layout>
-          <Slider onItemClick={handleClick} openkey={{openKeys:[pathid]}} selectkey={{selectedKeys:[itemid]}}/>
+          <Slider onItemClick={handleClick} openkey={{openKeys:['2']}} selectkey={{selectedKeys:['23']}}/>
           <Layout className={styles.contentarea}>
             <Content>
               <OrderList showOrder={showOrder} dataSource= {orderListProps.dataSource}/>

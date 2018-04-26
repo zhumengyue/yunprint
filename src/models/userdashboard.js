@@ -47,7 +47,9 @@ export default {
       }
     },
     *switch({ payload}, {put}) {
-      const pathid = payload.keyPath[1],itemid=payload.key;
+
+      const pathid = payload.keyPath[0],itemid=payload.key;
+
       cookie.setCookie('pathid',pathid,0);
       cookie.setCookie('itemid',itemid,0);
 
