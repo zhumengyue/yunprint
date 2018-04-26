@@ -7,7 +7,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon, Modal, Form, Input, Button, Switch, Upload, InputNumber} from 'antd'
+import { Layout, Menu, Icon, Modal, Form, Input, Button, Switch, Upload, InputNumber, message} from 'antd'
+import fetch from '../../utils/fetch'
 
 const FormItem = Form.Item;
 const { SubMenu } = Menu;
@@ -19,21 +20,26 @@ class Slider extends React.Component {
   constructor(props){
     super(props)
     this.state = {
+      fileList: [],
+      uploading: false,
       ...props.openkey,
       ...props.selectkey,
       visible:false,
+      filevisible: false,
     }
   }
-  rootSubmenuKeys = ['1', '2', '3'];
+  rootSubmenuKeys = ['1', '2', '3', '4'];
 
   handleOk = (e) => { // 对话框ok按钮
     this.setState({
       visible: false,
+      filevisible: false,
     });
   }
   handleCancel = (e) => { // 对话框cancel按钮
     this.setState({
       visible: false,
+      filevisible: false,
     });
   }
 
@@ -50,6 +56,7 @@ class Slider extends React.Component {
   }
 
   remove = (k) => {
+    // todo 订单列表 移除条目
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
@@ -58,19 +65,19 @@ class Slider extends React.Component {
       return;
     }
 
-    // can use data-binding to set
     form.setFieldsValue({
       keys: keys.filter(key => key !== k),
     });
   }
 
   add = () => {
+    // todo 订单列表 新增条目
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
     const nextKeys = keys.concat(uuid);
-    uuid++;
-    // can use data-binding to set
+    uuid++
+
     // important! notify form to detect changes
     form.setFieldsValue({
       keys: nextKeys,
@@ -78,6 +85,7 @@ class Slider extends React.Component {
   }
 
   handleSubmit = (e) => {
+    // todo 提交表单 获取表单内容
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
@@ -87,14 +95,77 @@ class Slider extends React.Component {
   }
 
   createOrder = (e) => {
+    // todo 唤起 创建订单 / 上传文件 面板
     if(e.key == '3') {
       console.log("you creating order")
       this.setState({visible:true})
+    } else if(e.key == '4') {
+        this.setState({filevisible:true})
     }
+  }
+
+  handleUpload = () => {
+    // todo 上传文件
+    const { fileList } = this.state;
+    const formData = new FormData();
+    fileList.forEach((file) => {
+      formData.append('image[]', file);
+    });
+
+    this.setState({ // 设置loading状态
+      uploading: true,
+    });
+
+    // $.ajax({ // 上传
+    //   url: "http://localhost/YunPrint/public/user/upload/upload",
+    //   type: "POST",
+    //   data: formData,
+    //   processData: false,
+    //   contentType: false,
+    //   success: (data) => {
+    //     console.log(data)
+    //     this.setState({
+    //       fileList: [],
+    //       uploading: false,
+    //     });
+    //     message.success('upload successfully.');
+    //   }
+    // });
+
+    fetch({
+      method: 'post',
+      data: formData,
+      url: 'http://localhost/YunPrint/public/user/upload/upload',
+    }).then((data) => {
+      console.log(data)
+      this.setState({
+        fileList: [],
+        uploading: false,
+      });
+      message.success('upload successfully.');
+    });
   }
   render() {
     const { onItemClick } = this.props;
-
+    const props = { // 文件上传相关props
+      onRemove: (file) => {
+        this.setState(({ fileList }) => {
+          const index = fileList.indexOf(file);
+          const newFileList = fileList.slice();
+          newFileList.splice(index, 1);
+          return {
+            fileList: newFileList,
+          };
+        });
+      },
+      beforeUpload: (file) => {
+        this.setState(({ fileList }) => ({
+          fileList: [...fileList, file],
+        }));
+        return false;
+      },
+      fileList: this.state.fileList,
+    };
     const { getFieldDecorator, getFieldValue } = this.props.form;
     getFieldDecorator('keys', { initialValue: [] });
     const keys = getFieldValue('keys');
@@ -153,24 +224,42 @@ class Slider extends React.Component {
             <Menu.Item key="23">未完成订单</Menu.Item>
           </SubMenu>
           <Menu.Item key="3" onClick={()=>{}}><Icon type="file-add"/><span>创建订单</span></Menu.Item>
+          <Menu.Item key="4" onClick={()=>{}}><Icon type="cloud-upload-o" /><span>上传文件</span></Menu.Item>
         </Menu>
+        <Modal
+          title="上传文件"
+          visible={this.state.filevisible}
+          onOk={this.handleOk}
+          onCancel={this.handleCancel}
+        >
+          <Upload {...props}>
+            <Button disabled={this.state.fileList.length === 3}>
+              <Icon type="upload" /> 选择文件（一次性最多上传三个）
+            </Button>
+          </Upload>
+          <br />
+          <Button
+            className="upload-demo-start"
+            type="primary"
+            onClick={this.handleUpload}
+            disabled={this.state.fileList.length === 0}
+            loading={this.state.uploading}
+          >
+            {this.state.uploading ? '上传中' : '开始上传'}
+          </Button>
+        </Modal>
         <Modal
           title="创建订单"
           visible={this.state.visible}
           onOk={this.handleOk}
           onCancel={this.handleCancel}
         >
-          {/*<form action="http://localhost/YunPrint/public/user/upload/upload" encType="multipart/form-data" method="post">*/}
-            {/*<input type="file" name="image[]" /><input type="submit" value="上传" />*/}
-          {/*</form>*/}
-
           <Form onSubmit={this.handleSubmit}>
             {formItems}
             <FormItem>
               <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
                 <Icon type="plus" /> 添加文件
               </Button>
-
             </FormItem>
             <FormItem>
               <Button type="primary" htmlType="submit">Submit</Button>
