@@ -1,8 +1,8 @@
 /**
  * Created by WebStorm
  * User : zhumengyue
- * Date : 2018/4/24
- * Time : 18:57
+ * Date : 2018/4/26
+ * Time : 17:54
  * Desc :
  */
 import React from 'react';
@@ -12,7 +12,7 @@ import styles from './OrderList.css'
 
 const Step = Steps.Step;
 
-class OrderList extends React.Component {
+class ShopOrderList extends React.Component {
 
   constructor(props){
     super(props)
@@ -62,7 +62,7 @@ class OrderList extends React.Component {
           })
         }
         this.setState({visible:true})
-        })
+      })
     }
 
     const modalColumns = [{
@@ -119,6 +119,7 @@ class OrderList extends React.Component {
       width: 150,
       title: '文件状态',
       dataIndex: 'status',
+      sorter : (a,b) => a.status - b.status,
       render: (status) => {
         return (
           <Steps current={status-1} progressDot={true} size='small' className={styles.liststep}>
@@ -137,53 +138,6 @@ class OrderList extends React.Component {
       defaultSortOrder: 'descend',
       sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
       key: 4,
-    }, {
-      title: '操作',
-      align: 'center',
-      dataIndex: 'status1',
-      render: ( text, record ) => {
-        if (record.status == 1){
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
-                取消订单
-              </Button>
-            </Popconfirm>
-          </span>
-          );
-        } else if (record.status == 2 || record.status == 3){
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" disabled className={styles.orderbtn2}>
-                取消订单
-              </Button>
-            </Popconfirm>
-          </span>
-          )
-        } else {
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
-                确认订单
-              </Button>
-            </Popconfirm>
-          </span>
-          );
-        }
-      },
-      key: 5
     }];
     return (
       <div>
@@ -192,27 +146,14 @@ class OrderList extends React.Component {
           columns={columns}
           rowKey="id"
         />
-        <Modal
-          title="订单详情"
-          visible={this.state.visible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
-          footer={[
-            <Button key="submit" type="primary" onClick={this.handleOk}>
-              确定
-            </Button>,
-          ]}
-        >
-          <Table dataSource={this.state.itemData} columns={modalColumns} rowKey="id"/>
-        </Modal>
       </div>
     )
   }
 };
 
-OrderList.propTypes = {
+ShopOrderList.propTypes = {
   showOrder: PropTypes.func.isRequired,
   dataSource: PropTypes.array.isRequired,
 };
 
-export default OrderList;
+export default ShopOrderList;

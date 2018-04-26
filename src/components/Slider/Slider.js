@@ -228,8 +228,8 @@ class Slider extends React.Component {
           ]}
         >
           <Upload {...props}>
-            <Button disabled={this.state.fileList.length === 3}>
-              <Icon type="upload" /> 选择文件（一次性最多上传三个）
+            <Button>
+              <Icon type="upload" /> 选择文件
             </Button>
           </Upload>
           <br />

@@ -11,7 +11,7 @@ import { Layout } from 'antd'
 import OrderList from '../components/Table/OrderList'
 import Slider from '../components/Slider/Slider'
 import HeaderTitle from '../components/Header/Header'
-import styles from './UserDashboard/UserDashboard.css'
+import styles from './Dashboard/UserDashboard.css'
 import cookie from '../utils/cookie'
 
 const { Content } = Layout;

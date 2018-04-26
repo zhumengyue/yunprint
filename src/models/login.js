@@ -40,7 +40,7 @@ export default {
             }
           });
           yield call(delay, 800);
-          // yield put(routerRedux.push('/dashboard'));
+          yield put(routerRedux.push('/shopdashboard'));
         } else {
           message.error("用户名密码错误")
         }

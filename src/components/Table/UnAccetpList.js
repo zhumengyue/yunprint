@@ -1,8 +1,8 @@
 /**
  * Created by WebStorm
  * User : zhumengyue
- * Date : 2018/4/24
- * Time : 18:57
+ * Date : 2018/4/26
+ * Time : 18:13
  * Desc :
  */
 import React from 'react';
@@ -12,7 +12,7 @@ import styles from './OrderList.css'
 
 const Step = Steps.Step;
 
-class OrderList extends React.Component {
+class UnAccetpList extends React.Component {
 
   constructor(props){
     super(props)
@@ -36,6 +36,7 @@ class OrderList extends React.Component {
     const { showOrder, dataSource } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
+        console.log(res);
         this.setState({itemData:[{
             name: res[0].file1info.realname,
             num: res[0].file1num,
@@ -62,7 +63,7 @@ class OrderList extends React.Component {
           })
         }
         this.setState({visible:true})
-        })
+      })
     }
 
     const modalColumns = [{
@@ -131,57 +132,27 @@ class OrderList extends React.Component {
       },
       key: 3,
     }, {
-      title: '创建时间',
-      align: 'center',
-      dataIndex: 'createtime',
-      defaultSortOrder: 'descend',
-      sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
-      key: 4,
-    }, {
       title: '操作',
       align: 'center',
       dataIndex: 'status1',
       render: ( text, record ) => {
-        if (record.status == 1){
-          return (
-            <span>
+        return (
+          <span>
             <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
             </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
+            <Popconfirm title="是否接受订单？" onConfirm={()=>{}} className='orderbtn'>
               <Button type="primary" className={styles.orderbtn2}>
-                取消订单
+                接受订单
+              </Button>
+            </Popconfirm>
+            <Popconfirm title="是否拒绝订单？" onConfirm={()=>{}} className='orderbtn'>
+              <Button type="primary" className={styles.orderbtn3}>
+                拒绝订单
               </Button>
             </Popconfirm>
           </span>
-          );
-        } else if (record.status == 2 || record.status == 3){
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" disabled className={styles.orderbtn2}>
-                取消订单
-              </Button>
-            </Popconfirm>
-          </span>
-          )
-        } else {
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
-                确认订单
-              </Button>
-            </Popconfirm>
-          </span>
-          );
-        }
+        );
       },
       key: 5
     }];
@@ -210,9 +181,9 @@ class OrderList extends React.Component {
   }
 };
 
-OrderList.propTypes = {
+UnAccetpList.propTypes = {
   showOrder: PropTypes.func.isRequired,
   dataSource: PropTypes.array.isRequired,
 };
 
-export default OrderList;
+export default UnAccetpList;

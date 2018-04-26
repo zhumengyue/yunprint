@@ -1,18 +1,18 @@
 /**
  * Created by WebStorm
  * User : zhumengyue
- * Date : 2018/4/24
- * Time : 18:57
+ * Date : 2018/4/26
+ * Time : 18:13
  * Desc :
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Steps, Popconfirm, Modal } from 'antd';
+import { Table, Button, Steps, Popconfirm, Modal, Icon } from 'antd';
 import styles from './OrderList.css'
 
 const Step = Steps.Step;
 
-class OrderList extends React.Component {
+class UnFinishList extends React.Component {
 
   constructor(props){
     super(props)
@@ -36,6 +36,7 @@ class OrderList extends React.Component {
     const { showOrder, dataSource } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
+        console.log(res);
         this.setState({itemData:[{
             name: res[0].file1info.realname,
             num: res[0].file1num,
@@ -62,7 +63,7 @@ class OrderList extends React.Component {
           })
         }
         this.setState({visible:true})
-        })
+      })
     }
 
     const modalColumns = [{
@@ -114,76 +115,81 @@ class OrderList extends React.Component {
           }
         }
       },
-      key: 2,
     }, {
-      width: 150,
-      title: '文件状态',
-      dataIndex: 'status',
-      render: (status) => {
-        return (
-          <Steps current={status-1} progressDot={true} size='small' className={styles.liststep}>
-            <Step title="待接取"/>
-            <Step title="待完成"/>
-            <Step title="待领取"/>
-            <Step title="已完成"/>
-          </Steps>
-        );
-      },
-      key: 3,
-    }, {
-      title: '创建时间',
+      title: '打印信息',
+      dataIndex: 'file1color',
+      width: 100,
       align: 'center',
-      dataIndex: 'createtime',
-      defaultSortOrder: 'descend',
-      sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
-      key: 4,
+      colSpan: 3,
+      render: (value, row, index) => {
+        return(
+          <span>
+            <p>{row.file1color ? '彩色' : '黑白'}</p>
+            <p>{row.file2color ? '彩色' : '黑白'}</p>
+            <p>{row.file3color ? '彩色' : '黑白'}</p>
+          </span>
+        )
+      },
+    }, {
+      dataIndex: 'file1style',
+      width: 100,
+      align: 'center',
+      colSpan: 0,
+      render: (value, row, index) => {
+        return(
+          <span>
+            <p>{row.file1style ? '双页' : '单页'}</p>
+            <p>{row.file2style ? '双页' : '单页'}</p>
+            <p>{row.file3style ? '双页' : '单页'}</p>
+          </span>
+        )
+      },
+    }, {
+      dataIndex: 'file1num',
+      width: 100,
+      align: 'center',
+      colSpan: 0,
+      render: (value, row, index) => {
+        return(
+          <span>
+            <p>{row.file1num + '份'}</p>
+            <p>{row.file2num + '份'}</p>
+            <p>{row.file3num + '份'}</p>
+          </span>
+        )
+      },
+    }, {
+      title: '备注',
+      width: 300,
+      dataIndex: 'remark',
+      render: (remark) => { return remark ? remark : '该用户未留备注'}
     }, {
       title: '操作',
+      dataIndex: 'sid',
       align: 'center',
-      dataIndex: 'status1',
-      render: ( text, record ) => {
-        if (record.status == 1){
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
-                取消订单
-              </Button>
-            </Popconfirm>
+      colSpan: 2,
+      render: (value, row, index) => {
+        return(
+          <span>
+            <p><a><Icon type="printer" />&nbsp;&nbsp;打印</a></p>
+            <p><a><Icon type="printer" />&nbsp;&nbsp;打印</a></p>
+            <p><a><Icon type="printer" />&nbsp;&nbsp;打印</a></p>
           </span>
-          );
-        } else if (record.status == 2 || record.status == 3){
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" disabled className={styles.orderbtn2}>
-                取消订单
-              </Button>
-            </Popconfirm>
+        )
+      }
+    }, {
+      dataIndex: 'uid',
+      align: 'center',
+      colSpan: 0,
+      render: (value, row, index) => {
+        return(
+          <span>
+            <p><a><Icon type="download" />&nbsp;&nbsp;下载</a></p>
+            <p><a><Icon type="download" />&nbsp;&nbsp;下载</a></p>
+            <p><a><Icon type="download" />&nbsp;&nbsp;下载</a></p>
           </span>
-          )
-        } else {
-          return (
-            <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
-                确认订单
-              </Button>
-            </Popconfirm>
-          </span>
-          );
-        }
-      },
-      key: 5
+        )
+      }
     }];
     return (
       <div>
@@ -210,9 +216,9 @@ class OrderList extends React.Component {
   }
 };
 
-OrderList.propTypes = {
+UnFinishList.propTypes = {
   showOrder: PropTypes.func.isRequired,
   dataSource: PropTypes.array.isRequired,
 };
 
-export default OrderList;
+export default UnFinishList;
