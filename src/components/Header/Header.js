@@ -7,16 +7,23 @@
  */
 import React from 'react'
 import { connect } from 'dva'
-import { Layout, Menu, Dropdown, Icon } from 'antd'
+import { Layout, Menu, Dropdown, Icon, Popconfirm } from 'antd'
 import styles from './Header.css'
 
 const { Header } = Layout;
 
 const HeaderTitle = ({name,login,dispatch}) => {
+
   const menu = (
-    <Menu onClick={delLogin}>
-      <Menu.Item key="1" >退出登录</Menu.Item>
-    </Menu>
+
+      <Menu >
+        <Menu.Item key="1" >
+          <Popconfirm title="确定注销并退出吗？" onConfirm={delLogin}  okText="是" cancelText="否">
+            退出登录
+          </Popconfirm>
+        </Menu.Item>
+      </Menu>
+
   );
 
   function delLogin() {
