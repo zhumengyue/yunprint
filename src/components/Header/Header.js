@@ -23,10 +23,9 @@ const HeaderTitle = (name) => {
         <p className={styles["logo-text"]}>云打印</p>
       </div>
       <div className={styles.usermenu}>
-        <Icon type="bell" style={{color: '#5387F2'}} className={styles["menu-item"]}/>
-        <a className={styles["menu-item"]}><Icon type="user" className={styles.icon}/>申请店主</a>
+        {/*<Icon type="bell" style={{color: '#5387F2'}} className={styles["menu-item"]}/>*/}
         <Dropdown overlay={menu}>
-          <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />{name.name.realname}<Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
+          <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />{name.name.username}  <Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
         </Dropdown>
       </div>
     </Header>

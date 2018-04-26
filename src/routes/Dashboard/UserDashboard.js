@@ -11,6 +11,7 @@ import { Layout } from 'antd'
 import  OrderList from '../../components/Table/OrderList'
 import Slider from '../../components/Slider/Slider'
 import HeaderTitle from '../../components/Header/Header'
+import cookie from '../../utils/cookie'
 
 import styles from './UserDashboard.css'
 
@@ -19,8 +20,9 @@ const { Content } = Layout;
 class UserDashboard extends React.Component {
 
   render() {
-    const {userdashboard, dispatch} = this.props;
 
+    const { userdashboard, dispatch } = this.props;
+    const username = cookie.getCookie('username')
     function handleClick(e) {
       // todo 点击侧栏选项的回调函数
       dispatch({type: 'userdashboard/switch', payload: e})
@@ -41,7 +43,7 @@ class UserDashboard extends React.Component {
     return (
       <div className={styles.userindex}>
         <Layout style={{"height": "100%"}} className={styles.layout}>
-          <HeaderTitle name={{realname: 'zmy'}}/>
+          <HeaderTitle name={{username:username}}/>
           <Layout>
             <Slider onItemClick={handleClick} openkey={{openKeys: ['2']}} selectkey={{selectedKeys: ['21']}}/>
             <Layout className={styles.contentarea}>

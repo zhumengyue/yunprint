@@ -9,6 +9,7 @@ import { routerRedux } from 'dva/router'
 import { message } from 'antd'
 import { userlogin } from '../services/userlogin'
 import { shopperlogin } from '../services/shopperlogin'
+import cookie from '../utils/cookie'
 
 const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 
@@ -27,10 +28,11 @@ export default {
   },
   effects: {
     // 路由跳转
-    *login ({ payload }, { put, call, select }) {
+    *login ({ payload }, { put, call }) {
       if(payload.shopper) {
         const {data} = yield call(shopperlogin, payload)
         if (data.errcode === "0") {
+          cookie.setCookie('username',data.data.username)
           message.success("登陆成功", 0.5);
           yield put({
             type: 'setShoppername',
@@ -47,6 +49,7 @@ export default {
       }  else{
         const { data } = yield call(userlogin, payload)
         if (data.errcode === "0") {
+          cookie.setCookie('username',data.data.username)
           message.success("登陆成功",0.5);
           yield put({
             type: 'setUsername',
@@ -56,7 +59,7 @@ export default {
             }
           });
           yield call(delay,800);
-          yield put(routerRedux.push('/dashboard'));
+          yield put(routerRedux.push('/dashboard'),payload);
         } else {
           message.error("用户名密码错误")
         }
@@ -73,11 +76,6 @@ export default {
     hideLoginLoading (state) {
       return {
         loginLoading: false,
-      }
-    },
-    okLogin (state ){
-      return {
-        isLogin: true
       }
     },
     setUsername(state, action) {
