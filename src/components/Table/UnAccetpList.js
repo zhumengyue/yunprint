@@ -98,7 +98,7 @@ class UnAccetpList extends React.Component {
       align: 'center',
       width: 100,
     }, {
-      width: 250,
+      width: 350,
       title: '文件名',
       render: (data) => {
         let

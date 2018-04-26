@@ -98,7 +98,7 @@ class UnFinishList extends React.Component {
       align: 'center',
       width: 100,
     }, {
-      width: 250,
+      width: 350,
       title: '文件名',
       render: (data) => {
         let
@@ -118,7 +118,7 @@ class UnFinishList extends React.Component {
     }, {
       title: '打印信息',
       dataIndex: 'file1color',
-      width: 100,
+      width: 80,
       align: 'center',
       colSpan: 3,
       render: (value, row, index) => {
@@ -132,7 +132,7 @@ class UnFinishList extends React.Component {
       },
     }, {
       dataIndex: 'file1style',
-      width: 100,
+      width: 80,
       align: 'center',
       colSpan: 0,
       render: (value, row, index) => {
@@ -146,7 +146,7 @@ class UnFinishList extends React.Component {
       },
     }, {
       dataIndex: 'file1num',
-      width: 100,
+      width: 80,
       align: 'center',
       colSpan: 0,
       render: (value, row, index) => {
@@ -171,9 +171,9 @@ class UnFinishList extends React.Component {
       render: (value, row, index) => {
         return(
           <span>
-            <p><a><Icon type="printer" />&nbsp;&nbsp;打印</a></p>
-            <p><a><Icon type="printer" />&nbsp;&nbsp;打印</a></p>
-            <p><a><Icon type="printer" />&nbsp;&nbsp;打印</a></p>
+            <p><a><Icon type="printer" />&nbsp;打印</a></p>
+            <p><a><Icon type="printer" />&nbsp;打印</a></p>
+            <p><a><Icon type="printer" />&nbsp;打印</a></p>
           </span>
         )
       }
