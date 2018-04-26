@@ -20,6 +20,7 @@ class Slider extends React.Component {
     this.state = {
       fileList: [],
       uploading: false,
+      orderitemnum: 0,
       ...props.openkey,
       ...props.selectkey,
       visible:false,
@@ -28,9 +29,11 @@ class Slider extends React.Component {
   }
   rootSubmenuKeys = ['1', '2', '3', '4'];
 
-  handleOk = (e) => { // 对话框上传按钮
-    this.handleUpload();
-
+  handleOk = (e) => { // 对话框确认按钮
+    this.setState({
+      visible: false,
+      filevisible: false,
+    });
   }
   handleCancel = (e) => { // 对话框取消按钮
     this.setState({
@@ -93,7 +96,6 @@ class Slider extends React.Component {
   createOrder = (e) => {
     // todo 唤起 创建订单 / 上传文件 面板
     if(e.key == '3') {
-      console.log("you creating order")
       this.setState({visible:true})
     } else if(e.key == '4') {
         this.setState({filevisible:true})
@@ -228,7 +230,7 @@ class Slider extends React.Component {
           ]}
         >
           <Upload {...props}>
-            <Button>
+            <Button >
               <Icon type="upload" /> 选择文件
             </Button>
           </Upload>
@@ -237,18 +239,20 @@ class Slider extends React.Component {
         <Modal
           title="创建订单"
           visible={this.state.visible}
-          onOk={this.handleOk}
           onCancel={this.handleCancel}
+          footer={null}
         >
           <Form onSubmit={this.handleSubmit}>
             {formItems}
             <FormItem>
-              <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-                <Icon type="plus" /> 添加文件
+              <Button type="dashed" onClick={this.add} style={{ width: '60%' }} disabled={keys.length == 3} >
+                <Icon type="plus" /> {keys.length == 3 ?  '每个订单最多三个文件' : '添加文件'}
               </Button>
             </FormItem>
             <FormItem>
-              <Button type="primary" htmlType="submit">Submit</Button>
+              <Button type="primary" htmlType="submit" onClick={this.handleOk} disabled={keys.length == 0}>
+                提交订单
+              </Button>
             </FormItem>
           </Form>
         </Modal>
