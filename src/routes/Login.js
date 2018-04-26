@@ -54,7 +54,7 @@ const Login = ({
             )}
           </FormItem>
           <FormItem className={styles.check}>
-            {getFieldDecorator('shoper', {
+            {getFieldDecorator('shopper', {
               valuePropName: 'checked',
               initialValue: false,
             })(

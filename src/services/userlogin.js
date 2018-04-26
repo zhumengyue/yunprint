@@ -7,7 +7,7 @@
  */
 import fetch from '../utils/fetch'
 
-export function login (data) {
+export function userlogin (data) {
   return fetch({
     method: 'post',
     data: data,
