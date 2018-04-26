@@ -41,18 +41,26 @@ class OrderList extends React.Component {
             num: res[0].file1num,
             style: res[0].file1style,
             color: res[0].file1color
-          }, {
-            name: res[0].file2info.realname,
-            num: res[0].file2num,
-            style: res[0].file2style,
-            color: res[0].file2color
-          },{
-            name: res[0].file3info.realname,
-            num: res[0].file3num,
-            style: res[0].file3style,
-            color: res[0].file3color
           }]
         })
+        if(res[0].file2info != null){
+          this.setState({itemData: this.state.itemData.concat([{
+              name: res[0].file2info.realname,
+              num: res[0].file2num,
+              style: res[0].file2style,
+              color: res[0].file2color
+            }])
+          })
+        }
+        if(res[0].file3info != null){
+          this.setState({itemData: this.state.itemData.concat([{
+              name: res[0].file3info.realname,
+              num: res[0].file3num,
+              style: res[0].file3style,
+              color: res[0].file3color
+            }])
+          })
+        }
         this.setState({visible:true})
         })
     }

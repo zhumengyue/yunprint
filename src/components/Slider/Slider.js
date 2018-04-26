@@ -55,7 +55,7 @@ class Slider extends React.Component {
             <Menu.Item key="22">已完成订单</Menu.Item>
             <Menu.Item key="23">未完成订单</Menu.Item>
           </SubMenu>
-          <Menu.Item key="3"><Icon type="file-add"/><span>创建订单</span></Menu.Item>
+          <Menu.Item key="3" onClick={()=>{}}><Icon type="file-add"/><span>创建订单</span></Menu.Item>
         </Menu>
       </Sider>
     )
