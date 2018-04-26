@@ -17,6 +17,7 @@ const { Sider } = Layout;
 let uuid = 0;
 
 class Slider extends React.Component {
+
   constructor(props){
     super(props)
     this.state = {
@@ -30,13 +31,11 @@ class Slider extends React.Component {
   }
   rootSubmenuKeys = ['1', '2', '3', '4'];
 
-  handleOk = (e) => { // 对话框ok按钮
-    this.setState({
-      visible: false,
-      filevisible: false,
-    });
+  handleOk = (e) => { // 对话框上传按钮
+    this.handleUpload();
+
   }
-  handleCancel = (e) => { // 对话框cancel按钮
+  handleCancel = (e) => { // 对话框取消按钮
     this.setState({
       visible: false,
       filevisible: false,
@@ -116,33 +115,27 @@ class Slider extends React.Component {
       uploading: true,
     });
 
-    // $.ajax({ // 上传
-    //   url: "http://localhost/YunPrint/public/user/upload/upload",
-    //   type: "POST",
-    //   data: formData,
-    //   processData: false,
-    //   contentType: false,
-    //   success: (data) => {
-    //     console.log(data)
-    //     this.setState({
-    //       fileList: [],
-    //       uploading: false,
-    //     });
-    //     message.success('upload successfully.');
-    //   }
-    // });
-
     fetch({
       method: 'post',
       data: formData,
       url: 'http://localhost/YunPrint/public/user/upload/upload',
     }).then((data) => {
       console.log(data)
-      this.setState({
-        fileList: [],
-        uploading: false,
-      });
-      message.success('upload successfully.');
+      if(data.data.errcode == 0) {
+        message.success('上传成功',1);
+        this.setState({
+          fileList: [],
+          uploading: false,
+        });
+        setTimeout(()=>{
+          this.setState({
+            visible: false,
+            filevisible: false,
+          })
+        },1100)
+      } else {
+        message.error('上传失败');
+      }
     });
   }
   render() {
@@ -229,8 +222,12 @@ class Slider extends React.Component {
         <Modal
           title="上传文件"
           visible={this.state.filevisible}
-          onOk={this.handleOk}
-          onCancel={this.handleCancel}
+          footer={[
+            <Button key="back" onClick={this.handleCancel}>取消</Button>,
+            <Button loading={this.state.uploading} disabled={this.state.fileList.length === 0} key="submit" type="primary"  onClick={this.handleUpload}>
+              {this.state.uploading ? '上传中' : '开始上传'}
+            </Button>,
+          ]}
         >
           <Upload {...props}>
             <Button disabled={this.state.fileList.length === 3}>
@@ -238,15 +235,6 @@ class Slider extends React.Component {
             </Button>
           </Upload>
           <br />
-          <Button
-            className="upload-demo-start"
-            type="primary"
-            onClick={this.handleUpload}
-            disabled={this.state.fileList.length === 0}
-            loading={this.state.uploading}
-          >
-            {this.state.uploading ? '上传中' : '开始上传'}
-          </Button>
         </Modal>
         <Modal
           title="创建订单"
