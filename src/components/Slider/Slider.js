@@ -9,13 +9,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Icon, Modal, Form, Input, Button, Switch, Upload, InputNumber, message} from 'antd'
 import fetch from '../../utils/fetch'
-
 const FormItem = Form.Item;
 const { SubMenu } = Menu;
 const { Sider } = Layout;
-
 let uuid = 0;
-
 class Slider extends React.Component {
 
   constructor(props){
@@ -222,6 +219,7 @@ class Slider extends React.Component {
         <Modal
           title="上传文件"
           visible={this.state.filevisible}
+          onCancel={this.handleCancel}
           footer={[
             <Button key="back" onClick={this.handleCancel}>取消</Button>,
             <Button loading={this.state.uploading} disabled={this.state.fileList.length === 0} key="submit" type="primary"  onClick={this.handleUpload}>

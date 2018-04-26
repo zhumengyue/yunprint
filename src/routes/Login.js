@@ -7,7 +7,7 @@
  */
 import React from 'react'
 import { connect } from 'dva'
-import { Button, Input, Icon, Form } from 'antd'
+import { Button, Input, Icon, Form,Checkbox } from 'antd'
 import styles from './Login.css'
 
 const FormItem = Form.Item;
@@ -52,6 +52,15 @@ const Login = ({
             })(
               <Input prefix={<Icon type="lock" style={{ fontSize: 16 }} />} type="password" placeholder="密码" className={styles["ant-input-affix-wrapper"]}/>
             )}
+          </FormItem>
+          <FormItem className={styles.check}>
+            {getFieldDecorator('shoper', {
+              valuePropName: 'checked',
+              initialValue: false,
+            })(
+              <Checkbox style={{float:'left'}}>作为商家登录</Checkbox>
+            )}
+            <a className={styles["login-form-forgot"]} href="">忘记密码</a>
           </FormItem>
           <FormItem>
             <Button type="primary" onClick={handleSubLogin} className={styles["login-form-button"]}>
