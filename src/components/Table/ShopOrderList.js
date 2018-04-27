@@ -66,7 +66,7 @@ class ShopOrderList extends React.Component {
       sorter : (a,b) => a.status - b.status,
       render: (status) => {
         return (
-          <Steps current={status-1} progressDot={true} size='small' className={styles.liststep}>
+          <Steps current={status} progressDot={true} size='small' className={styles.liststep}>
             <Step title="待接取"/>
             <Step title="待完成"/>
             <Step title="待领取"/>
