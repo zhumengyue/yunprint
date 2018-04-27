@@ -36,14 +36,18 @@ class OrderList extends React.Component {
       width: 150,
       title: '提供者',
       align: 'center',
-      dataIndex: 'name',
-      render: (name) => name.slice(0,1) + `${ name.slice(1).length === 2 ? '某某' : '某'}`
+      dataIndex: 'author',
+      render: (author) => {
+        if (author)
+          return  author.slice(0,1) + `${ author.slice(1).length === 2 ? '某某' : '某'}`
+        else return author
+      }
     }, {
       title: '创建时间',
       align: 'center',
-      dataIndex: 'createtime',
+      dataIndex: 'time',
       defaultSortOrder: 'descend',
-      sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
+      sorter : (a,b) => a.time.replace(/[\-,:, ]/g, "") - b.time.replace(/[\-,:, ]/g, ""),
     }, {
       title: '操作',
       align: 'center',
@@ -60,7 +64,7 @@ class OrderList extends React.Component {
               <Button type="primary" icon="delete" className={styles.deletebtn}>删除</Button>
             </Popconfirm>
             <Button type="primary" className={styles.downbtn}>
-              <a href={'http://localhost/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
+              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
             </Button>
           </span>
           )

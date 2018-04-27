@@ -11,13 +11,13 @@ export function userRegister (data) {
   return fetch({
     method: 'post',
     data: data,
-    url: 'http://localhost/YunPrint/public/user/login/register',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/login/register',
   });
 }export function storeRegister (data) {
   return fetch({
     method: 'post',
     data: data,
-    url: 'http://localhost/YunPrint/public/store/login/register',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/store/login/register',
   });
 }
 

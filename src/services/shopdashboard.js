@@ -10,7 +10,7 @@ import fetch from '../utils/fetch'
 export function getOrderList() {
   return fetch({
     method: 'get',
-    url: 'http://localhost/YunPrint/public/store/order/showorder',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/store/order/showorder',
   });
 }
 
@@ -18,7 +18,7 @@ export function updateOrder(id) {
   return fetch({
     method: 'post',
     data: {oid:id},
-    url: 'http://localhost/YunPrint/public/store/order/changestatus',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/store/order/changestatus',
   });
 }
 

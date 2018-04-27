@@ -11,6 +11,6 @@ export function shopperlogin (data) {
   return fetch({
     method: 'post',
     data: data,
-    url: 'http://localhost/YunPrint/public/store/login/oklogin',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/store/login/oklogin',
   });
 }

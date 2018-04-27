@@ -11,6 +11,6 @@ export function userdellogin (data) {
   return fetch({
     method: 'post',
     data: data,
-    url: 'http://localhost/YunPrint/public/user/login/dellogin',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/login/dellogin',
   });
 }

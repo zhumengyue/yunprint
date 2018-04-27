@@ -117,7 +117,7 @@ class Slider extends React.Component {
     fetch({
       method: 'post',
       data: formData,
-      url: 'http://localhost/YunPrint/public/user/upload/upload',
+      url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/upload/upload',
     }).then((data) => {
       console.log(data)
       if(data.data.errcode === 0) {
@@ -172,7 +172,7 @@ class Slider extends React.Component {
             <span className="ant-form-text">
               <Upload
                 name="image[]"
-                action="http://localhost/YunPrint/public/user/upload/upload"
+                action="http://yunprint.applinzi.com/YunPrint/public/index.php/user/upload/upload"
                 withCredentials={true}
                 listType="text"
               >

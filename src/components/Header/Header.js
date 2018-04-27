@@ -36,7 +36,6 @@ const HeaderTitle = ({name,login,dispatch}) => {
         <p className={styles["logo-text"]}>云打印</p>
       </div>
       <div className={styles.usermenu}>
-        {/*<Icon type="bell" style={{color: '#5387F2'}} className={styles["menu-item"]}/>*/}
         <Dropdown overlay={menu}>
           <a className={styles["menu-item"]}><Icon type="user" className={styles.icon} />{name.username}  <Icon type="down" style={{fontSize: 18}} className={styles.icondown}/></a>
         </Dropdown>
@@ -44,7 +43,5 @@ const HeaderTitle = ({name,login,dispatch}) => {
     </Header>
   )
 }
-
-// export default HeaderTitle;
 export default connect(({ login }) => ({ login }))((HeaderTitle))
 

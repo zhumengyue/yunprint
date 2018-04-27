@@ -10,7 +10,7 @@ import fetch from '../utils/fetch'
 export function getOrderList() {
   return fetch({
     method: 'get',
-    url: 'http://localhost/YunPrint/public/user/order/showorder',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/showorder',
   });
 }
 
@@ -18,7 +18,7 @@ export function userFinishOrder(id) {
   return fetch({
     method: 'post',
     data: {oid:id},
-    url: 'http://localhost/YunPrint/public/user/order/isfinish'
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/isfinish'
   })
 }
 
@@ -26,20 +26,20 @@ export function userCancelOrder(id) {
   return fetch({
     method: 'post',
     data: {oid:id},
-    url: 'http://localhost/YunPrint/public/user/order/cancelorder'
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/cancelorder'
   })
 }
 
 export function getMyFile() {
   return fetch({
     method: 'get',
-    url: 'http://localhost:8000/api/mylist'
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/getmyfile'
   })
 }
 
 export function getAllFile() {
   return fetch({
     method: 'get',
-    url: 'http://localhost:8000/api/alllist'
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/getpublicfile'
   })
 }
