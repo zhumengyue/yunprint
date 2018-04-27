@@ -10,6 +10,7 @@ import ShopUnAcceptOrder from './routes/ShopUnAcceptOrder'
 import UnFinishOrder from './routes/UnFinishOrder'
 import ShopUnFinishOrder from './routes/ShopUnFinishOrder'
 import ShopFinishOrder from './routes/ShopFinishOrder'
+import MyList from './routes/MyList'
 
 const { ConnectedRouter } = routerRedux;
 
@@ -19,6 +20,7 @@ function RouterConfig({ history }) {
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/products" exact component={Products} />
+        <Route path="/mylist" exact component={MyList} />
         <Route path="/register" exact component={Register} />
         <Route path="/dashboard" exact component={UserDashboard} />
         <Route path="/shopdashboard" exact component={ShopDashBoard} />

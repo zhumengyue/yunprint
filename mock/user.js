@@ -8,9 +8,10 @@ const Mock=require('mockjs');
 
 let db=Mock.mock({
   'data|8-10':[{
-    id:'@id',
-    name:'@name',
-    'age|18-32':1
+    'id|+1': 1,
+    name:'@cname',
+    filename: '@cword(8,14)',
+    createtime: '@datetime',
   }]
 });
 

@@ -7,13 +7,14 @@
  */
 import { routerRedux } from 'dva/router'
 import { message } from 'antd'
-import { getOrderList, userFinishOrder, userCancelOrder } from '../services/userdashboard'
+import { getOrderList, userFinishOrder, userCancelOrder, getAllFile } from '../services/userdashboard'
 import cookie from '../utils/cookie'
 const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 export default {
   namespace: 'userdashboard',
   state: {
     dataSource: [],
+    filedataSource: [],
     total: null,
     loading: false, // 控制加载状态
     current: null, // 当前分页信息
@@ -27,9 +28,15 @@ export default {
         if ( location.pathname === '/dashboard'
           || location.pathname === '/finishorder'
           || location.pathname === '/unfinishorder'
+          || location.pathname === '/unfinishorder'
         ) {
           dispatch({
             type: 'query',
+            payload: {}
+          });
+        } else if (location.pathname === '/mylist' || location.pathname === '/alllist') {
+          dispatch({
+            type: 'filequery',
             payload: {}
           });
         }
@@ -44,6 +51,17 @@ export default {
           type: 'querySuccess',
           payload: {
             dataSource: data.data,
+          }
+        });
+      }
+    },
+    *filequery({ payload }, { select, call, put }) {
+      const { data } = yield call(getAllFile);
+      if (data) {
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            filedataSource: data.data,
           }
         });
       }

@@ -29,3 +29,10 @@ export function userCancelOrder(id) {
     url: 'http://localhost/YunPrint/public/user/order/cancelorder'
   })
 }
+
+export function getAllFile() {
+  return fetch({
+    method: 'get',
+    url: 'http://localhost:8000/api/users'
+  })
+}
