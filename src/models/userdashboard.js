@@ -6,8 +6,10 @@
  * Desc :
  */
 import { routerRedux } from 'dva/router'
-import { getOrderList } from '../services/userdashboard'
+import { message } from 'antd'
+import { getOrderList, userFinishOrder, userCancelOrder } from '../services/userdashboard'
 import cookie from '../utils/cookie'
+const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 export default {
   namespace: 'userdashboard',
   state: {
@@ -61,6 +63,28 @@ export default {
     *showorder( { payload: id },{ select }) {
       const orderItem = (yield select(state=>state.userdashboard.dataSource)).filter(item => item.id === id) // 取出对应id的订单
       return orderItem;
+    },
+    *finishorder({payload},{call,put}) {
+      const { data } = yield call(userFinishOrder,payload)
+      console.log(data)
+      if (data.errcode === "0") {
+        message.success("操作成功!订单已确认完成", 1);
+        yield call(delay,1100);
+        yield put(routerRedux.push('/dashboard'))
+      } else {
+        message.error("操作失败")
+      }
+    },
+    *cancelorder({payload},{call,put}) {
+      const { data } = yield call(userCancelOrder,payload)
+      console.log(data)
+      if (data.errcode === "0") {
+        message.success("操作成功!订单已取消", 1);
+        yield call(delay,1100);
+        yield put(routerRedux.push('/dashboard'))
+      } else {
+        message.error("操作失败")
+      }
     },
     *create(){},
     // 因为delete是关键字

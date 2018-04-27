@@ -13,3 +13,19 @@ export function getOrderList() {
     url: 'http://localhost/YunPrint/public/user/order/showorder',
   });
 }
+
+export function userFinishOrder(id) {
+  return fetch({
+    method: 'post',
+    data: {oid:id},
+    url: 'http://localhost/YunPrint/public/user/order/isfinish'
+  })
+}
+
+export function userCancelOrder(id) {
+  return fetch({
+    method: 'post',
+    data: {oid:id},
+    url: 'http://localhost/YunPrint/public/user/order/cancelorder'
+  })
+}

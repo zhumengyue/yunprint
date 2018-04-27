@@ -36,6 +36,22 @@ class UserDashboard extends React.Component {
       })
     }
 
+    function userFinishOrder(id) {
+      // todo 用户完成订单   status --> 4
+      dispatch({
+        type: 'userdashboard/finishorder',
+        payload: id,
+      })
+    }
+
+    function userCancelOrder(id) {
+      // todo 用户取消订单   status --> 4
+      dispatch({
+        type: 'userdashboard/cancelorder',
+        payload: id,
+      })
+    }
+
     const {dataSource} = userdashboard;
     const orderListProps = {
       dataSource: dataSource,
@@ -48,7 +64,12 @@ class UserDashboard extends React.Component {
             <Slider onItemClick={handleClick} openkey={{openKeys: ['2']}} selectkey={{selectedKeys: ['21']}}/>
             <Layout className={styles.contentarea}>
               <Content>
-                <OrderList showOrder={showOrder} dataSource={orderListProps.dataSource}/>
+                <OrderList
+                  userFinishOrder={userFinishOrder}
+                  userCancelOrder={userCancelOrder}
+                  showOrder={showOrder}
+                  dataSource={orderListProps.dataSource}
+                />
               </Content>
             </Layout>
           </Layout>

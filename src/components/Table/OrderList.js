@@ -33,7 +33,7 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const { showOrder, dataSource } = this.props;
+    const { showOrder, dataSource, userFinishOrder, userCancelOrder } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
         this.setState({itemData:[{
@@ -148,37 +148,46 @@ class OrderList extends React.Component {
             <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
             </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
+            <Popconfirm title="是否取消此订单？" onConfirm={()=>{userCancelOrder(record.id)}} className='orderbtn'>
               <Button type="primary" className={styles.orderbtn2}>
                 取消订单
               </Button>
             </Popconfirm>
           </span>
           );
-        } else if (record.status === 2 || record.status === 3){
+        } else if ( record.status === 2 ){
           return (
             <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
+              <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
-            </Button>
-            <Popconfirm title="是否取消订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" disabled className={styles.orderbtn2}>
-                取消订单
               </Button>
-            </Popconfirm>
+              <Button type="primary" disabled className={styles.orderbtn2}>
+                等待完成
+              </Button>
           </span>
           )
-        } else {
+        } else if ( record.status === 3){
           return (
             <span>
-            <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
-              订单详情
-            </Button>
-            <Popconfirm title="是否确认订单？" onConfirm={()=>{}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
-                确认订单
+              <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
+                订单详情
               </Button>
-            </Popconfirm>
+              <Popconfirm title="是否确认完成订单？" onConfirm={()=>{userFinishOrder(record.id)}} >
+                <Button type="primary" className={styles.orderbtn2}>
+                  确认订单
+                </Button>
+              </Popconfirm>
+            </span>
+          )
+        }else {
+          return (
+            <span>
+              <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
+              订单详情
+              </Button>
+              <Button disabled type="primary" className={styles.orderbtn3}>
+                订单完成
+              </Button>
           </span>
           );
         }
