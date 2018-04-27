@@ -7,7 +7,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon, Form } from 'antd'
+import { Layout, Menu, Icon, Form, Button, Modal, Input, message } from 'antd'
+const { TextArea } = Input;
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
@@ -20,10 +21,28 @@ class ShopSlider extends React.Component {
       ...props.openkey,
       ...props.selectkey,
       visible:false,
-      filevisible: false,
     }
   }
   rootSubmenuKeys = ['1', '2', '3', '4'];
+
+  handleOk = () => { // 对话框确认按钮
+    message.success('感谢您的反馈~我们会努力做得更好~',1)
+    setTimeout(() => {this.setState({
+      visible: false,
+    })},500);
+  }
+  handleCancel = () => { // 对话框取消按钮
+    this.setState({
+      visible: false,
+    });
+  }
+
+  createOrder = (e) => {
+    // todo 唤起 创建订单 / 上传文件 面板
+    if(e.key === '3') {
+      this.setState({visible:true})
+    }
+  }
 
   onOpenChange = (openKeys) => {
     // todo 使菜单仅展开一栏
@@ -48,6 +67,7 @@ class ShopSlider extends React.Component {
           style={{height: '100%', borderRight: 0}}
           selectedKeys={this.state.selectedKeys}
           onClick={onItemClick}
+          onSelect = {this.createOrder}
         >
           <Menu.Item key="1"><span><Icon type="cloud-o"/>商铺界面</span></Menu.Item>
           <SubMenu key="2" title={<span><Icon type="file-text"/>我的订单</span>}>
@@ -57,6 +77,22 @@ class ShopSlider extends React.Component {
           </SubMenu>
           <Menu.Item key="3" onClick={()=>{}}><Icon type="file-add"/><span>意见反馈</span></Menu.Item>
         </Menu>
+        <Modal
+          title="意见反馈"
+          visible={this.state.visible}
+          onCancel={this.handleCancel}
+          footer={[ '',
+            <Button key="submit" type="primary"  onClick={this.handleOk}>
+              确定
+            </Button>,
+          ]}
+        >
+          <TextArea
+            rows={4}
+            placeholder='请写下您的建议~'
+            onPressEnter={this.handleOk}/>
+          <br />
+        </Modal>
       </Sider>
     )
   }
