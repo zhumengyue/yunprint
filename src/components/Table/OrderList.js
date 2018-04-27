@@ -121,7 +121,7 @@ class OrderList extends React.Component {
       dataIndex: 'status',
       render: (status) => {
         return (
-          <Steps current={status} progressDot={true} size='small' className={styles.liststep}>
+          <Steps current={ status===9 ? 0 : status} status={status===9 ? 'error' : 'process'} progressDot={true} size='small' className={styles.liststep}>
             <Step title="待接取"/>
             <Step title="待完成"/>
             <Step title="待领取"/>
@@ -179,16 +179,27 @@ class OrderList extends React.Component {
               </Popconfirm>
             </span>
           )
-        }else {
+        } else if ( record.status === 3){
           return (
             <span>
               <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
               </Button>
               <Button disabled type="primary" className={styles.orderbtn3}>
-                订单完成
+                订单已完成
               </Button>
-          </span>
+            </span>
+          )
+        }else {
+          return (
+            <span>
+              <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
+              订单详情
+              </Button>
+              <Button disabled type="dashed" className={styles.orderbtn3}>
+                订单已取消
+              </Button>
+            </span>
           );
         }
       },
