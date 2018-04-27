@@ -27,6 +27,7 @@ export default {
         if ( location.pathname === '/shopdashboard'
           || location.pathname === '/shopunacceptorder'
           || location.pathname === '/shopunfinishorder'
+          || location.pathname === '/shopfinishorder'
         ) {
           dispatch({
             type: 'query',
