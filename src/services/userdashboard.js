@@ -30,9 +30,16 @@ export function userCancelOrder(id) {
   })
 }
 
+export function getMyFile() {
+  return fetch({
+    method: 'get',
+    url: 'http://localhost:8000/api/mylist'
+  })
+}
+
 export function getAllFile() {
   return fetch({
     method: 'get',
-    url: 'http://localhost:8000/api/users'
+    url: 'http://localhost:8000/api/alllist'
   })
 }

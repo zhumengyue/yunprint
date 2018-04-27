@@ -1,16 +1,16 @@
 /**
  * Created by WebStorm
  * User : zhumengyue
- * Date : 2018/4/27
- * Time : 17:57
+ * Date : 2018/4/28
+ * Time : 0:14
  * Desc :
  */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button, Popconfirm, Icon } from 'antd';
-import styles from './MyList.css'
 
-class OrderList extends React.Component {
+
+class AllFileList extends React.Component {
 
   constructor(props){
     super(props)
@@ -47,23 +47,18 @@ class OrderList extends React.Component {
     }, {
       title: '操作',
       align: 'center',
-      render: (text, record,index ) => {
+      render: (text,record,index) => {
         return(
           <span>
-            { record.status === 0 ?
-            <Popconfirm title="确定公开此文件到云资料库吗?" okText="是" cancelText="否" >
-              <Button type="primary" icon="folder-open"className={styles.openbtn} >公开</Button>
-            </Popconfirm> :
-              <Button type="primary" disabled icon="folder-open" className={styles.openedbtn}>已公开</Button>
-            }
-            <Popconfirm title="确定删除此文件吗？" okText="是" cancelText="否">
-              <Button type="primary" icon="delete" className={styles.deletebtn}>删除</Button>
+            <Popconfirm title="将此文件加入我的资料库？" okText="是" cancelText="否">
+              <Button type="primary" icon="star-o" style={{marginRight: 20}}>收藏</Button>
+
             </Popconfirm>
-            <Button type="primary" className={styles.downbtn}>
+            <Button type="primary" style={{marginLeft: 20}}>
               <a href={'http://localhost/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
             </Button>
           </span>
-          )
+        )
       }
     }];
     return (
@@ -78,8 +73,8 @@ class OrderList extends React.Component {
   }
 };
 
-OrderList.propTypes = {
+AllFileList.propTypes = {
   dataSource: PropTypes.array.isRequired,
 };
 
-export default OrderList;
+export default AllFileList;

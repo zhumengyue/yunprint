@@ -7,7 +7,7 @@
  */
 import { routerRedux } from 'dva/router'
 import { message } from 'antd'
-import { getOrderList, userFinishOrder, userCancelOrder, getAllFile } from '../services/userdashboard'
+import { getOrderList, userFinishOrder, userCancelOrder, getMyFile, getAllFile } from '../services/userdashboard'
 import cookie from '../utils/cookie'
 const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 export default {
@@ -15,6 +15,7 @@ export default {
   state: {
     dataSource: [],
     filedataSource: [],
+    allfiledataSource: [],
     total: null,
     loading: false, // 控制加载状态
     current: null, // 当前分页信息
@@ -34,9 +35,14 @@ export default {
             type: 'query',
             payload: {}
           });
-        } else if (location.pathname === '/mylist' || location.pathname === '/alllist') {
+        } else if (location.pathname === '/mylist' ) {
           dispatch({
             type: 'filequery',
+            payload: {}
+          });
+        } else if(location.pathname === '/alllist') {
+          dispatch({
+            type: 'allfilequery',
             payload: {}
           });
         }
@@ -56,12 +62,23 @@ export default {
       }
     },
     *filequery({ payload }, { select, call, put }) {
-      const { data } = yield call(getAllFile);
+      const { data } = yield call(getMyFile);
       if (data) {
         yield put({
           type: 'querySuccess',
           payload: {
             filedataSource: data.data,
+          }
+        });
+      }
+    },
+    *allfilequery({ payload }, { select, call, put }) {
+      const { data } = yield call(getAllFile);
+      if (data) {
+        yield put({
+          type: 'querySuccess',
+          payload: {
+            allfiledataSource: data.data,
           }
         });
       }
@@ -111,9 +128,7 @@ export default {
   },
   reducers: {
     showLoading(){}, // 控制加载状态的 reducer
-    showData(){
-      // console.log(this.state.dataSource)
-    }, // 控制 Modal 显示状态的 reducer
+    showData(){}, // 控制 Modal 显示状态的 reducer
     hideModal(){},
     querySuccess(state,action){
       return {...state, ...action.payload, loading: false};

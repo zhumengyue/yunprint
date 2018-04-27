@@ -89,7 +89,6 @@ class UnFinishList extends React.Component {
       colSpan: 3,
       render: (value, row, index) => {
         let
-          file1 = row.file1info,
           file2 = row.file2info,
           file3 = row.file3info;
         return(
@@ -107,7 +106,6 @@ class UnFinishList extends React.Component {
       colSpan: 0,
       render: (value, row, index) => {
         let
-          file1 = row.file1info,
           file2 = row.file2info,
           file3 = row.file3info;
         return(
@@ -125,7 +123,6 @@ class UnFinishList extends React.Component {
       colSpan: 0,
       render: (value, row, index) => {
         let
-          file1 = row.file1info,
           file2 = row.file2info,
           file3 = row.file3info;
         return(
@@ -148,7 +145,6 @@ class UnFinishList extends React.Component {
       colSpan: 3,
       render: (value, row, index) => {
         let
-          file1 = row.file1info,
           file2 = row.file2info,
           file3 = row.file3info;
         return(

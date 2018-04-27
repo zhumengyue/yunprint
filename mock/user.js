@@ -6,37 +6,35 @@
  */
 const Mock=require('mockjs');
 
-let db=Mock.mock({
+let mylist=Mock.mock({
   'data|8-10':[{
     'id|+1': 1,
     name:'@cname',
     filename: '@cword(8,14)',
     createtime: '@datetime',
+    'status|1': [0,1],
   }]
 });
 
-let data = Mock.mock({
-  "user|10": [{   // 随机生成1到3个数组元素
-    'id|+1': 12,    // 属性值自动加 1，初始值为88
-    'name|1': '@cname',  // 中文名称
-    'price|3000-9999' : 4000, // 价格
-    'score|0-4.1':3,  // 评分
-    'image|1': '@image(mock)',  // 图片
-    'cputype|1' : ['i3','i5','i7'],  // cpu类型
-    'city|1': '@ccity',  // 品牌
-    'sales|200-10000' : 2222,  // 销售情况
+let alllist = Mock.mock({
+  'data|20-30':[{
+    'id|+1': 1,
+    name:'@cname',
+    filename: '@cword(8,14)',
+    createtime: '@datetime',
+    status: 1,
   }]
 });
 
 module.exports={
-  [`GET /api/users`](req,res){
+  [`GET /api/mylist`](req,res){
 
-    res.status(200).json(db);
+    res.status(200).json(mylist);
   },
 
-  [`GET /api/data`](req,res){
+  [`GET /api/alllist`](req,res){
 
-    res.status(200).json(data);
+    res.status(200).json(alllist);
   },
 
   [`POST /api/users`](req,res){
@@ -44,7 +42,7 @@ module.exports={
     let user=req.body;
     console.log(req);
     user.id=Mock.mock('@id');
-    db.data.push(user);
+    mylist.data.push(user);
 
     res.status(200).json(user);
   }
