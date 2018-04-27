@@ -21,7 +21,7 @@ class OrderList extends React.Component {
   }
 
   render() {
-    const { dataSource } = this.props;
+    const { dataSource, updateFileStatus } = this.props;
 
     const columns = [{
       title: '序号',
@@ -55,10 +55,12 @@ class OrderList extends React.Component {
         return(
           <span>
             { record.status === 0 ?
-            <Popconfirm title="确定公开此文件到云资料库吗?" okText="是" cancelText="否" >
+            <Popconfirm title="确定公开此文件到云资料库吗?" okText="是" cancelText="否" onConfirm={()=>{updateFileStatus(record)}} >
               <Button type="primary" icon="folder-open"className={styles.openbtn} >公开</Button>
             </Popconfirm> :
-              <Button type="primary" disabled icon="folder-open" className={styles.openedbtn}>已公开</Button>
+            <Popconfirm title="确定从云资料库上取消公开吗？" okText="是" cancelText="否" onConfirm={()=>{updateFileStatus(record)}} >
+              <Button type="primary" icon="folder-open"className={styles.openedbtn} >取消公开</Button>
+            </Popconfirm>
             }
             <Popconfirm title="确定删除此文件吗？" okText="是" cancelText="否">
               <Button type="primary" icon="delete" className={styles.deletebtn}>删除</Button>
@@ -67,7 +69,7 @@ class OrderList extends React.Component {
               <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
             </Button>
           </span>
-          )
+        )
       }
     }];
     return (

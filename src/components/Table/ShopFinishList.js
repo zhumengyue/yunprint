@@ -38,7 +38,7 @@ class ShopFinishList extends React.Component {
       showOrder(id).then(res=>{
         console.log(res);
         this.setState({itemData:[{
-            name: res[0].file1info.realname,
+            name: res[0].file1info.filename,
             num: res[0].file1num,
             style: res[0].file1style,
             color: res[0].file1color
@@ -46,7 +46,7 @@ class ShopFinishList extends React.Component {
         })
         if(res[0].file2info != null){
           this.setState({itemData: this.state.itemData.concat([{
-              name: res[0].file2info.realname,
+              name: res[0].file2info.filename,
               num: res[0].file2num,
               style: res[0].file2style,
               color: res[0].file2color
@@ -55,7 +55,7 @@ class ShopFinishList extends React.Component {
         }
         if(res[0].file3info != null){
           this.setState({itemData: this.state.itemData.concat([{
-              name: res[0].file3info.realname,
+              name: res[0].file3info.filename,
               num: res[0].file3num,
               style: res[0].file3style,
               color: res[0].file3color
@@ -105,11 +105,11 @@ class ShopFinishList extends React.Component {
           file3 = data.file3info;
         if(file1 != null) {
           if(file2==null) {
-            return (<span><p>{file1.realname}</p></span>)
+            return (<span><p>{file1.filename}</p></span>)
           }else if(file3 == null ){
-            return(<span><p>{file1.realname}</p><p>{file2.realname}</p></span>)
+            return(<span><p>{file1.filename}</p><p>{file2.filename}</p></span>)
           } else {
-            return(<span><p>{file1.realname}</p><p>{file2.realname}</p><p>{file3.realname}</p></span>)
+            return(<span><p>{file1.filename}</p><p>{file2.filename}</p><p>{file3.filename}</p></span>)
           }
         }
       },

@@ -7,28 +7,49 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, InputNumber, message} from 'antd'
+import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, Input, InputNumber, message, Cascader,Select} from 'antd'
 import fetch from '../../utils/fetch'
 const FormItem = Form.Item;
+const Option = Select.Option;
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 let uuid = 0;
+
 class Slider extends React.Component {
 
   constructor(props){
     super(props)
     this.state = {
-      fileList: [],
+      myfiletree:[],
+      allfiletree:[],
+      storetree:[],
+      fileList: [], // 当前上传文件列表
       uploading: false,
-      orderitemnum: 0,
       ...props.openkey,
       ...props.selectkey,
-      visible:false,
-      filevisible: false,
+      visible:false, // 创建订单 modal 状态
+      // visible:true, // 创建订单 modal 状态
+      filevisible: false,// 上传文件 modal 状态
     }
   }
   rootSubmenuKeys = ['1', '2', '3', '4'];
-
+  options = [];
+  orderdata={
+    sid: '',
+    file1id: '',
+    file1num: '',
+    file1color: '',
+    file1style: '',
+    file2id: '',
+    file2num: '',
+    file2color: '',
+    file2style: '',
+    file3id: '',
+    file3num: '',
+    file3color: '',
+    file3style: '',
+    remark: '',
+  }
   handleOk = (e) => { // 对话框确认按钮
     this.setState({
       visible: false,
@@ -89,6 +110,45 @@ class Slider extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        this.orderdata = {
+          sid: values.sid,
+          file1id: values.file[0] ? values.file[0][1] : 0,
+          file1num: values.count[0] ? values.count[0] : '',
+          file1color: values.color[0] ? 1 : 0,
+          file1style: values.style[0] ? 1 : 0,
+          file2id: values.file[1] ? values.file[1][1] : 0,
+          file2num: values.count[1] ? values.count[1] : '',
+          file2color: values.color[1] ? 1 : 0,
+          file2style: values.style[1] ? 1 : 0,
+          file3id: values.file[2] ? values.file[2][1] : 0,
+          file3num: values.count[2] ? values.count[2] : '',
+          file3color: values.color[2] ? 1 : 0,
+          file3style: values.style[2] ? 1 : 0,
+          remark: ''
+        }
+        console.log(this.orderdata)
+        fetch({
+          method: 'post',
+          data: this.orderdata,
+          url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
+        }).then((data) => {
+          console.log(data)
+          if(data.data.errcode == 0) {
+            message.success('订单创建成功！',1);
+            this.setState({
+              fileList: [],
+              uploading: false,
+            });
+            setTimeout(()=>{
+              this.setState({
+                visible: false,
+                filevisible: false,
+              })
+            },1100)
+          } else {
+            message.error('订单创建失败');
+          }
+        });
       }
     });
   }
@@ -96,10 +156,55 @@ class Slider extends React.Component {
   createOrder = (e) => {
     // todo 唤起 创建订单 / 上传文件 面板
     if(e.key === '3') {
-      this.setState({visible:true})
+
+      fetch({ // 商户信息
+        method: 'get',
+        url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/showstore',
+      }).then((data) => {
+        this.setState({storetree: [...data.data.data]}) // 赋值给商户信息数组
+      }).then(()=>{
+        fetch({ // 我的资料
+          method: 'get',
+          url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/getmyfile',
+        }).then((data) => {
+          this.setState({myfiletree: [...data.data.data]}) // 赋值给商户信息数组
+        }).then(()=>{
+          fetch({ // 云资料
+            method: 'get',
+            url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/getpublicfile',
+          }).then((data) => {
+            this.setState({allfiletree: [...data.data.data]}) // 赋值给商户信息数组
+            this.setState({visible:true}) // 全部数据加载完成，唤醒弹窗
+            this.options = [{
+              value: 'my',
+              label: '我的资料库',
+              children: [{}],
+            },{
+              value: 'all',
+              label: '云资料库',
+              children: [{}],
+            }]
+            for (let i=0;i<this.state.allfiletree.length;i++){
+              this.options[1].children = this.options[1].children.concat([{}])
+              this.options[1].children[i].value = this.state.allfiletree[i].id;
+              this.options[1].children[i].label = this.state.allfiletree[i].filename;
+            }
+            for (let i=0;i<this.state.myfiletree.length;i++){
+              this.options[0].children = this.options[0].children.concat([{}])
+              this.options[0].children[i].value = this.state.myfiletree[i].id;
+              this.options[0].children[i].label = this.state.myfiletree[i].filename;
+            }
+          });
+        });
+      });
+
     } else if(e.key === '4') {
         this.setState({filevisible:true})
     }
+  }
+
+  onChange(value) {
+    // console.log(value);
   }
 
   handleUpload = () => {
@@ -119,7 +224,6 @@ class Slider extends React.Component {
       data: formData,
       url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/upload/upload',
     }).then((data) => {
-      console.log(data)
       if(data.data.errcode === 0) {
         message.success('上传成功',1);
         this.setState({
@@ -161,29 +265,41 @@ class Slider extends React.Component {
     const { getFieldDecorator, getFieldValue } = this.props.form;
     getFieldDecorator('keys', { initialValue: [] });
     const keys = getFieldValue('keys');
+
     const formItems = keys.map((k, index) => { // 每个添加条目
       return (
-        <FormItem
-          label={'文件 '+ (k+1) }
-          required={false}
-          key={k}
-        >
-          {getFieldDecorator('input-number', { initialValue: 3 })(
-            <span className="ant-form-text">
-              <Upload
-                name="image[]"
-                action="http://yunprint.applinzi.com/YunPrint/public/index.php/user/upload/upload"
-                withCredentials={true}
-                listType="text"
-              >
-                <Button>
-                  <Icon type="upload" /> Click to upload
-                </Button>
-              </Upload>
-              打印数量&nbsp;&nbsp;&nbsp;<InputNumber min={1} max={10} style={{width: 80}} defaultValue={1}/>&nbsp;&nbsp;&nbsp;&nbsp;
-              打印类型&nbsp;&nbsp;&nbsp;<Switch checkedChildren="彩色" unCheckedChildren="黑白" onChange={()=>{console.log(k+1)}}/>&nbsp;&nbsp;<Switch checkedChildren="双页" unCheckedChildren="单页" />
-            </span>
-          )}
+        <div>
+          <FormItem
+            label={'文件 '+ (k+1) }
+            required={false}
+            key={k}
+          >
+            {getFieldDecorator(`file[${k}]`,{
+              rules: [{ required: true  , message: '请选择文件!' }],
+            })(
+              <Cascader
+                options={this.options}
+                expandTrigger="hover"
+                onChange={this.onChange}
+              />
+            )}
+          </FormItem>
+          <FormItem>
+            {getFieldDecorator(`count[${k}]`,{ initialValue: 1 })(
+              <span className="ant-form-text">
+                打印数量&nbsp;&nbsp;&nbsp;<InputNumber  min={1} max={10} style={{width: 80}} defaultValue={1}  />&nbsp;&nbsp;&nbsp;&nbsp;
+              </span>
+            )}
+              {getFieldDecorator(`color[${k}]`,{ valuePropName: 'checked',initialValue: false })(
+                <span className="ant-form-text">
+                  打印类型&nbsp;&nbsp;&nbsp;<Switch checkedChildren="彩色" unCheckedChildren="黑白" />&nbsp;&nbsp;
+                </span>
+              )}
+              {getFieldDecorator(`style[${k}]`,{ valuePropName: 'checked',initialValue: false })(
+                <span>
+                  <Switch checkedChildren="双页" unCheckedChildren="单页" />&nbsp;&nbsp;&nbsp;&nbsp;
+                </span>
+            )}
           {keys.length > 1 ? (
             <Icon
               className="dynamic-delete-button"
@@ -193,6 +309,7 @@ class Slider extends React.Component {
             />
           ) : null}
         </FormItem>
+        </div>
       );
     })
     return (
@@ -243,10 +360,30 @@ class Slider extends React.Component {
           footer={null}
         >
           <Form onSubmit={this.handleSubmit}>
+            <FormItem
+              label="选择店铺"
+            >
+              {getFieldDecorator(`sid`,{
+                rules: [{ required: true  , message: '请选择店铺!' }],
+              })(
+                <Select
+                  showSearch
+                  placeholder="选择一个打印店铺(可搜索)"
+                  optionFilterProp="children"
+                  filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
+                >
+                  {this.state.storetree[0] ? <Option value={this.state.storetree[0].id}>{this.state.storetree[0].storename}</Option> : ''}
+                  {this.state.storetree[1] ? <Option value={this.state.storetree[1].id}>{this.state.storetree[1].storename}</Option> : ''}
+                  {this.state.storetree[2] ? <Option value={this.state.storetree[2].id}>{this.state.storetree[2].storename}</Option> : ''}
+                  {this.state.storetree[3] ? <Option value={this.state.storetree[3].id}>{this.state.storetree[3].storename}</Option> : ''}
+                  {this.state.storetree[4] ? <Option value={this.state.storetree[4].id}>{this.state.storetree[4].storename}</Option> : ''}
+                </Select>
+              )}
+            </FormItem>
             {formItems}
             <FormItem>
               <Button type="dashed" onClick={this.add} style={{ width: '60%' }} disabled={keys.length === 3} >
-                <Icon type="plus" /> {keys.length === 3 ?  '每个订单最多三个文件' : '添加文件'}
+                <Icon type="plus" /> {keys.length === 3 ?  '每个订单最多三个文件哦 ~' : '添加文件'}
               </Button>
             </FormItem>
             <FormItem>

@@ -1,11 +1,9 @@
 .openbtn {
-  margin-right: 30px;
+  margin-right: 26px;
+  margin-left: 15px;
 }
 .openedbtn {
   margin-right: 15px;
-}
-.deletebtn {
-
 }
 .downbtn {
   margin-left: 30px;

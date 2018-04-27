@@ -43,3 +43,21 @@ export function getAllFile() {
     url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/getpublicfile'
   })
 }
+
+export function updateFileStatus(payload) {
+  return fetch({
+    method: 'post',
+    data: {
+      fid: payload.id,
+      status: payload.status,
+    },
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/ispublic'
+  })
+}
+
+export function showStore(){
+  return fetch({
+    method: 'get',
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/showstore'
+  })
+}

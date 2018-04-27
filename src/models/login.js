@@ -66,7 +66,7 @@ export default {
             }
           });
           yield call(delay,800);
-          yield put(routerRedux.push('/dashboard'),payload);
+          yield put(routerRedux.push('/mylist'),payload);
         } else {
           message.error("用户名密码错误")
         }

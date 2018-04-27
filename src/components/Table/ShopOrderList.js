@@ -50,11 +50,11 @@ class ShopOrderList extends React.Component {
           file3 = data.file3info;
         if(file1 !== null) {
           if(file2===null) {
-            return (<span><p>{file1.realname}</p></span>)
+            return (<span><p>{file1.filename}</p></span>)
           }else if(file3 === null ){
-            return(<span><p>{file1.realname}</p><p>{file2.realname}</p></span>)
+            return(<span><p>{file1.filename}</p><p>{file2.filename}</p></span>)
           } else {
-            return(<span><p>{file1.realname}</p><p>{file2.realname}</p><p>{file3.realname}</p></span>)
+            return(<span><p>{file1.filename}</p><p>{file2.filename}</p><p>{file3.filename}</p></span>)
           }
         }
       },

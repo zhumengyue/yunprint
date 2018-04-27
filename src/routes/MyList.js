@@ -23,6 +23,11 @@ const MyList =({userdashboard, dispatch}) => {
     dispatch({ type: 'userdashboard/switchroute' ,payload: e})
   }
 
+  function updateFileStatus(record) {
+    // todo 更新文件公开状态  status： 0 <==> 1
+    dispatch({ type: 'userdashboard/updatefilestatus' ,payload: record})
+  }
+
   const { filedataSource } = userdashboard;
   const username = cookie.getCookie('username')
 
@@ -34,7 +39,7 @@ const MyList =({userdashboard, dispatch}) => {
           <Slider onItemClick={handleClick} openkey={{openKeys:['1']}} selectkey={{selectedKeys:['11']}}/>
           <Layout className={styles.contentarea}>
             <Content>
-              <MyFileList dataSource= {filedataSource}/>
+              <MyFileList updateFileStatus={updateFileStatus} dataSource= {filedataSource}/>
             </Content>
           </Layout>
         </Layout>
