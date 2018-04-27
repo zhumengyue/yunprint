@@ -34,8 +34,16 @@ class ShopUnFinishOrder extends React.Component {
       })
     }
 
+    function shopFinishOrder(id) {
+      // todo 商户接受订单 status+1
+      dispatch({
+        type: 'shopdashboard/finishorder',
+        payload: id,
+      })
+    }
+
     const {dataSource} = shopdashboard;
-    const realData = dataSource.filter(item => (item.status === 2)) // 筛选符合条件的对象
+    const realData = dataSource.filter(item => (item.status === 1)) // 筛选符合条件的对象
     const orderListProps = {
       realData: realData,
     }
@@ -47,7 +55,7 @@ class ShopUnFinishOrder extends React.Component {
             <ShopSlider onItemClick={handleClick} openkey={{openKeys: ['2']}} selectkey={{selectedKeys: ['23']}}/>
             <Layout className={styles.contentarea}>
               <Content>
-                <UnFinishList showOrder={showOrder} dataSource={orderListProps.realData}/>
+                <UnFinishList shopFinishOrder={shopFinishOrder} showOrder={showOrder} dataSource={orderListProps.realData}/>
               </Content>
             </Layout>
           </Layout>

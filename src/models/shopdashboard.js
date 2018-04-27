@@ -6,8 +6,10 @@
  * Desc :
  */
 import { routerRedux } from 'dva/router'
-import { getOrderList } from '../services/shopdashboard'
+import { getOrderList, updateOrder } from '../services/shopdashboard'
+import { message } from 'antd'
 import cookie from '../utils/cookie'
+const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
 export default {
   namespace: 'shopdashboard',
   state: {
@@ -47,12 +49,9 @@ export default {
       }
     },
     *switchroute({ payload}, {put}) {
-
       const pathid = payload.keyPath[0],itemid=payload.key;
-
       cookie.setCookie('pathid',pathid,0);
       cookie.setCookie('itemid',itemid,0);
-
       switch(itemid) {
         case  '1': yield put(routerRedux.push('/shopindex'));break;
         case '21': yield put(routerRedux.push('/shopdashboard'));break;
@@ -63,6 +62,28 @@ export default {
     *showorder( { payload: id },{ select }) {
       const orderItem = (yield select(state=>state.shopdashboard.dataSource)).filter(item => item.id === id) // 取出对应id的订单
       return orderItem;
+    },
+    *acceptorder({payload},{put,call}) {
+      const { data } = yield call(updateOrder,payload)
+      console.log(data)
+      if (data.errcode === "0") {
+        message.success("操作成功!订单已接受", 0.9);
+        yield call(delay,1000);
+        yield put(routerRedux.push('/shopunacceptorder'))
+      } else {
+        message.error("操作失败")
+      }
+    },
+    *finishorder({payload},{put,call}) {
+      const { data } = yield call(updateOrder,payload)
+      console.log(data)
+      if (data.errcode === "0") {
+        message.success("操作成功!订单已确认完成", 0.9);
+        yield call(delay,1000);
+        yield put(routerRedux.push('/shopunfinishorder'))
+      } else {
+        message.error("操作失败")
+      }
     },
     *create(){},
     // 因为delete是关键字

@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Modal, Icon } from 'antd';
+import { Table, Button, Modal, Icon, Popconfirm } from 'antd';
 
 class UnFinishList extends React.Component {
 
@@ -30,7 +30,7 @@ class UnFinishList extends React.Component {
   }
 
   render() {
-    const { dataSource } = this.props;
+    const { dataSource, shopFinishOrder } = this.props;
 
     const modalColumns = [{
       title: '文件名',
@@ -84,43 +84,55 @@ class UnFinishList extends React.Component {
     }, {
       title: '打印信息',
       dataIndex: 'file1color',
-      width: 80,
+      width: 60,
       align: 'center',
       colSpan: 3,
       render: (value, row, index) => {
+        let
+          file1 = row.file1info,
+          file2 = row.file2info,
+          file3 = row.file3info;
         return(
           <span>
             <p>{row.file1color ? '彩色' : '黑白'}</p>
-            <p>{row.file2color ? '彩色' : '黑白'}</p>
-            <p>{row.file3color ? '彩色' : '黑白'}</p>
+            { file2 === null ? '' : <p>{row.file2color ? '彩色' : '黑白'}</p> }
+            { file3 === null ? '' : <p>{row.file3color ? '彩色' : '黑白'}</p> }
           </span>
         )
       },
     }, {
       dataIndex: 'file1style',
-      width: 80,
+      width: 60,
       align: 'center',
       colSpan: 0,
       render: (value, row, index) => {
+        let
+          file1 = row.file1info,
+          file2 = row.file2info,
+          file3 = row.file3info;
         return(
           <span>
             <p>{row.file1style ? '双页' : '单页'}</p>
-            <p>{row.file2style ? '双页' : '单页'}</p>
-            <p>{row.file3style ? '双页' : '单页'}</p>
+            { file2 === null ? '' : <p>{row.file2style ? '双页' : '单页'}</p> }
+            { file3 === null ? '' : <p>{row.file3style ? '双页' : '单页'}</p> }
           </span>
         )
       },
     }, {
       dataIndex: 'file1num',
-      width: 80,
+      width: 70,
       align: 'center',
       colSpan: 0,
       render: (value, row, index) => {
+        let
+          file1 = row.file1info,
+          file2 = row.file2info,
+          file3 = row.file3info;
         return(
           <span>
             <p>{row.file1num + '份'}</p>
-            <p>{row.file2num + '份'}</p>
-            <p>{row.file3num + '份'}</p>
+            { file2 === null ? '' : <p>{row.file2num + '份'}</p> }
+            { file3 === null ? '' : <p>{row.file3num + '份'}</p> }
           </span>
         )
       },
@@ -133,26 +145,32 @@ class UnFinishList extends React.Component {
       title: '操作',
       dataIndex: 'sid',
       align: 'center',
-      colSpan: 2,
+      colSpan: 3,
       render: (value, row, index) => {
+        let
+          file1 = row.file1info,
+          file2 = row.file2info,
+          file3 = row.file3info;
         return(
           <span>
-            <p><a><Icon type="printer" />&nbsp;打印</a></p>
-            <p><a><Icon type="printer" />&nbsp;打印</a></p>
-            <p><a><Icon type="printer" />&nbsp;打印</a></p>
+            <p><a><Icon type="printer" />&nbsp;打印</a>&nbsp;&nbsp;<a><Icon type="download" />&nbsp;下载</a></p>
+            { file2 === null ? '' : <p><a><Icon type="printer" />&nbsp;打印</a>&nbsp;&nbsp;<a><Icon type="download" />&nbsp;下载</a></p> }
+            { file3 === null ? '' : <p><a><Icon type="printer" />&nbsp;打印</a>&nbsp;&nbsp;<a><Icon type="download" />&nbsp;下载</a></p> }
           </span>
         )
       }
-    }, {
-      dataIndex: 'uid',
+    },{
+      dataIndex: 'finishtime',
       align: 'center',
       colSpan: 0,
       render: (value, row, index) => {
         return(
           <span>
-            <p><a><Icon type="download" />&nbsp;&nbsp;下载</a></p>
-            <p><a><Icon type="download" />&nbsp;&nbsp;下载</a></p>
-            <p><a><Icon type="download" />&nbsp;&nbsp;下载</a></p>
+            <Popconfirm title="是否确认完成订单？" onConfirm={()=>shopFinishOrder(row.id)} >
+              <Button type="primary" >
+                确认完成
+              </Button>
+            </Popconfirm>
           </span>
         )
       }

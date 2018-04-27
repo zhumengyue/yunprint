@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button, Steps, Popconfirm, Modal } from 'antd';
-import styles from './OrderList.css'
+import styles from './ShopOrderList.css'
 
 const Step = Steps.Step;
 
@@ -33,7 +33,7 @@ class UnAccetpList extends React.Component {
   }
 
   render() {
-    const { showOrder, dataSource } = this.props;
+    const { showOrder, dataSource, shopAcceptOrder } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
         console.log(res);
@@ -122,7 +122,7 @@ class UnAccetpList extends React.Component {
       dataIndex: 'status',
       render: (status) => {
         return (
-          <Steps current={status} progressDot={true} size='small' className={styles.liststep}>
+          <Steps current={status} progressDot={true} size='small'>
             <Step title="待接取"/>
             <Step title="待完成"/>
             <Step title="待领取"/>
@@ -141,7 +141,7 @@ class UnAccetpList extends React.Component {
             <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
               订单详情
             </Button>
-            <Popconfirm title="是否接受订单？" onConfirm={()=>{}} className='orderbtn'>
+            <Popconfirm title="是否接受订单？" onConfirm={()=>shopAcceptOrder(record.id)} className='orderbtn'>
               <Button type="primary" className={styles.orderbtn2}>
                 接受订单
               </Button>
