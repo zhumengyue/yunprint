@@ -7,7 +7,7 @@
  */
 import React from 'react'
 import { connect } from 'dva'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, Switch } from 'antd'
 import Logo from '../../components/Logo/Logo'
 import styles from './Register.css'
 
@@ -18,16 +18,24 @@ const Register = ({
   dispatch,
   form: {
     getFieldDecorator,
+    getFieldsValue,
+    validateFields,
     validateFieldsAndScroll,
   },
 }) => {
+
   function handleSubmitRegister () {
     // todo 确认注册
     validateFieldsAndScroll((errors,values) => {
       if (errors) {
         return
       }
-      dispatch({ type: 'register/register', payload: values })
+      if(values.switch) {
+        dispatch({ type: 'register/storeRegister', payload: values })
+      } else {
+      dispatch({ type: 'register/userRegister', payload: values })
+      }
+
     })
   }
 
@@ -92,7 +100,46 @@ const Register = ({
           label="手机号"
         >
           {getFieldDecorator('tel', {
-            rules: [{ required: true, message: '请输入电话号码!' }],
+            rules: [{ required: true , message: '请输入电话号码!' }],
+          })(
+            <Input style={{ width: '100%' }} />
+          )}
+        </FormItem>
+        <FormItem
+          {...formItemLayout}
+          label="是否注册为店家"
+          extra="( 选择否的话,无需填写下面信息 )"
+        >
+          {getFieldDecorator('switch', { valuePropName: 'checked',initialValue: false })(
+            <Switch checkedChildren="是" unCheckedChildren="否" />
+          )}
+        </FormItem>
+        <FormItem className={styles.item}
+                  {...formItemLayout}
+                  label="店铺名称"
+        >
+          {getFieldDecorator('storename', {
+            rules: [{ required: getFieldsValue(['switch']).switch ? true : false , message: '请输入店铺名!' }],
+          })(
+            <Input style={{ width: '100%' }} />
+          )}
+        </FormItem>
+        <FormItem className={styles.item}
+                  {...formItemLayout}
+                  label="店铺地址"
+        >
+          {getFieldDecorator('place', {
+            rules: [{ required: getFieldsValue(['switch']).switch ? true : false , message: '请输入店铺地址!' }],
+          })(
+            <Input style={{ width: '100%' }} />
+          )}
+        </FormItem>
+        <FormItem className={styles.item}
+                  {...formItemLayout}
+                  label="QQ号"
+        >
+          {getFieldDecorator('qq', {
+            rules: [{ required: getFieldsValue(['switch']).switch ? true : false , message: '请输入QQ号!' }],
           })(
             <Input style={{ width: '100%' }} />
           )}
