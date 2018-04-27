@@ -29,6 +29,13 @@ const UnFinishOrder =({userdashboard, dispatch}) => {
       payload: id,
     });
   }
+  function userFinishOrder(id) {
+    // todo 点击查看订单
+    return dispatch({
+      type: 'userdashboard/finishorder',
+      payload: id,
+    });
+  }
   const { dataSource } = userdashboard;
   const realData = dataSource.filter(item => (item.status === 1 || item.status === 2))
   const username = cookie.getCookie('username')
@@ -43,7 +50,7 @@ const UnFinishOrder =({userdashboard, dispatch}) => {
           <Slider onItemClick={handleClick} openkey={{openKeys:['2']}} selectkey={{selectedKeys:['23']}}/>
           <Layout className={styles.contentarea}>
             <Content>
-              <OrderList showOrder={showOrder} dataSource= {orderListProps.dataSource}/>
+              <OrderList showOrder={showOrder} userFinishOrder={userFinishOrder} dataSource= {orderListProps.dataSource}/>
             </Content>
           </Layout>
         </Layout>
