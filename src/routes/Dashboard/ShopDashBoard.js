@@ -23,7 +23,7 @@ class ShopDashboard extends React.Component {
     const username = cookie.getCookie('username')
     function handleClick(e) {
       // todo 点击侧栏选项的回调函数
-      dispatch({type: 'shopdashboard/switch', payload: e})
+      dispatch({type: 'shopdashboard/switchroute', payload: e})
     }
 
     function showOrder(id) {

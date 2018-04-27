@@ -46,7 +46,7 @@ export default {
         });
       }
     },
-    *switch({ payload}, {put}) {
+    *switchroute({ payload}, {put}) {
 
       const pathid = payload.keyPath[0],itemid=payload.key;
 
@@ -61,7 +61,7 @@ export default {
       }
     },
     *showorder( { payload: id },{ select }) {
-      const orderItem = (yield select(state=>state.shopdashboard.dataSource)).filter(item => item.id == id) // 取出对应id的订单
+      const orderItem = (yield select(state=>state.shopdashboard.dataSource)).filter(item => item.id === id) // 取出对应id的订单
       return orderItem;
     },
     *create(){},

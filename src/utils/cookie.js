@@ -30,7 +30,8 @@ const cookie = {
   getCookie : (name) => {
     var arr;
     var reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)");
-    if (arr = document.cookie.match(reg))
+    arr = document.cookie.match(reg)
+    if (arr)
       return arr[2];
     else
       return null;
@@ -40,8 +41,8 @@ const cookie = {
    * 删除cookie
    * @param name cookie的名称
    */
-  delCookie : (name) => {
-    this.setCookie(name, '', -1);
-  }
+  // delCookie : (name) => {
+  //   this.setCookie(name, '', -1);
+  // }
 }
 export default cookie

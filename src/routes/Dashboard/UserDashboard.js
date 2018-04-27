@@ -25,7 +25,7 @@ class UserDashboard extends React.Component {
     const username = cookie.getCookie('username')
     function handleClick(e) {
       // todo 点击侧栏选项的回调函数
-      dispatch({type: 'userdashboard/switch', payload: e})
+      dispatch({type: 'userdashboard/switchroute', payload: e})
     }
 
     function showOrder(id) {

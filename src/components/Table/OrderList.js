@@ -78,7 +78,7 @@ class OrderList extends React.Component {
       dataIndex: 'color',
       align: 'center',
       render: (value, row, index) => {
-        if(row.color == 0) return '黑白'
+        if(row.color === 0) return '黑白'
         else return '彩色'
       }
     },{
@@ -86,7 +86,7 @@ class OrderList extends React.Component {
       colSpan: 0,
       align: 'center',
       render: (value, row, index) => {
-        if(row.style == 0) return '单页'
+        if(row.style === 0) return '单页'
         else return '双页'
       }
     },]
@@ -142,7 +142,7 @@ class OrderList extends React.Component {
       align: 'center',
       dataIndex: 'status1',
       render: ( text, record ) => {
-        if (record.status == 1){
+        if (record.status === 1){
           return (
             <span>
             <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>
@@ -155,7 +155,7 @@ class OrderList extends React.Component {
             </Popconfirm>
           </span>
           );
-        } else if (record.status == 2 || record.status == 3){
+        } else if (record.status === 2 || record.status === 3){
           return (
             <span>
             <Button type="primary" className={styles.orderbtn1} onClick={() => updateItemData(record.id)}>

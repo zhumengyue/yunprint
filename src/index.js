@@ -2,6 +2,7 @@ import dva from 'dva';
 import './index.css';
 import { message } from 'antd';
 import browserHistory from 'history/createBrowserHistory';
+// import hashHistory from 'history/createHashHistory';
 // 1. Initialize
 const app = dva({
   initialState: {
@@ -11,10 +12,11 @@ const app = dva({
       { name: 'design', id: 3, key: 3 },
     ],
   },
-  history: browserHistory(),
   onError(e) {
     message.error(e.message)
-  }
+  },
+  history: browserHistory(),
+  // history: hashHistory(),
 });
 
 // 2. Plugins

@@ -30,10 +30,10 @@ export default {
         message.error("注册失败")
       }
     },
-    *goregister({},{put}) { // 前往注册页面
+    *goregister({ payload },{put}) { // 前往注册页面
       yield put(routerRedux.push('/register'))
     },
-    *returnback({},{put}) { // 前往注册页面
+    *returnback({ payload },{put}) { // 前往注册页面
       yield put(routerRedux.push('/'))
     }
   },

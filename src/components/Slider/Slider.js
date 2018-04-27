@@ -7,7 +7,7 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon, Modal, Form, Input, Button, Switch, Upload, InputNumber, message} from 'antd'
+import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, InputNumber, message} from 'antd'
 import fetch from '../../utils/fetch'
 const FormItem = Form.Item;
 const { SubMenu } = Menu;
@@ -95,9 +95,9 @@ class Slider extends React.Component {
 
   createOrder = (e) => {
     // todo 唤起 创建订单 / 上传文件 面板
-    if(e.key == '3') {
+    if(e.key === '3') {
       this.setState({visible:true})
-    } else if(e.key == '4') {
+    } else if(e.key === '4') {
         this.setState({filevisible:true})
     }
   }
@@ -120,7 +120,7 @@ class Slider extends React.Component {
       url: 'http://localhost/YunPrint/public/user/upload/upload',
     }).then((data) => {
       console.log(data)
-      if(data.data.errcode == 0) {
+      if(data.data.errcode === 0) {
         message.success('上传成功',1);
         this.setState({
           fileList: [],
@@ -245,12 +245,12 @@ class Slider extends React.Component {
           <Form onSubmit={this.handleSubmit}>
             {formItems}
             <FormItem>
-              <Button type="dashed" onClick={this.add} style={{ width: '60%' }} disabled={keys.length == 3} >
-                <Icon type="plus" /> {keys.length == 3 ?  '每个订单最多三个文件' : '添加文件'}
+              <Button type="dashed" onClick={this.add} style={{ width: '60%' }} disabled={keys.length === 3} >
+                <Icon type="plus" /> {keys.length === 3 ?  '每个订单最多三个文件' : '添加文件'}
               </Button>
             </FormItem>
             <FormItem>
-              <Button type="primary" htmlType="submit" onClick={this.handleOk} disabled={keys.length == 0}>
+              <Button type="primary" htmlType="submit" onClick={this.handleOk} disabled={keys.length === 0}>
                 提交订单
               </Button>
             </FormItem>

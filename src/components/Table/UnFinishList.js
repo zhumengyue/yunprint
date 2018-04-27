@@ -7,10 +7,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Steps, Popconfirm, Modal, Icon } from 'antd';
-import styles from './OrderList.css'
-
-const Step = Steps.Step;
+import { Table, Button, Modal, Icon } from 'antd';
 
 class UnFinishList extends React.Component {
 
@@ -33,38 +30,7 @@ class UnFinishList extends React.Component {
   }
 
   render() {
-    const { showOrder, dataSource } = this.props;
-    let updateItemData = (id) => {
-      showOrder(id).then(res=>{
-        console.log(res);
-        this.setState({itemData:[{
-            name: res[0].file1info.realname,
-            num: res[0].file1num,
-            style: res[0].file1style,
-            color: res[0].file1color
-          }]
-        })
-        if(res[0].file2info != null){
-          this.setState({itemData: this.state.itemData.concat([{
-              name: res[0].file2info.realname,
-              num: res[0].file2num,
-              style: res[0].file2style,
-              color: res[0].file2color
-            }])
-          })
-        }
-        if(res[0].file3info != null){
-          this.setState({itemData: this.state.itemData.concat([{
-              name: res[0].file3info.realname,
-              num: res[0].file3num,
-              style: res[0].file3style,
-              color: res[0].file3color
-            }])
-          })
-        }
-        this.setState({visible:true})
-      })
-    }
+    const { dataSource } = this.props;
 
     const modalColumns = [{
       title: '文件名',
@@ -79,7 +45,7 @@ class UnFinishList extends React.Component {
       dataIndex: 'color',
       align: 'center',
       render: (value, row, index) => {
-        if(row.color == 0) return '黑白'
+        if(row.color === 0) return '黑白'
         else return '彩色'
       }
     },{
@@ -87,7 +53,7 @@ class UnFinishList extends React.Component {
       colSpan: 0,
       align: 'center',
       render: (value, row, index) => {
-        if(row.style == 0) return '单页'
+        if(row.style === 0) return '单页'
         else return '双页'
       }
     },]
@@ -105,10 +71,10 @@ class UnFinishList extends React.Component {
           file1 = data.file1info,
           file2 = data.file2info,
           file3 = data.file3info;
-        if(file1 != null) {
-          if(file2==null) {
+        if(file1 !== null) {
+          if(file2 === null) {
             return (<span><p>{file1.realname}</p></span>)
-          }else if(file3 == null ){
+          }else if(file3 === null ){
             return(<span><p>{file1.realname}</p><p>{file2.realname}</p></span>)
           } else {
             return(<span><p>{file1.realname}</p><p>{file2.realname}</p><p>{file3.realname}</p></span>)

@@ -79,7 +79,7 @@ class UnAccetpList extends React.Component {
       dataIndex: 'color',
       align: 'center',
       render: (value, row, index) => {
-        if(row.color == 0) return '黑白'
+        if(row.color === 0) return '黑白'
         else return '彩色'
       }
     },{
@@ -87,7 +87,7 @@ class UnAccetpList extends React.Component {
       colSpan: 0,
       align: 'center',
       render: (value, row, index) => {
-        if(row.style == 0) return '单页'
+        if(row.style === 0) return '单页'
         else return '双页'
       }
     },]

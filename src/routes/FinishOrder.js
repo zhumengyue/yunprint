@@ -17,12 +17,10 @@ import cookie from '../utils/cookie'
 const { Content } = Layout;
 
 const FinishOrder =({userdashboard, dispatch}) => {
-  const pathid = cookie.getCookie('pathid'),
-        itemid = cookie.getCookie('itemid');
 
   function handleClick(e){
     // todo 点击侧栏选项的回调函数
-    dispatch({ type: 'userdashboard/switch' ,payload: e})
+    dispatch({ type: 'userdashboard/switchroute' ,payload: e})
   }
   function showOrder(id) {
     // todo 点击查看订单
@@ -32,15 +30,15 @@ const FinishOrder =({userdashboard, dispatch}) => {
     });
   }
   const { dataSource } = userdashboard;
-  const realData = dataSource.filter(item => (item.status == 4 || item.status == 3)) // 筛选符合条件的对象
-
+  const realData = dataSource.filter(item => (item.status === 4 || item.status === 3)) // 筛选符合条件的对象
+  const username = cookie.getCookie('username')
   const orderListProps = {
     realData: realData,
   }
   return(
     <div className={styles.userindex}>
       <Layout style={{"height":"100%"}} className={styles.layout}>
-        <HeaderTitle name={{realname:'zmy'}}/>
+        <HeaderTitle name={{username:username}}/>
         <Layout>
           <Slider onItemClick={handleClick} openkey={{openKeys:['2']}} selectkey={{selectedKeys:['22']}}/>
           <Layout className={styles.contentarea}>

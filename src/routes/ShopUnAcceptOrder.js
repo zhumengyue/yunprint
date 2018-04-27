@@ -11,6 +11,7 @@ import { Layout } from 'antd'
 import  UnAccetpList from '../components/Table/UnAccetpList'
 import ShopSlider from '../components/Slider/ShopSlider'
 import HeaderTitle from '../components/Header/Header'
+import cookie from '../utils/cookie'
 import styles from './Dashboard/UserDashboard.css'
 
 const { Content } = Layout;
@@ -19,10 +20,10 @@ class ShopUnAcceptOrder extends React.Component {
 
   render() {
     const {shopdashboard, dispatch} = this.props;
-
+    const username = cookie.getCookie('username')
     function handleClick(e) {
       // todo 点击侧栏选项的回调函数
-      dispatch({type: 'shopdashboard/switch', payload: e})
+      dispatch({type: 'shopdashboard/switchroute', payload: e})
     }
 
     function showOrder(id) {
@@ -34,14 +35,14 @@ class ShopUnAcceptOrder extends React.Component {
     }
 
     const {dataSource} = shopdashboard;
-    const realData = dataSource.filter(item => (item.status == 1)) // 筛选符合条件的对象
+    const realData = dataSource.filter(item => (item.status === 1)) // 筛选符合条件的对象
     const orderListProps = {
       realData: realData,
     }
     return (
       <div className={styles.userindex}>
         <Layout style={{"height": "100%"}} className={styles.layout}>
-          <HeaderTitle name={{realname: 'store1'}}/>
+          <HeaderTitle name={{username: username}}/>
           <Layout>
             <ShopSlider onItemClick={handleClick} openkey={{openKeys: ['2']}} selectkey={{selectedKeys: ['22']}}/>
             <Layout className={styles.contentarea}>
