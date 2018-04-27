@@ -53,10 +53,10 @@ export default {
       cookie.setCookie('pathid',pathid,0);
       cookie.setCookie('itemid',itemid,0);
       switch(itemid) {
-        case  '1': yield put(routerRedux.push('/shopindex'));break;
         case '21': yield put(routerRedux.push('/shopdashboard'));break;
         case '22': yield put(routerRedux.push('/shopunacceptorder'));break;
         case '23': yield put(routerRedux.push('/shopunfinishorder'));break;
+        case '24': yield put(routerRedux.push('/shopfinishorder'));break;
       }
     },
     *showorder( { payload: id },{ select }) {

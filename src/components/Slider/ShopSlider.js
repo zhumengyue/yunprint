@@ -69,11 +69,11 @@ class ShopSlider extends React.Component {
           onClick={onItemClick}
           onSelect = {this.createOrder}
         >
-          <Menu.Item key="1"><span><Icon type="cloud-o"/>商铺界面</span></Menu.Item>
           <SubMenu key="2" title={<span><Icon type="file-text"/>我的订单</span>}>
             <Menu.Item key="21">全部订单</Menu.Item>
             <Menu.Item key="22">未接收订单</Menu.Item>
             <Menu.Item key="23">未打印订单</Menu.Item>
+            <Menu.Item key="24">待领取订单</Menu.Item>
           </SubMenu>
           <Menu.Item key="3" onClick={()=>{}}><Icon type="file-add"/><span>意见反馈</span></Menu.Item>
         </Menu>
