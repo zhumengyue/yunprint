@@ -52,6 +52,7 @@ class OrderList extends React.Component {
       title: '操作',
       align: 'center',
       render: (text, record,index ) => {
+        console.log(record)
         return(
           <span>
             { record.status === 0 ?

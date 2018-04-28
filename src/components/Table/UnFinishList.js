@@ -145,13 +145,26 @@ class UnFinishList extends React.Component {
       colSpan: 3,
       render: (value, row, index) => {
         let
+          file1 = row.file1info,
           file2 = row.file2info,
           file3 = row.file3info;
+        console.log(row)
+        console.log(file1)
         return(
           <span>
-            <p><a><Icon type="printer" />&nbsp;打印</a>&nbsp;&nbsp;<a><Icon type="download" />&nbsp;下载</a></p>
-            { file2 === null ? '' : <p><a><Icon type="printer" />&nbsp;打印</a>&nbsp;&nbsp;<a><Icon type="download" />&nbsp;下载</a></p> }
-            { file3 === null ? '' : <p><a><Icon type="printer" />&nbsp;打印</a>&nbsp;&nbsp;<a><Icon type="download" />&nbsp;下载</a></p> }
+            <Button type="primary">
+              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file1.savename} download={file1.filename}><Icon type="download" />下载</a>
+            </Button>
+            { file2 === null ? '' :
+              <Button type="primary">
+                <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file2.savename} download={file2.filename}><Icon type="download" />下载</a>
+              </Button>
+            }
+            { file3 === null ? '' :
+              <Button type="primary">
+                <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file3.savename} download={file3.filename}><Icon type="download" />下载</a>
+              </Button>
+            }
           </span>
         )
       }

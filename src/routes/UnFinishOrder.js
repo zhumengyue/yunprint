@@ -30,7 +30,7 @@ const UnFinishOrder =({userdashboard, dispatch}) => {
     });
   }
   function userFinishOrder(id) {
-    // todo 点击查看订单
+    // todo 点击完成订单
     return dispatch({
       type: 'userdashboard/finishorder',
       payload: id,
