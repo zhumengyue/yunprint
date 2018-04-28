@@ -52,8 +52,8 @@
   color: #494949;
 }
 .contentarea {
-  background: #f0f2f5;
-  /*background: url("../../assets/blockbg.jpg") 100% 100% no-repeat;*/
+  /*background: #f0f2f5;*/
+  background: url("../../assets/contentbg2.jpg");
   margin-top: -6px;
   padding: 24px 64px 24px 24px;
   border-radius: 5px;

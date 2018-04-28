@@ -7,7 +7,8 @@
  */
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, Input, InputNumber, message, Cascader,Select} from 'antd'
+import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, InputNumber, message, Cascader,Select} from 'antd'
+import styles from './Slider.css'
 import fetch from '../../utils/fetch'
 const FormItem = Form.Item;
 const Option = Select.Option;
@@ -133,7 +134,7 @@ class Slider extends React.Component {
           url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
         }).then((data) => {
           console.log(data)
-          if(data.data.errcode == 0) {
+          if(data.data.errcode === 0) {
             message.success('订单创建成功！',1);
             this.setState({
               fileList: [],
@@ -313,7 +314,7 @@ class Slider extends React.Component {
       );
     })
     return (
-      <Sider width={200} style={{background: 'black'}}>
+      <Sider width={200} className={styles.slider}>
         <Menu
           mode="inline"
           openKeys={this.state.openKeys}

@@ -7,10 +7,8 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Steps, Popconfirm, Modal } from 'antd';
-import styles from './ShopOrderList.css'
+import { Table, Button, Modal } from 'antd';
 
-const Step = Steps.Step;
 
 class ShopFinishList extends React.Component {
 
@@ -33,7 +31,7 @@ class ShopFinishList extends React.Component {
   }
 
   render() {
-    const { showOrder, dataSource, shopAcceptOrder } = this.props;
+    const { showOrder, dataSource } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
         console.log(res);

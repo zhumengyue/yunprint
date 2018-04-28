@@ -49,15 +49,9 @@ export function updateFileStatus(payload) {
     method: 'post',
     data: {
       fid: payload.id,
-      status: payload.status,
+      status: payload.status === 0 ? 1 : 0,
     },
     url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/file/ispublic'
   })
 }
 
-export function showStore(){
-  return fetch({
-    method: 'get',
-    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/showstore'
-  })
-}

@@ -1,24 +1,24 @@
 /*一些较复杂样式表*/
 
-.ant-btn-primary:hover, .ant-btn-primary:focus {
+:global(.ant-btn-primary:hover), :global(.ant-btn-primary:focus){
   border-color: transparent;
 }
-.ant-tabs-bar {
+:global(.ant-tabs-bar) {
   display: none;
 }
 .ant-table-thead > tr > th {
   text-align: center !important;
 }
-.ant-steps-label-vertical .ant-steps-item-content{
+:global(.ant-steps-label-vertical .ant-steps-item-content){
   width: 80px !important;
 }
-.ant-steps-dot .ant-steps-item-icon {
+:global(.ant-steps-dot .ant-steps-item-icon) {
   margin-left: 37px !important;
 }
-.ant-steps-dot .ant-steps-item-tail {
+:global(.ant-steps-dot .ant-steps-item-tail) {
   margin-left: 40px !important;
 }
-#components-form-demo-normal-login .login-form-forgot {
+:global(#components-form-demo-normal-login .login-form-forgot ){
   float: right;
 }
 
