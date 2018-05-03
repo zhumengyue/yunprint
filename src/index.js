@@ -2,22 +2,17 @@ import dva from 'dva';
 import './index.css';
 import { message } from 'antd';
 import browserHistory from 'history/createBrowserHistory';
-
+import hashHistory from 'history/createHashHistory';
+const appHistory = browserHistory({
+  basename: '/web/'        // 根目录名
+});
 // 1. Initialize
 const app = dva({
-  initialState: {
-    products: [
-      { name: 'dva', id: 1, key: 1 },
-      { name: 'antd', id: 2, key: 2 },
-      { name: 'design', id: 3, key: 3 },
-    ],
-  },
   onError(e) {
     message.error(e.message)
   },
-  history: browserHistory({
-    basename: '/web/'
-  }),
+  // history: browserHistory(),
+  history: hashHistory(),
 });
 
 // 2. Plugins

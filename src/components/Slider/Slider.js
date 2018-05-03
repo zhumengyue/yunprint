@@ -303,12 +303,12 @@ class Slider extends React.Component {
             {getFieldDecorator(`count[${k}]`,{
               initialValue: 1
             })(
-              <InputNumber  min={1} />
+              <InputNumber  min={1} style={{width: 60}}/>
               )}
             </span>
 
             <span className="ant-form-text">
-              黑白/彩色
+              黑白/彩色&nbsp;&nbsp;
               {getFieldDecorator(`color[${k}]`,{
                 valuePropName: 'checked',
                 initialValue: false
@@ -318,7 +318,7 @@ class Slider extends React.Component {
             </span>
 
             <span>
-              单页/双页
+              &nbsp;&nbsp;单页/双页&nbsp;&nbsp;
               {getFieldDecorator(`style[${k}]`,{
                 valuePropName: 'checked',
                 initialValue: false

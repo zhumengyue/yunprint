@@ -19,11 +19,10 @@ const { ConnectedRouter } = routerRedux;
 
 function RouterConfig({ history }) {
   return (
-    <ConnectedRouter history={history} basename='/web/dist'>
+    <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" exact component={Login} />
         <Route path="/test" exact component={Test} />
-        <Route path="/products" exact component={Products} />
         <Route path="/mylist" exact component={MyList} />
         <Route path="/alllist" exact component={AllList} />
         <Route path="/register" exact component={Register} />
