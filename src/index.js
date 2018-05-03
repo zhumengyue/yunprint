@@ -2,7 +2,6 @@ import dva from 'dva';
 import './index.css';
 import { message } from 'antd';
 import browserHistory from 'history/createBrowserHistory';
-import hashHistory from 'history/createHashHistory';
 
 // 1. Initialize
 const app = dva({
@@ -16,7 +15,6 @@ const app = dva({
   onError(e) {
     message.error(e.message)
   },
-  // history: hashHistory(),
   history: browserHistory({
     basename: '/web/'
   }),
@@ -28,7 +26,6 @@ const app = dva({
 // 3. Model
 app.model(require('./models/login').default);
 app.model(require('./models/register').default);
-app.model(require('./models/products').default);
 app.model(require('./models/userdashboard').default);
 app.model(require('./models/shopdashboard').default);
 app.model(require('./models/orderlist').default);

@@ -1,7 +1,6 @@
 import React from 'react'
 import { Route, Switch, routerRedux } from 'dva/router'
 import Login from './routes/Login/Login'
-import Products from './routes/Products'
 import Register from './routes/Register/Register'
 import UserDashboard from './routes/Dashboard/UserDashboard'
 import ShopDashBoard from './routes/Dashboard/ShopDashBoard'
