@@ -112,13 +112,9 @@ class Slider extends React.Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
         let key1 = values.keys[0],
             key2 = values.keys[1],
             key3 = values.keys[2];
-        console.log(key1)
-        console.log(key2)
-        console.log(key3)
         this.orderdata = {
           sid: values.sid,
 
@@ -138,12 +134,10 @@ class Slider extends React.Component {
           file3style: values.style[key3] ? 1 : 0,
           remark: values.remark
         }
-        console.log(this.orderdata)
         fetch({
           method: 'post',
           data: this.orderdata,
           url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
-          // url: 'http://localhost/YunPrint/public/user/order/createorder',
         }).then((data) => {
           console.log(data)
           if(data.data.errcode == "0") {
@@ -193,10 +187,12 @@ class Slider extends React.Component {
               value: 'my',
               label: '我的资料库',
               children: [{}],
+              key: 1,
             },{
               value: 'all',
               label: '云资料库',
               children: [{}],
+              key: 2,
             }]
             for (let i=0;i<this.state.allfiletree.length;i++){
               this.options[1].children = this.options[1].children.concat([{}])
@@ -286,7 +282,7 @@ class Slider extends React.Component {
           <FormItem
             label={'文件 '+ (k+1) }
             required={false}
-            key={k}
+            key={'1'+k}
           >
             {getFieldDecorator(`file[${k}]`,{
               rules: [{ required: true  , message: '请选择文件!' }],
@@ -299,22 +295,37 @@ class Slider extends React.Component {
               />
             )}
           </FormItem>
-          <FormItem>
-            {getFieldDecorator(`count[${k}]`,{ initialValue: 1 })(
-              <span className="ant-form-text">
-                打印数量&nbsp;&nbsp;&nbsp;<InputNumber  min={1} max={10} style={{width: 80}} defaultValue={1}  />
-              </span>
-            )}
-              {getFieldDecorator(`color[${k}]`,{ valuePropName: 'checked',initialValue: false })(
-                <span className="ant-form-text">
-                  黑白/彩色  <Switch checkedChildren="彩色" unCheckedChildren="黑白" />&nbsp;&nbsp;
-                </span>
+          <FormItem
+            key={'2'+k}
+          >
+            <span className="ant-form-text">
+              打印数量&nbsp;&nbsp;&nbsp;
+            {getFieldDecorator(`count[${k}]`,{
+              initialValue: 1
+            })(
+              <InputNumber  min={1} />
               )}
-              {getFieldDecorator(`style[${k}]`,{ valuePropName: 'checked',initialValue: false })(
-                <span>
-                  单页/双页  <Switch checkedChildren="双页" unCheckedChildren="单页" />&nbsp;&nbsp;&nbsp;&nbsp;
-                </span>
-            )}
+            </span>
+
+            <span className="ant-form-text">
+              黑白/彩色
+              {getFieldDecorator(`color[${k}]`,{
+                valuePropName: 'checked',
+                initialValue: false
+              })(
+                <Switch checkedChildren="彩色" unCheckedChildren="黑白" />
+                )}
+            </span>
+
+            <span>
+              单页/双页
+              {getFieldDecorator(`style[${k}]`,{
+                valuePropName: 'checked',
+                initialValue: false
+              })(
+                <Switch checkedChildren="双页" unCheckedChildren="单页" />
+                )}
+            </span>
             {keys.length > 1 ? (
               <Icon
                 className="dynamic-delete-button"

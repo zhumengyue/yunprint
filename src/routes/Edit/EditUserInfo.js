@@ -29,7 +29,6 @@ const EditUserInfo = ({
       if (errors) {
         return
       }
-
       dispatch({ type: 'info/updateuserinfo', payload: values })
 
     })
