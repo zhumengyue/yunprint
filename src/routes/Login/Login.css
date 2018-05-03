@@ -32,7 +32,7 @@
 }
 .check {
   height: 20px;
-  /*margin: -10px 0 15px 0;*/
+  margin-top: -10px;
 }
 .logo {
   position: absolute;

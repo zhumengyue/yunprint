@@ -22,3 +22,10 @@ export function updateOrder(id) {
   });
 }
 
+export function shopCancelOrder(id) {
+  return fetch({
+    method: 'post',
+    data: {oid:id},
+    url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/store/order/cancelorder\n'
+  })
+}

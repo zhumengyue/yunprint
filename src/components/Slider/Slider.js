@@ -8,9 +8,10 @@
 import React from 'react'
 import { connect } from 'dva'
 import PropTypes from 'prop-types'
-import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, InputNumber, message, Cascader,Select} from 'antd'
+import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, InputNumber, message, Cascader,Select,Input} from 'antd'
 import styles from './Slider.css'
 import fetch from '../../utils/fetch'
+const { TextArea } = Input;
 const FormItem = Form.Item;
 const Option = Select.Option;
 const { SubMenu } = Menu;
@@ -126,9 +127,8 @@ class Slider extends React.Component {
           file3num: values.count[2] ? values.count[2] : '',
           file3color: values.color[2] ? 1 : 0,
           file3style: values.style[2] ? 1 : 0,
-          remark: ''
+          remark: values.remark
         }
-        console.log(this.orderdata)
         fetch({
           method: 'post',
           data: this.orderdata,
@@ -284,34 +284,35 @@ class Slider extends React.Component {
                 options={this.options}
                 expandTrigger="hover"
                 onChange={this.onChange}
+                placeholder='请选择文件'
               />
             )}
           </FormItem>
           <FormItem>
             {getFieldDecorator(`count[${k}]`,{ initialValue: 1 })(
               <span className="ant-form-text">
-                打印数量&nbsp;&nbsp;&nbsp;<InputNumber  min={1} max={10} style={{width: 80}} defaultValue={1}  />&nbsp;&nbsp;&nbsp;&nbsp;
+                打印数量&nbsp;&nbsp;&nbsp;<InputNumber  min={1} max={10} style={{width: 80}} defaultValue={1}  />
               </span>
             )}
               {getFieldDecorator(`color[${k}]`,{ valuePropName: 'checked',initialValue: false })(
                 <span className="ant-form-text">
-                  打印类型&nbsp;&nbsp;&nbsp;<Switch checkedChildren="彩色" unCheckedChildren="黑白" />&nbsp;&nbsp;
+                  黑白/彩色  <Switch checkedChildren="彩色" unCheckedChildren="黑白" />&nbsp;&nbsp;
                 </span>
               )}
               {getFieldDecorator(`style[${k}]`,{ valuePropName: 'checked',initialValue: false })(
                 <span>
-                  <Switch checkedChildren="双页" unCheckedChildren="单页" />&nbsp;&nbsp;&nbsp;&nbsp;
+                  单页/双页  <Switch checkedChildren="双页" unCheckedChildren="单页" />&nbsp;&nbsp;&nbsp;&nbsp;
                 </span>
             )}
-          {keys.length > 1 ? (
-            <Icon
-              className="dynamic-delete-button"
-              type="minus-circle-o"
-              disabled={keys.length === 1}
-              onClick={() => this.remove(k)}
-            />
-          ) : null}
-        </FormItem>
+            {keys.length > 1 ? (
+              <Icon
+                className="dynamic-delete-button"
+                type="minus-circle-o"
+                disabled={keys.length === 1}
+                onClick={() => this.remove(k)}
+              />
+            ) : null}
+          </FormItem>
         </div>
       );
     })
@@ -371,7 +372,7 @@ class Slider extends React.Component {
               })(
                 <Select
                   showSearch
-                  placeholder="选择一个打印店铺(可搜索)"
+                  placeholder="选择一个打印店铺"
                   optionFilterProp="children"
                   filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                 >
@@ -388,6 +389,11 @@ class Slider extends React.Component {
               <Button type="dashed" onClick={this.add} style={{ width: '60%' }} disabled={keys.length === 3} >
                 <Icon type="plus" /> {keys.length === 3 ?  '每个订单最多三个文件哦 ~' : '添加文件'}
               </Button>
+            </FormItem>
+            <FormItem>
+              {getFieldDecorator(`remark`)(
+                <TextArea placeholder="你可以在这里填写一些关于此订单的备注信息~"/>
+              )}
             </FormItem>
             <FormItem>
               <Button type="primary" htmlType="submit" onClick={this.handleOk} disabled={keys.length === 0}>

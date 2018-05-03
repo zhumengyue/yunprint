@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Steps, Popconfirm, Modal } from 'antd';
+import { Table, Button, Steps, Popconfirm, Modal,Card } from 'antd';
 import styles from './ShopOrderList.css'
 
 const Step = Steps.Step;
@@ -19,6 +19,7 @@ class UnAccetpList extends React.Component {
     this.state = {
       itemData: [],
       visible: false,
+      remark: ''
     }
   }
   handleOk = (e) => { // 对话框ok按钮
@@ -33,10 +34,10 @@ class UnAccetpList extends React.Component {
   }
 
   render() {
-    const { showOrder, dataSource, shopAcceptOrder } = this.props;
+    const { showOrder, dataSource, shopAcceptOrder, shopCancelOrder } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
-        console.log(res);
+        this.setState({remark: res[0].remark})
         this.setState({itemData:[{
             name: res[0].file1info.filename,
             num: res[0].file1num,
@@ -146,7 +147,7 @@ class UnAccetpList extends React.Component {
                 接受订单
               </Button>
             </Popconfirm>
-            <Popconfirm title="是否拒绝订单？" onConfirm={()=>{}} className='orderbtn'>
+            <Popconfirm title="是否拒绝订单？" onConfirm={()=>{shopCancelOrder(record.id)}} className='orderbtn'>
               <Button type="primary" className={styles.orderbtn3}>
                 拒绝订单
               </Button>
@@ -175,6 +176,7 @@ class UnAccetpList extends React.Component {
           ]}
         >
           <Table dataSource={this.state.itemData} columns={modalColumns} rowKey="id"/>
+          <Card> <p> {this.state.remark ? this.state.remark : '该用户未备注'}  </p></Card>
         </Modal>
       </div>
     )

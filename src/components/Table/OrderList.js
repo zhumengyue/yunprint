@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Steps, Popconfirm, Modal } from 'antd';
+import { Table, Button, Steps, Popconfirm, Modal,Card  } from 'antd';
 import styles from './OrderList.css'
 
 const Step = Steps.Step;
@@ -19,6 +19,7 @@ class OrderList extends React.Component {
     this.state = {
       itemData: [],
       visible: false,
+      remark: ''
     }
   }
   handleOk = (e) => { // 对话框ok按钮
@@ -36,11 +37,12 @@ class OrderList extends React.Component {
     const { showOrder, dataSource, userFinishOrder, userCancelOrder } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
+        this.setState({remark: res[0].remark})
         this.setState({itemData:[{
             name: res[0].file1info.filename,
             num: res[0].file1num,
             style: res[0].file1style,
-            color: res[0].file1color
+            color: res[0].file1color,
           }]
         })
         if(res[0].file2info != null){
@@ -61,6 +63,7 @@ class OrderList extends React.Component {
             }])
           })
         }
+        console.log(this.state.itemData)
         this.setState({visible:true})
         })
     }
@@ -119,10 +122,12 @@ class OrderList extends React.Component {
       width: 150,
       title: '订单状态',
       dataIndex: 'status',
+      defaultSortOrder: 'ascend',
+      sorter : (a,b) => a.status - b.status,
       render: (status) => {
         return (
-          <Steps current={ status===9 ? 0 : status} status={status===9 ? 'error' : 'process'} progressDot={true} size='small' className={styles.liststep}>
-            <Step title={status===9 ? '已取消' : '待接取'}/>
+          <Steps current={ (status===9 || status===8) ? 0 : status} status={(status===9 || status===8) ? 'error' : 'process'} progressDot={true} size='small' className={styles.liststep}>
+            <Step title={status===9 ? '已取消' : (status === 8 ? '商家已拒绝' : '待接取' )}/>
             <Step title="待完成"/>
             <Step title="待领取"/>
             <Step title="已完成"/>
@@ -134,7 +139,6 @@ class OrderList extends React.Component {
       title: '创建时间',
       align: 'center',
       dataIndex: 'createtime',
-      defaultSortOrder: 'descend',
       sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
       key: 4,
     }, {
@@ -224,6 +228,7 @@ class OrderList extends React.Component {
           ]}
         >
           <Table dataSource={this.state.itemData} columns={modalColumns} rowKey="id"/>
+          <Card> <p> {this.state.remark ? this.state.remark : '该用户未备注'}  </p></Card>
         </Modal>
       </div>
     )

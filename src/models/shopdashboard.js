@@ -6,7 +6,7 @@
  * Desc :
  */
 import { routerRedux } from 'dva/router'
-import { getOrderList, updateOrder } from '../services/shopdashboard'
+import { getOrderList, updateOrder, shopCancelOrder } from '../services/shopdashboard'
 import { message } from 'antd'
 import cookie from '../utils/cookie'
 const delay  = timeout => new Promise(resolve => setTimeout(resolve, timeout)); // 延迟函数
@@ -62,6 +62,7 @@ export default {
     },
     *showorder( { payload: id },{ select }) {
       const orderItem = (yield select(state=>state.shopdashboard.dataSource)).filter(item => item.id === id) // 取出对应id的订单
+      // const uid = orderItem[0].uid ? orderItem[0].uid : '';
       return orderItem;
     },
     *acceptorder({payload},{put,call}) {
@@ -82,6 +83,17 @@ export default {
         message.success("操作成功!订单已确认完成", 0.9);
         yield call(delay,1000);
         yield put(routerRedux.push('/shopunfinishorder'))
+      } else {
+        message.error("操作失败")
+      }
+    },
+    *cancelorder({payload},{call,put}) {
+      const { data } = yield call(shopCancelOrder,payload)
+      console.log(data)
+      if (data.errcode === "0") {
+        message.success("操作成功!订单已拒绝", 1);
+        yield call(delay,1100);
+        window.location.reload()
       } else {
         message.error("操作失败")
       }

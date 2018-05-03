@@ -7,7 +7,7 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Table, Button, Modal } from 'antd';
+import { Table, Button, Modal,Card } from 'antd';
 
 
 class ShopFinishList extends React.Component {
@@ -17,6 +17,7 @@ class ShopFinishList extends React.Component {
     this.state = {
       itemData: [],
       visible: false,
+      remark: ''
     }
   }
   handleOk = (e) => { // 对话框ok按钮
@@ -34,7 +35,7 @@ class ShopFinishList extends React.Component {
     const { showOrder, dataSource } = this.props;
     let updateItemData = (id) => {
       showOrder(id).then(res=>{
-        console.log(res);
+        this.setState({remark: res[0].remark})
         this.setState({itemData:[{
             name: res[0].file1info.filename,
             num: res[0].file1num,
@@ -153,6 +154,7 @@ class ShopFinishList extends React.Component {
           ]}
         >
           <Table dataSource={this.state.itemData} columns={modalColumns} rowKey="id"/>
+          <Card> <p> {this.state.remark ? this.state.remark : '该用户未备注'}  </p></Card>
         </Modal>
       </div>
     )

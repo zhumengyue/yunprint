@@ -148,8 +148,6 @@ class UnFinishList extends React.Component {
           file1 = row.file1info,
           file2 = row.file2info,
           file3 = row.file3info;
-        console.log(row)
-        console.log(file1)
         return(
           <span>
             {file1 === null ? '' :

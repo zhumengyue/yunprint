@@ -42,6 +42,14 @@ class ShopUnAcceptOrder extends React.Component {
       })
     }
 
+    function shopCancelOrder(id) {
+      // todo 商家取消订单   status --> 8
+      dispatch({
+        type: 'shopdashboard/cancelorder',
+        payload: id,
+      })
+    }
+
     const {dataSource} = shopdashboard;
     const realData = dataSource.filter(item => (item.status === 0)) // 筛选符合条件的对象
     const orderListProps = {
@@ -55,7 +63,12 @@ class ShopUnAcceptOrder extends React.Component {
             <ShopSlider onItemClick={handleClick} openkey={{openKeys: ['2']}} selectkey={{selectedKeys: ['22']}}/>
             <Layout className={styles.contentarea}>
               <Content>
-                <UnAccetpList shopAcceptOrder={shopAcceptOrder} showOrder={showOrder} dataSource={orderListProps.realData}/>
+                <UnAccetpList
+                  shopAcceptOrder={shopAcceptOrder}
+                  shopCancelOrder={shopCancelOrder}
+                  showOrder={showOrder}
+                  dataSource={orderListProps.realData}
+                />
               </Content>
             </Layout>
           </Layout>

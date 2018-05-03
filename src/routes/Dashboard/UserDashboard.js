@@ -45,7 +45,7 @@ class UserDashboard extends React.Component {
     }
 
     function userCancelOrder(id) {
-      // todo 用户取消订单   status --> 4
+      // todo 用户取消订单   status --> 9
       dispatch({
         type: 'userdashboard/cancelorder',
         payload: id,
