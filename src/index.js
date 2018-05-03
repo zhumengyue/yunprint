@@ -3,6 +3,7 @@ import './index.css';
 import { message } from 'antd';
 import browserHistory from 'history/createBrowserHistory';
 import hashHistory from 'history/createHashHistory';
+
 // 1. Initialize
 const app = dva({
   initialState: {
@@ -15,9 +16,10 @@ const app = dva({
   onError(e) {
     message.error(e.message)
   },
-  history: hashHistory(),
-  basename: '/web/dist'
   // history: hashHistory(),
+  history: browserHistory({
+    basename: '/web/'
+  }),
 });
 
 // 2. Plugins
