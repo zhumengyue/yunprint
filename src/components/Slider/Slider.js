@@ -113,46 +113,56 @@ class Slider extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        let key1 = values.keys[0],
+            key2 = values.keys[1],
+            key3 = values.keys[2];
+        console.log(key1)
+        console.log(key2)
+        console.log(key3)
         this.orderdata = {
           sid: values.sid,
-          file1id: values.file[0] ? values.file[0][1] : 0,
-          file1num: values.count[0] ? values.count[0] : '',
-          file1color: values.color[0] ? 1 : 0,
-          file1style: values.style[0] ? 1 : 0,
-          file2id: values.file[1] ? values.file[1][1] : 0,
-          file2num: values.count[1] ? values.count[1] : '',
-          file2color: values.color[1] ? 1 : 0,
-          file2style: values.style[1] ? 1 : 0,
-          file3id: values.file[2] ? values.file[2][1] : 0,
-          file3num: values.count[2] ? values.count[2] : '',
-          file3color: values.color[2] ? 1 : 0,
-          file3style: values.style[2] ? 1 : 0,
+
+          file1id: key1 ? values.file[key1][1] : 0,
+          file1num: key1 ? values.count[key1] : '',
+          file1color: values.color[key1] ? 1 : 0,
+          file1style: values.style[key1] ? 1 : 0,
+
+          file2id: key2 ? values.file[key2][1] : 0,
+          file2num: key2 ? values.count[key2] : '',
+          file2color: values.color[key2] ? 1 : 0,
+          file2style: values.style[key2] ? 1 : 0,
+
+          file3id: key3 ? values.file[key3][1] : 0,
+          file3num: key3 ? values.count[key3] : '',
+          file3color: values.color[key3] ? 1 : 0,
+          file3style: values.style[key3] ? 1 : 0,
           remark: values.remark
         }
-        fetch({
-          method: 'post',
-          data: this.orderdata,
-          url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
-        }).then((data) => {
-          console.log(data)
-          if(data.data.errcode == "0") {
-            message.success('订单创建成功！',1);
-            this.setState({
-              fileList: [],
-              uploading: false,
-            });
-            window.location.reload();
-            setTimeout(()=>{
-              this.setState({
-                visible: false,
-                filevisible: false,
-              })
-            },1100)
-          } else {
-            message.error('订单创建失败');
-            window.location.reload();
-          }
-        });
+        console.log(this.orderdata)
+      //   fetch({
+      //     method: 'post',
+      //     data: this.orderdata,
+      //     url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
+      //   }).then((data) => {
+      //     console.log(data)
+      //     if(data.data.errcode == "0") {
+      //       message.success('订单创建成功！',1);
+      //       this.setState({
+      //         fileList: [],
+      //         uploading: false,
+      //       });
+      //       window.location.reload();
+      //       setTimeout(()=>{
+      //         this.setState({
+      //           visible: false,
+      //           filevisible: false,
+      //         })
+      //       },1100)
+      //     } else {
+      //       message.error('订单创建失败');
+      //       window.location.reload();
+      //     }
+      //   });
       }
     });
   }
