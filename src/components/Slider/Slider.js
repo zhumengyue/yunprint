@@ -134,7 +134,7 @@ class Slider extends React.Component {
           url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
         }).then((data) => {
           console.log(data)
-          if(data.data.errcode === 0) {
+          if(data.data.errcode == "0") {
             message.success('订单创建成功！',1);
             this.setState({
               fileList: [],

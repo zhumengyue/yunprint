@@ -37,6 +37,7 @@ const Login = ({
   }
   return (
     <div className={styles.normal}>
+      <img alt="" src={require('../../assets/logo1.png')} className={styles.logo}/>
       <div className={styles.bg}>
         <Form className={[styles["login-form"]]}>
           <FormItem>
@@ -60,15 +61,15 @@ const Login = ({
             })(
               <Checkbox style={{float:'left'}}>作为商家登录</Checkbox>
             )}
-            <a className={styles["login-form-forgot"]} href="">忘记密码</a>
           </FormItem>
           <FormItem>
             <Button type="primary" onClick={handleSubLogin} className={styles["login-form-button"]}>
               登&nbsp;&nbsp;&nbsp;录
             </Button>
+            <p  className={styles["register-btn"]}>没有账号？去 <a onClick={handleSubReg}>注册</a></p>
           </FormItem>
           <FormItem>
-            <a><p onClick={handleSubReg} className={styles["register-btn"]}>注 册 >></p></a>
+
           </FormItem>
         </Form>
       </div>

@@ -13,8 +13,8 @@
   width: 400px;
 }
 .register-submit {
-  float: left;
-  margin-left: 130px;
+  width: 120px;
+  margin-left: 200px;
 }
 .back-btn{
   float: right;

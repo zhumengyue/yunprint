@@ -117,7 +117,7 @@ class OrderList extends React.Component {
       key: 2,
     }, {
       width: 150,
-      title: '文件状态',
+      title: '订单状态',
       dataIndex: 'status',
       render: (status) => {
         return (
@@ -149,7 +149,7 @@ class OrderList extends React.Component {
               订单详情
             </Button>
             <Popconfirm title="是否取消此订单？" onConfirm={()=>{userCancelOrder(record.id)}} className='orderbtn'>
-              <Button type="primary" className={styles.orderbtn2}>
+              <Button type="default" className={styles.orderbtncancel}>
                 取消订单
               </Button>
             </Popconfirm>

@@ -152,11 +152,15 @@ class UnFinishList extends React.Component {
         console.log(file1)
         return(
           <span>
-            <Button type="primary">
-              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file1.savename} download={file1.filename}><Icon type="download" />下载</a>
-            </Button>
+            {file1 === null ? '' :
+              <Button type="primary" style={{marginBottom: 5}}>
+                <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file1.savename}
+                   download={file1.filename}><Icon type="download"/>下载</a>
+              </Button>
+
+            }
             { file2 === null ? '' :
-              <Button type="primary">
+              <Button type="primary" style={{marginBottom: 5}}>
                 <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file2.savename} download={file2.filename}><Icon type="download" />下载</a>
               </Button>
             }

@@ -33,17 +33,7 @@ class OrderList extends React.Component {
       title: '文件名',
       dataIndex: 'filename',
     }, {
-      width: 150,
-      title: '提供者',
-      align: 'center',
-      dataIndex: 'author',
-      render: (author) => {
-        if (author)
-          return  author.slice(0,1) + `${ author.slice(1).length === 2 ? '某某' : '某'}`
-        else return author
-      }
-    }, {
-      title: '创建时间',
+      title: '上传时间',
       align: 'center',
       dataIndex: 'time',
       defaultSortOrder: 'descend',
@@ -52,7 +42,6 @@ class OrderList extends React.Component {
       title: '操作',
       align: 'center',
       render: (text, record,index ) => {
-        console.log(record)
         return(
           <span>
             { record.status === 0 ?
@@ -63,9 +52,6 @@ class OrderList extends React.Component {
               <Button type="primary" icon="folder-open"className={styles.openedbtn} >取消公开</Button>
             </Popconfirm>
             }
-            <Popconfirm title="确定删除此文件吗？" okText="是" cancelText="否">
-              <Button type="primary" icon="delete" className={styles.deletebtn}>删除</Button>
-            </Popconfirm>
             <Button type="primary" className={styles.downbtn}>
               <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
             </Button>

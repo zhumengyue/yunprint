@@ -6,6 +6,12 @@
 .orderbtn2 {
   margin-left: 20px;
 }
+.orderbtncancel {
+  margin-left: 20px;
+  background-color: rgb(170,200,209);
+  color: white;
+  border: none;
+}
 .orderbtn3 {
   margin-left: 10px;
 }
