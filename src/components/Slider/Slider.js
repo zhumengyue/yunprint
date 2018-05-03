@@ -6,6 +6,7 @@
  * Desc :
  */
 import React from 'react'
+import { connect } from 'dva'
 import PropTypes from 'prop-types'
 import { Layout, Menu, Icon, Modal, Form, Button, Switch, Upload, InputNumber, message, Cascader,Select} from 'antd'
 import styles from './Slider.css'
@@ -140,6 +141,7 @@ class Slider extends React.Component {
               fileList: [],
               uploading: false,
             });
+            window.location.reload();
             setTimeout(()=>{
               this.setState({
                 visible: false,
@@ -148,6 +150,7 @@ class Slider extends React.Component {
             },1100)
           } else {
             message.error('订单创建失败');
+            window.location.reload();
           }
         });
       }
@@ -157,7 +160,6 @@ class Slider extends React.Component {
   createOrder = (e) => {
     // todo 唤起 创建订单 / 上传文件 面板
     if(e.key === '3') {
-
       fetch({ // 商户信息
         method: 'get',
         url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/showstore',
@@ -243,7 +245,7 @@ class Slider extends React.Component {
     });
   }
   render() {
-    const { onItemClick } = this.props;
+    const { onItemClick, userdashboard, dispatch } = this.props;
     const props = { // 文件上传相关props
       onRemove: (file) => {
         this.setState(({ fileList }) => {
@@ -401,5 +403,7 @@ class Slider extends React.Component {
 Slider.propTypes = {
   onItemClick:PropTypes.func.isRequired
 };
-
-export default Form.create()(Slider);
+function mapStateToProps({ userdashboard }) {
+  return {userdashboard} ;
+}
+export default connect(mapStateToProps)(Form.create()(Slider));

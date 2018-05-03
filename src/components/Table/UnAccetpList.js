@@ -118,7 +118,7 @@ class UnAccetpList extends React.Component {
       key: 2,
     }, {
       width: 150,
-      title: '文件状态',
+      title: '订单状态',
       dataIndex: 'status',
       render: (status) => {
         return (
