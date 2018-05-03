@@ -30,6 +30,7 @@ app.model(require('./models/products').default);
 app.model(require('./models/userdashboard').default);
 app.model(require('./models/shopdashboard').default);
 app.model(require('./models/orderlist').default);
+app.model(require('./models/info').default);
 
 // 4. Router
 app.router(require('./router').default);

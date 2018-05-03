@@ -1,0 +1,24 @@
+.register {
+  background: url("../../assets/register-bg.jpg");
+  background-size: 100% 100%;
+  height: 768px;
+  width: 100%;
+  max-width: 1920px;
+  position: absolute;
+}
+.card {
+  margin: 36px auto 0 auto;
+  transform: translateX(-100px);
+  width: 400px;
+}
+.form {
+  margin-right: 16px;
+}
+.edit {
+  float: left;
+  margin-left: 60px;
+}
+.back {
+  float: right;
+  margin-right: 20px;
+}

@@ -28,18 +28,28 @@ export default {
     },
   },
   effects: {
+    *editinfo({ payload }, { put, call }) {
+      if (cookie.getCookie('isUser') === '1') {
+        yield put(routerRedux.push('/edituserinfo'));
+      } else if(cookie.getCookie('isShop') === '1') {
+        yield put(routerRedux.push('/editshopinfo'));
+      }
+    },
     *dellogin ({ payload }, { put, call }){
+      // todo 注销登录
       yield call(userdellogin)
       message.success("注销成功", 0.6);
       yield call(delay, 800);
       yield put(routerRedux.push('/'));
     },
-    // 路由跳转
     *login ({ payload }, { put, call }) {
+      // todo 登录
       if(payload.shopper) {
         const {data} = yield call(shopperlogin, payload)
         if (data.errcode === "0") {
           cookie.setCookie('username',data.data.username)
+          cookie.setCookie('isShop',1)
+          cookie.setCookie('isUser',0)
           message.success("登陆成功", 0.5);
           yield put({
             type: 'setShoppername',
@@ -57,6 +67,8 @@ export default {
         const { data } = yield call(userlogin, payload)
         if (data.errcode === "0") {
           cookie.setCookie('username',data.data.username)
+          cookie.setCookie('isShop',0)
+          cookie.setCookie('isUser',1)
           message.success("登陆成功",0.5);
           yield put({
             type: 'setUsername',

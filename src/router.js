@@ -10,6 +10,8 @@ import ShopUnAcceptOrder from './routes/ShopUnAcceptOrder'
 import UnFinishOrder from './routes/UnFinishOrder'
 import ShopUnFinishOrder from './routes/ShopUnFinishOrder'
 import ShopFinishOrder from './routes/ShopFinishOrder'
+import EditUserInfo from './routes/Edit/EditUserInfo'
+import EditShopInfo from './routes/Edit/EditShopInfo'
 import MyList from './routes/MyList'
 import AllList from './routes/AllList'
 
@@ -31,6 +33,8 @@ function RouterConfig({ history }) {
         <Route path="/unfinishorder" exact component={UnFinishOrder} />
         <Route path="/shopunfinishorder" exact component={ShopUnFinishOrder} />
         <Route path="/shopfinishorder" exact component={ShopFinishOrder} />
+        <Route path="/edituserinfo" exact component={EditUserInfo} />
+        <Route path="/editshopinfo" exact component={EditShopInfo} />
       </Switch>
     </ConnectedRouter>
   );

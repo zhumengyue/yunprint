@@ -15,20 +15,28 @@ const { Header } = Layout;
 const HeaderTitle = ({name,login,dispatch}) => {
 
   const menu = (
-
       <Menu >
         <Menu.Item key="1" >
+          <span onClick={editinfo}>
+            个人中心
+          </span>
+        </Menu.Item>
+        <Menu.Item key="2" >
           <Popconfirm title="确定注销并退出吗？" onConfirm={delLogin}  okText="是" cancelText="否">
             退出登录
           </Popconfirm>
         </Menu.Item>
       </Menu>
-
   );
 
   function delLogin() {
     dispatch({ type: 'login/dellogin'})
   }
+
+  function editinfo() {
+    dispatch({ type: 'login/editinfo'})
+  }
+
   return(
     <Header className={styles.header}>
       <div className={styles.logo}>

@@ -149,7 +149,6 @@ const Register = ({
             <Button type="primary" onClick={handleSubmitRegister} className={styles["register-submit"]} size='large'>注&nbsp;&nbsp;册</Button>
             <p style={{marginLeft: 196}}>已有账号？<a onClick={handleBack}>立即登录</a></p>
           </span>
-          {/*<Button type="primary" onClick={handleBack} className={styles["back-btn"]} size='large'>返&nbsp;&nbsp;回</Button>*/}
         </FormItem>
         <FormItem>
 
