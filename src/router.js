@@ -12,6 +12,7 @@ import ShopUnFinishOrder from './routes/ShopUnFinishOrder'
 import ShopFinishOrder from './routes/ShopFinishOrder'
 import EditUserInfo from './routes/Edit/EditUserInfo'
 import EditShopInfo from './routes/Edit/EditShopInfo'
+import Test from './routes/Test'
 import MyList from './routes/MyList'
 import AllList from './routes/AllList'
 
@@ -22,6 +23,7 @@ function RouterConfig({ history }) {
     <ConnectedRouter history={history} basename='/web/dist'>
       <Switch>
         <Route path="/" exact component={Login} />
+        <Route path="/test" exact component={Test} />
         <Route path="/products" exact component={Products} />
         <Route path="/mylist" exact component={MyList} />
         <Route path="/alllist" exact component={AllList} />

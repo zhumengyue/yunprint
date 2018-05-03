@@ -139,30 +139,31 @@ class Slider extends React.Component {
           remark: values.remark
         }
         console.log(this.orderdata)
-      //   fetch({
-      //     method: 'post',
-      //     data: this.orderdata,
-      //     url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
-      //   }).then((data) => {
-      //     console.log(data)
-      //     if(data.data.errcode == "0") {
-      //       message.success('订单创建成功！',1);
-      //       this.setState({
-      //         fileList: [],
-      //         uploading: false,
-      //       });
-      //       window.location.reload();
-      //       setTimeout(()=>{
-      //         this.setState({
-      //           visible: false,
-      //           filevisible: false,
-      //         })
-      //       },1100)
-      //     } else {
-      //       message.error('订单创建失败');
-      //       window.location.reload();
-      //     }
-      //   });
+        fetch({
+          method: 'post',
+          data: this.orderdata,
+          url: 'http://yunprint.applinzi.com/YunPrint/public/index.php/user/order/createorder',
+          // url: 'http://localhost/YunPrint/public/user/order/createorder',
+        }).then((data) => {
+          console.log(data)
+          if(data.data.errcode == "0") {
+            message.success('订单创建成功！',1);
+            this.setState({
+              fileList: [],
+              uploading: false,
+            });
+            setTimeout(()=>{
+              this.setState({
+                visible: false,
+                filevisible: false,
+              })
+            },1100)
+            window.location.reload();
+          } else {
+            message.error('订单创建失败');
+            window.location.reload();
+          }
+        });
       }
     });
   }
