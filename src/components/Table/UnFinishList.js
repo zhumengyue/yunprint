@@ -142,7 +142,7 @@ class UnFinishList extends React.Component {
       title: '操作',
       dataIndex: 'sid',
       align: 'center',
-      colSpan: 3,
+      colSpan: 2,
       render: (value, row, index) => {
         let
           file1 = row.file1info,
@@ -151,21 +151,26 @@ class UnFinishList extends React.Component {
         return(
           <span>
             {file1 === null ? '' :
-              <Button type="primary" style={{marginBottom: 5}}>
-                <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file1.savename}
-                   download={file1.filename}><Icon type="download"/>下载</a>
-              </Button>
-
+              <p>
+                <Button type="primary" style={{marginBottom: 5}}>
+                  <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file1.savename}
+                     download={file1.filename}><Icon type="download"/>下载</a>
+                </Button>
+              </p>
             }
             { file2 === null ? '' :
-              <Button type="primary" style={{marginBottom: 5}}>
-                <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file2.savename} download={file2.filename}><Icon type="download" />下载</a>
-              </Button>
+              <p>
+                <Button type="primary" style={{marginBottom: 5}}>
+                  <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file2.savename} download={file2.filename}><Icon type="download" />下载</a>
+                </Button>
+              </p>
             }
             { file3 === null ? '' :
-              <Button type="primary">
-                <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file3.savename} download={file3.filename}><Icon type="download" />下载</a>
-              </Button>
+              <p>
+                <Button type="primary">
+                  <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file3.savename} download={file3.filename}><Icon type="download" />下载</a>
+                </Button>
+              </p>
             }
           </span>
         )

@@ -115,20 +115,21 @@ class Slider extends React.Component {
         let key1 = values.keys[0],
             key2 = values.keys[1],
             key3 = values.keys[2];
+
         this.orderdata = {
           sid: values.sid,
 
-          file1id: key1 ? values.file[key1][1] : 0,
+          file1id: key1 !== undefined ? values.file[key1][1] : 0,
           file1num: key1 ? values.count[key1] : '',
           file1color: values.color[key1] ? 1 : 0,
           file1style: values.style[key1] ? 1 : 0,
 
-          file2id: key2 ? values.file[key2][1] : 0,
+          file2id: key2 !== undefined ? values.file[key2][1] : 0,
           file2num: key2 ? values.count[key2] : '',
           file2color: values.color[key2] ? 1 : 0,
           file2style: values.style[key2] ? 1 : 0,
 
-          file3id: key3 ? values.file[key3][1] : 0,
+          file3id: key3 !== undefined ? values.file[key3][1] : 0,
           file3num: key3 ? values.count[key3] : '',
           file3color: values.color[key3] ? 1 : 0,
           file3style: values.style[key3] ? 1 : 0,
@@ -325,6 +326,7 @@ class Slider extends React.Component {
               })(
                 <Switch checkedChildren="双页" unCheckedChildren="单页" />
                 )}
+              &nbsp;&nbsp;
             </span>
             {keys.length > 1 ? (
               <Icon
@@ -332,6 +334,7 @@ class Slider extends React.Component {
                 type="minus-circle-o"
                 disabled={keys.length === 1}
                 onClick={() => this.remove(k)}
+                style={{ fontSize: 18, marginTop: 2,}}
               />
             ) : null}
           </FormItem>
