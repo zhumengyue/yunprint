@@ -23,6 +23,7 @@ const EditShopInfo =
      },
    }) => {
   const { shopinfo } = info;
+
   function handleSubmitUpdate () {
     // todo 确认修改
     validateFieldsAndScroll((errors,values) => {
@@ -33,6 +34,10 @@ const EditShopInfo =
       data.status = !values.status ? 1 : 0;
       dispatch({ type: 'info/updateshopinfo', payload: values })
     })
+  }
+
+  function handleReturn() {
+    window.history.go(-1)
   }
 
   const formItemLayout = {
@@ -119,7 +124,7 @@ const EditShopInfo =
           </FormItem>
           <FormItem>
             <Button type="primary" onClick={handleSubmitUpdate} size='large' className={styles.edit}>修改</Button>
-            <Button type="primary" onClick={()=>{}} size='large' className={styles.back}>返回</Button>
+            <Button type="primary" onClick={handleReturn} size='large' className={styles.back}>返回</Button>
           </FormItem>
         </Form>
       </Card>
