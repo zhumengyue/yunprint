@@ -12,10 +12,10 @@
   float: left;
 }
 .logo-text {
-  font-size: 12px;
+  font-size: 16px;
   position: absolute;
-  padding-left: 67px;
-  padding-top: 12px;
-  /*color: #0F90E8;*/
-  color: transparent;
+  padding-left: 65px;
+  padding-top: 8px;
+  color: #0F90E8;
+  /*color: transparent;*/
 }

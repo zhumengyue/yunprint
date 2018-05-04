@@ -32,6 +32,11 @@ class OrderList extends React.Component {
       width: 350,
       title: '文件名',
       dataIndex: 'filename',
+      render: (filename) => {
+        return(
+          <p className={styles.ptitle}>{filename}</p>
+        )
+      }
     }, {
       title: '上传时间',
       align: 'center',

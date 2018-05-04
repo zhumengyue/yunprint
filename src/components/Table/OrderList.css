@@ -15,3 +15,10 @@
 .orderbtn3 {
   margin-left: 10px;
 }
+.ptitle {
+  max-width: 330px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 11px;
+}

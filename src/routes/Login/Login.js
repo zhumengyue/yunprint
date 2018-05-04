@@ -8,6 +8,7 @@
 import React from 'react'
 import { connect } from 'dva'
 import { Button, Input, Icon, Form,Checkbox } from 'antd'
+import Logo from '../../components/Logo/Logo'
 import styles from './Login.css'
 
 const FormItem = Form.Item;
@@ -37,7 +38,10 @@ const Login = ({
   }
   return (
     <div className={styles.normal}>
-      <img alt="" src={require('../../assets/logo1.png')} className={styles.logo}/>
+      <div className={styles.logo}>
+        <img alt="" src={require('../../assets/logo1.png')} className={styles["logo-icon"]} />
+        <p className={styles["logo-text"]}>云打印</p>
+      </div>
       <div className={styles.bg}>
         <Form className={[styles["login-form"]]}>
           <FormItem>
@@ -67,9 +71,6 @@ const Login = ({
               登&nbsp;&nbsp;&nbsp;录
             </Button>
             <p  className={styles["register-btn"]}>没有账号？去 <a onClick={handleSubReg}>注册</a></p>
-          </FormItem>
-          <FormItem>
-
           </FormItem>
         </Form>
       </div>

@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button, Modal, Icon, Popconfirm } from 'antd';
-
+import styles from './UnFinishList.css'
 class UnFinishList extends React.Component {
 
   constructor(props){
@@ -73,11 +73,11 @@ class UnFinishList extends React.Component {
           file3 = data.file3info;
         if(file1 !== null) {
           if(file2 === null) {
-            return (<span><p>{file1.filename}</p></span>)
+            return (<span><p className={styles.ptitle}>{file1.filename}</p></span>)
           }else if(file3 === null ){
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p></span>)
           } else {
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p><p>{file3.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p><p className={styles.ptitle}>{file3.filename}</p></span>)
           }
         }
       },
@@ -94,8 +94,8 @@ class UnFinishList extends React.Component {
         return(
           <span>
             <p>{row.file1color ? '彩色' : '黑白'}</p>
-            { file2 === null ? '' : <p>{row.file2color ? '彩色' : '黑白'}</p> }
-            { file3 === null ? '' : <p>{row.file3color ? '彩色' : '黑白'}</p> }
+            { file2 === null ? null : <p>{row.file2color ? '彩色' : '黑白'}</p> }
+            { file3 === null ? null : <p>{row.file3color ? '彩色' : '黑白'}</p> }
           </span>
         )
       },
@@ -111,8 +111,8 @@ class UnFinishList extends React.Component {
         return(
           <span>
             <p>{row.file1style ? '双页' : '单页'}</p>
-            { file2 === null ? '' : <p>{row.file2style ? '双页' : '单页'}</p> }
-            { file3 === null ? '' : <p>{row.file3style ? '双页' : '单页'}</p> }
+            { file2 === null ? null : <p>{row.file2style ? '双页' : '单页'}</p> }
+            { file3 === null ? null : <p>{row.file3style ? '双页' : '单页'}</p> }
           </span>
         )
       },
@@ -128,20 +128,23 @@ class UnFinishList extends React.Component {
         return(
           <span>
             <p>{row.file1num + '份'}</p>
-            { file2 === null ? '' : <p>{row.file2num + '份'}</p> }
-            { file3 === null ? '' : <p>{row.file3num + '份'}</p> }
+            { file2 === null ? null : <p>{row.file2num + '份'}</p> }
+            { file3 === null ? null : <p>{row.file3num + '份'}</p> }
           </span>
         )
       },
     }, {
-      title: '备注',
-      width: 300,
-      dataIndex: 'remark',
-      render: (remark) => { return remark ? remark : '该用户未留备注'}
+      title: '创建时间',
+      align: 'center',
+      dataIndex: 'createtime',
+      defaultSortOrder: 'descend',
+      sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
+      key: 4,
     }, {
       title: '操作',
       dataIndex: 'sid',
       align: 'center',
+      width: 70,
       colSpan: 2,
       render: (value, row, index) => {
         let
@@ -151,26 +154,20 @@ class UnFinishList extends React.Component {
         return(
           <span>
             {file1 === null ? '' :
-              <p>
-                <Button type="primary" style={{marginBottom: 5}}>
+                <Button type="primary">
                   <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file1.savename}
                      download={file1.filename}><Icon type="download"/>下载</a>
                 </Button>
-              </p>
             }
-            { file2 === null ? '' :
-              <p>
-                <Button type="primary" style={{marginBottom: 5}}>
+            { file2 === null ? null :
+                <Button type="primary" style={{marginTop: 8}}>
                   <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file2.savename} download={file2.filename}><Icon type="download" />下载</a>
                 </Button>
-              </p>
             }
-            { file3 === null ? '' :
-              <p>
-                <Button type="primary">
+            { file3 === null ? null :
+                <Button type="primary" style={{marginTop: 8}}>
                   <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + file3.savename} download={file3.filename}><Icon type="download" />下载</a>
                 </Button>
-              </p>
             }
           </span>
         )
@@ -179,6 +176,7 @@ class UnFinishList extends React.Component {
       dataIndex: 'finishtime',
       align: 'center',
       colSpan: 0,
+      width: 70,
       render: (value, row, index) => {
         return(
           <span>

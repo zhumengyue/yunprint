@@ -108,11 +108,11 @@ class ShopOrderList extends React.Component {
           file3 = data.file3info;
         if(file1 !== null) {
           if(file2===null) {
-            return (<span><p>{file1.filename}</p></span>)
+            return (<span><p className={styles.ptitle}>{file1.filename}</p></span>)
           }else if(file3 === null ){
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p></span>)
           } else {
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p><p>{file3.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p><p className={styles.ptitle}>{file3.filename}</p></span>)
           }
         }
       },
@@ -121,7 +121,6 @@ class ShopOrderList extends React.Component {
       width: 150,
       title: '订单状态',
       dataIndex: 'status',
-      defaultSortOrder: 'ascend',
       sorter : (a,b) => a.status - b.status,
       render: (status) => {
         return (
@@ -138,6 +137,7 @@ class ShopOrderList extends React.Component {
       title: '创建时间',
       align: 'center',
       dataIndex: 'createtime',
+      defaultSortOrder: 'descend',
       sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
       key: 4,
     }, {

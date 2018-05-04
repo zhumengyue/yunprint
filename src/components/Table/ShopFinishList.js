@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button, Modal,Card } from 'antd';
-
+import styles from './UnFinishList.css'
 
 class ShopFinishList extends React.Component {
 
@@ -104,11 +104,11 @@ class ShopFinishList extends React.Component {
           file3 = data.file3info;
         if(file1 != null) {
           if(file2==null) {
-            return (<span><p>{file1.filename}</p></span>)
+            return (<span><p className={styles.ptitle}>{file1.filename}</p></span>)
           }else if(file3 == null ){
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p></span>)
           } else {
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p><p>{file3.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p><p className={styles.ptitle}>{file3.filename}</p></span>)
           }
         }
       },

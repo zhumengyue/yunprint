@@ -8,7 +8,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table, Button, Popconfirm, Icon } from 'antd';
-
+import styles from './MyList.css'
 
 class AllFileList extends React.Component {
 
@@ -32,6 +32,11 @@ class AllFileList extends React.Component {
       width: 350,
       title: '文件名',
       dataIndex: 'filename',
+      render: (filename) => {
+        return(
+          <p className={styles.ptitle}>{filename}</p>
+        )
+      }
     }, {
       width: 150,
       title: '提供者',

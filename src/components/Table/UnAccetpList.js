@@ -99,7 +99,7 @@ class UnAccetpList extends React.Component {
       align: 'center',
       width: 100,
     }, {
-      width: 350,
+      width: 250,
       title: '文件名',
       render: (data) => {
         let
@@ -108,11 +108,11 @@ class UnAccetpList extends React.Component {
           file3 = data.file3info;
         if(file1 != null) {
           if(file2==null) {
-            return (<span><p>{file1.filename}</p></span>)
+            return (<span><p className={styles.ptitle}>{file1.filename}</p></span>)
           }else if(file3 == null ){
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p></span>)
           } else {
-            return(<span><p>{file1.filename}</p><p>{file2.filename}</p><p>{file3.filename}</p></span>)
+            return(<span><p className={styles.ptitle}>{file1.filename}</p><p className={styles.ptitle}>{file2.filename}</p><p className={styles.ptitle}>{file3.filename}</p></span>)
           }
         }
       },
@@ -132,6 +132,13 @@ class UnAccetpList extends React.Component {
         );
       },
       key: 3,
+    }, {
+      title: '创建时间',
+      align: 'center',
+      dataIndex: 'createtime',
+      defaultSortOrder: 'descend',
+      sorter : (a,b) => a.createtime.replace(/[\-,:, ]/g, "") - b.createtime.replace(/[\-,:, ]/g, ""),
+      key: 4,
     }, {
       title: '操作',
       align: 'center',

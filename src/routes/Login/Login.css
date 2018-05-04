@@ -1,16 +1,25 @@
 
-.bg {
+.normal {
   background: url("../../assets/bg.jpg");
   background-size: 100% 100%;
+  position: absolute;
   height: 100%;
   width: 100%;
   min-height: 700px;
   min-width: 1280px;
 }
+.bg {
+  background: url("../../assets/loginbg.png") 100% 100%;
+  position: absolute;
+  right: 0;
+  top: 17%;
+  width: 500px;
+  height: 400px;
+}
 .login-form {
+  margin-top: 80px;
+  margin-left: 80px;
   width: 240px;
-  margin-left: 70%;
-  padding-top: 170px;
 }
 .ant-input-affix-wrapper {
   height: 42px;
@@ -34,8 +43,27 @@
   height: 20px;
   margin-top: -10px;
 }
+/*.logo {*/
+  /*position: absolute;*/
+  /*top: 15px;*/
+  /*left: 20px;*/
+/*}*/
 .logo {
+  width: 150px;
+  height: 30px;
+  text-align:center;
+  position:relative;
+  margin-left: 20px;
+  margin-top: 15px;
+}
+.logo-icon {
+  height: 40px;
+  float: left;
+}
+.logo-text {
+  font-size: 20px;
   position: absolute;
-  top: 15px;
-  left: 20px;
+  padding-left: 69px;
+  padding-top: 12px;
+  color: #FFF;
 }
