@@ -58,7 +58,7 @@ class OrderList extends React.Component {
             </Popconfirm>
             }
             <Button type="primary" className={styles.downbtn}>
-              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
+              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.filename}><Icon type="download" />下载</a>
             </Button>
           </span>
         )

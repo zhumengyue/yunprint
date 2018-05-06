@@ -55,7 +55,7 @@ class AllFileList extends React.Component {
         return(
           <span>
             <Button type="primary" style={{marginLeft: 20}}>
-              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.realname}><Icon type="download" />下载</a>
+              <a href={'http://yunprint.applinzi.com/YunPrint/public/upload/' + record.savename} download={record.filename}><Icon type="download" />下载</a>
             </Button>
           </span>
         )

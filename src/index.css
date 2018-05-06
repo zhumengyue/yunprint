@@ -4,9 +4,6 @@ html, body, :global(#root) {
 :global(.ant-btn-primary:hover), :global(.ant-btn-primary:focus){
   border-color: transparent;
 }
-:global(.ant-tabs-bar) {
-  display: none;
-}
 :global(.ant-table-thead) > :global(tr) > :global(th) {
   text-align: center !important;
 }

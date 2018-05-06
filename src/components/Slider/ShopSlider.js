@@ -38,7 +38,7 @@ class ShopSlider extends React.Component {
   }
 
   createOrder = (e) => {
-    // todo 唤起 创建订单 / 上传文件 面板
+    // todo 唤起 意见反馈 面板
     if(e.key === '3') {
       this.setState({visible:true})
     }
@@ -75,7 +75,7 @@ class ShopSlider extends React.Component {
             <Menu.Item key="23">未打印订单</Menu.Item>
             <Menu.Item key="24">待领取订单</Menu.Item>
           </SubMenu>
-          <Menu.Item key="3" onClick={()=>{}}><Icon type="file-add"/><span>意见反馈</span></Menu.Item>
+          <Menu.Item key="3" onClick={()=>{}}><Icon type="message"/><span>意见反馈</span></Menu.Item>
         </Menu>
         <Modal
           title="意见反馈"

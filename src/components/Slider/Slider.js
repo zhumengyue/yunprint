@@ -33,6 +33,7 @@ class Slider extends React.Component {
       visible:false, // 创建订单 modal 状态
       // visible:true, // 创建订单 modal 状态
       filevisible: false,// 上传文件 modal 状态
+      feedback: false,
     }
   }
   rootSubmenuKeys = ['1', '2', '3', '4'];
@@ -59,10 +60,17 @@ class Slider extends React.Component {
       filevisible: false,
     });
   }
+  handleOkFeed = () => { // 对话框确认按钮
+    message.success('感谢您的反馈~我们会努力做得更好~',1)
+    setTimeout(() => {this.setState({
+      feedback: false,
+    })},500);
+  }
   handleCancel = (e) => { // 对话框取消按钮
     this.setState({
       visible: false,
       filevisible: false,
+      feedback: false,
     });
   }
 
@@ -111,6 +119,7 @@ class Slider extends React.Component {
     // todo 提交表单 获取表单内容
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
+      // console.log(values)
       if (!err) {
         let key1 = values.keys[0],
             key2 = values.keys[1],
@@ -120,21 +129,22 @@ class Slider extends React.Component {
           sid: values.sid,
 
           file1id: key1 !== undefined ? values.file[key1][1] : 0,
-          file1num: key1 ? values.count[key1] : '',
+          file1num: key1!== undefined ? values.count[key1] : '',
           file1color: values.color[key1] ? 1 : 0,
           file1style: values.style[key1] ? 1 : 0,
 
           file2id: key2 !== undefined ? values.file[key2][1] : 0,
-          file2num: key2 ? values.count[key2] : '',
+          file2num: key2!== undefined ? values.count[key2] : '',
           file2color: values.color[key2] ? 1 : 0,
           file2style: values.style[key2] ? 1 : 0,
 
           file3id: key3 !== undefined ? values.file[key3][1] : 0,
-          file3num: key3 ? values.count[key3] : '',
+          file3num: key3!== undefined ? values.count[key3] : '',
           file3color: values.color[key3] ? 1 : 0,
           file3style: values.style[key3] ? 1 : 0,
           remark: values.remark
         }
+        // console.log(this.orderdata)
         fetch({
           method: 'post',
           data: this.orderdata,
@@ -211,6 +221,8 @@ class Slider extends React.Component {
 
     } else if(e.key === '4') {
         this.setState({filevisible:true})
+    } else if ( e.key === '5'){
+      this.setState({feedback:true})
     }
   }
 
@@ -304,7 +316,7 @@ class Slider extends React.Component {
             {getFieldDecorator(`count[${k}]`,{
               initialValue: 1
             })(
-              <InputNumber  min={1} style={{width: 60}}/>
+              <InputNumber min={1} style={{width: 60}}/>
               )}
             </span>
 
@@ -363,7 +375,24 @@ class Slider extends React.Component {
           </SubMenu>
           <Menu.Item key="3" onClick={()=>{}}><Icon type="file-add"/><span>创建订单</span></Menu.Item>
           <Menu.Item key="4" onClick={()=>{}}><Icon type="cloud-upload-o" /><span>上传文件</span></Menu.Item>
+          <Menu.Item key="5" onClick={()=>{}}><Icon type="message"/><span>意见反馈</span></Menu.Item>
         </Menu>
+        <Modal
+          title="意见反馈"
+          visible={this.state.feedback}
+          onCancel={this.handleCancel}
+          footer={[ '',
+            <Button key="submit" type="primary"  onClick={this.handleOkFeed}>
+              确定
+            </Button>,
+          ]}
+        >
+          <TextArea
+            rows={4}
+            placeholder='请写下您的建议~'
+            onPressEnter={this.handleOkFeed}/>
+          <br />
+        </Modal>
         <Modal
           title="上传文件"
           visible={this.state.filevisible}
